@@ -49,7 +49,13 @@ export const UI_TEXT = {
     'contact.form.sending': 'Sending...',
     'contact.form.success': 'Message sent successfully! We\'ll get back to you soon.',
     'contact.form.error': 'Error sending message. Please try again or contact us directly.',
-    'contact.form.required': 'This field is required'
+    'contact.form.required': 'This field is required',
+    // Language detection translations
+    'lang.detection.title': 'Language Preference',
+    'lang.detection.message': 'We detected your browser language is {language}. Would you like to switch to this language?',
+    'lang.detection.switch': 'Switch to {language}',
+    'lang.detection.stay': 'Stay in English',
+    'lang.detection.dismiss': 'Don\'t ask again'
   },
   es: {
     'site.title': 'Espai.ai',
@@ -86,7 +92,13 @@ export const UI_TEXT = {
     'contact.form.sending': 'Enviando...',
     'contact.form.success': '¡Mensaje enviado con éxito! Te contactaremos pronto.',
     'contact.form.error': 'Error al enviar el mensaje. Por favor intenta de nuevo o contáctanos directamente.',
-    'contact.form.required': 'Este campo es obligatorio'
+    'contact.form.required': 'Este campo es obligatorio',
+    // Language detection translations
+    'lang.detection.title': 'Preferencia de Idioma',
+    'lang.detection.message': 'Detectamos que tu navegador está en {language}. ¿Te gustaría cambiar a este idioma?',
+    'lang.detection.switch': 'Cambiar a {language}',
+    'lang.detection.stay': 'Quedarse en Inglés',
+    'lang.detection.dismiss': 'No preguntar de nuevo'
   },
   ca: {
     'site.title': 'Espai.ai',
@@ -123,7 +135,13 @@ export const UI_TEXT = {
     'contact.form.sending': 'Enviant...',
     'contact.form.success': 'Missatge enviat amb èxit! Et contactarem aviat.',
     'contact.form.error': 'Error en enviar el missatge. Si us plau intenta de nou o contacta\'ns directament.',
-    'contact.form.required': 'Aquest camp és obligatori'
+    'contact.form.required': 'Aquest camp és obligatori',
+    // Language detection translations
+    'lang.detection.title': 'Preferència d\'Idioma',
+    'lang.detection.message': 'Hem detectat que el teu navegador està en {language}. Vols canviar a aquest idioma?',
+    'lang.detection.switch': 'Canviar a {language}',
+    'lang.detection.stay': 'Quedar-se en Anglès',
+    'lang.detection.dismiss': 'No tornar a preguntar'
   },
   de: {
     'site.title': 'Espai.ai',
@@ -160,6 +178,12 @@ export const UI_TEXT = {
     'contact.form.sending': 'Wird gesendet...',
     'contact.form.success': 'Nachricht erfolgreich gesendet! Wir werden uns bald bei Ihnen melden.',
     'contact.form.error': 'Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.',
-    'contact.form.required': 'Dieses Feld ist erforderlich'
+    'contact.form.required': 'Dieses Feld ist erforderlich',
+    // Language detection translations
+    'lang.detection.title': 'Spracheinstellung',
+    'lang.detection.message': 'Wir haben erkannt, dass Ihr Browser auf {language} eingestellt ist. Möchten Sie zu dieser Sprache wechseln?',
+    'lang.detection.switch': 'Zu {language} wechseln',
+    'lang.detection.stay': 'Bei Englisch bleiben',
+    'lang.detection.dismiss': 'Nicht mehr fragen'
   }
 };

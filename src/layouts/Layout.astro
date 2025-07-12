@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SpaceBackground from '../components/SpaceBackground.astro';
+import LanguageDetection from '../components/LanguageDetection.astro';
 import { getLangFromUrl, useTranslations } from '../utils/i18n';
 
 export interface Props {
@@ -22,6 +23,7 @@ const t = useTranslations(lang);
   </head>
   <body>
     <SpaceBackground />
+    <LanguageDetection />
     <Header />
     <main>
       <slot />
@@ -42,5 +44,11 @@ const t = useTranslations(lang);
   main {
     flex: 1;
     padding-top: 80px; /* Account for fixed header */
+    transition: padding-top 0.3s ease; /* Smooth transition when banner appears */
+  }
+  
+  /* Adjust main padding when language banner is shown */
+  body:has(.language-detection-banner.show) main {
+    padding-top: 140px; /* Header height + banner height */
   }
 </style> 

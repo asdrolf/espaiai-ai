@@ -352,6 +352,9 @@ const flagMap = {
       ? segments.join('/') || '/'
       : `/${newLang}${segments.join('/') || '/'}`;
     
+    // Mark as manual language switch
+    localStorage.setItem('lang-manual-switch', 'true');
+    
     window.location.href = newPath;
   }
   
