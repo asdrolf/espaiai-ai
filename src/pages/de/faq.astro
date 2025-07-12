@@ -1,6 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getLangFromUrl, useTranslations } from '../utils/i18n';
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,153 +10,153 @@ const t = useTranslations(lang);
   <section class="section">
     <div class="container">
       <div class="section-header text-center mb-4">
-        <h1>Frequently Asked Questions</h1>
-        <p class="text-large">Find answers to common questions about Espai.ai</p>
+        <h1>Häufig gestellte Fragen</h1>
+        <p class="text-large">Finden Sie Antworten auf häufige Fragen zu Espai.ai</p>
       </div>
       
       <div class="faq-container">
         <div class="faq-category">
-          <h2>General Questions</h2>
+          <h2>Allgemeine Fragen</h2>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>What is Espai.ai?</span>
+              <span>Was ist Espai.ai?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Espai.ai is an AI platform that automatically records all events and actions in your system. We use our AI model to analyze these processes, create timelines, detect repetitive processes and bottlenecks, identifying which variables are involved in each process.</p>
+              <p>Espai.ai ist eine KI-Plattform, die automatisch alle Ereignisse und Aktionen in Ihrem System aufzeichnet. Wir verwenden unser KI-Modell, um diese Prozesse zu analysieren, Timelines zu erstellen, repetitive Prozesse und Engpässe zu erkennen und zu identifizieren, welche Variablen in jeden Prozess eingreifen.</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>How does the recording system work?</span>
+              <span>Wie funktioniert das Aufzeichnungssystem?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Our software installs on your systems and automatically begins recording all events and actions. You don't need to configure anything. The AI analyzes this information securely to create personalized automations.</p>
-              <p><strong>Privacy guaranteed:</strong> Your data remains completely private as it will not be seen by any person nor used to train our models. If we want to use your data, we will contact you to reach a prior agreement.</p>
+              <p>Unsere Software wird auf Ihren Systemen installiert und beginnt automatisch, alle Ereignisse und Aktionen aufzuzeichnen. Sie müssen nichts konfigurieren. Die KI analysiert diese Informationen sicher, um personalisierte Automatisierungen zu erstellen.</p>
+              <p><strong>Datenschutz garantiert:</strong> Ihre Daten bleiben völlig privat, da sie von keiner Person eingesehen und nicht zum Trainieren unserer Modelle verwendet werden. Falls wir Ihre Daten verwenden möchten, kontaktieren wir Sie, um eine vorherige Vereinbarung zu treffen.</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>What kind of insights can I get?</span>
+              <span>Welche Art von Einblicken kann ich erhalten?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>You get valuable insights about where your employees spend their time, which processes are repetitive, where bottlenecks are, and which variables affect each process. This information allows you to make decisions to improve performance.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="faq-category">
-          <h2>Pricing and Business Model</h2>
-          
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>How does per-device pricing work?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Unlike other providers who charge per automation, we charge per device. This makes our pricing super competitive. You can create as many automations as you want without additional cost.</p>
-            </div>
-          </div>
-          
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Is it true that I don't pay until I save time?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Correct. You don't pay until you start saving your employees' time. Until automations start working and generating real, measurable savings, you pay nothing.</p>
-            </div>
-          </div>
-          
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>How do you measure time savings?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Our system automatically measures the time saved with each automation. We compare the time manual processes took with automated time, providing clear and transparent metrics.</p>
+              <p>Sie erhalten wertvolle Einblicke darüber, wo Ihre Mitarbeiter ihre Zeit verbringen, welche Prozesse repetitiv sind, wo Engpässe bestehen und welche Variablen jeden Prozess beeinflussen. Diese Informationen ermöglichen es Ihnen, Entscheidungen zur Leistungsverbesserung zu treffen.</p>
             </div>
           </div>
         </div>
         
         <div class="faq-category">
-          <h2>Implementation and Support</h2>
+          <h2>Preise und Geschäftsmodell</h2>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>What does installation include?</span>
+              <span>Wie funktioniert die Pro-Gerät-Preisgestaltung?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>We handle everything: software installation on your systems, initial setup, and deployment. You don't need to do anything technical. Our team takes care of the entire implementation.</p>
+              <p>Im Gegensatz zu anderen Anbietern, die pro Automatisierung berechnen, berechnen wir pro Gerät. Das macht unsere Preise super wettbewerbsfähig. Sie können so viele Automatisierungen erstellen, wie Sie möchten, ohne zusätzliche Kosten.</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Can I see my processes in real-time?</span>
+              <span>Stimmt es, dass ich erst zahle, wenn ich Zeit spare?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Yes, you can see in real-time and from mobile how all your processes are performing. Our adaptive dashboards let you not miss a single data point and supervise automations from anywhere.</p>
+              <p>Richtig. Sie zahlen erst, wenn Sie anfangen, Zeit Ihrer Mitarbeiter zu sparen. Bis die Automatisierungen funktionieren und echte, messbare Einsparungen generieren, zahlen Sie nichts.</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Is my data secure?</span>
+              <span>Wie messen Sie Zeiteinsparungen?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Absolutely. All data is encrypted and processed securely. We comply with GDPR and other security standards. Your business information remains completely private and protected.</p>
+              <p>Unser System misst automatisch die Zeit, die mit jeder Automatisierung eingespart wird. Wir vergleichen die Zeit, die manuelle Prozesse benötigten, mit der automatisierten Zeit und liefern klare und transparente Metriken.</p>
             </div>
           </div>
         </div>
         
         <div class="faq-category">
-          <h2>Automations</h2>
+          <h2>Implementierung und Support</h2>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>How are automations created?</span>
+              <span>Was beinhaltet die Installation?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Once our AI model has enough information, you receive detailed reports and specific automation recommendations. You can apply these recommendations under your supervision.</p>
+              <p>Wir kümmern uns um alles: Software-Installation auf Ihren Systemen, Ersteinrichtung und Bereitstellung. Sie müssen nichts Technisches tun. Unser Team kümmert sich um die gesamte Implementierung.</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Can I control what gets automated?</span>
+              <span>Kann ich meine Prozesse in Echtzeit sehen?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Of course. All automations are applied under your supervision. You decide which processes to automate and can activate or deactivate any automation at any time.</p>
+              <p>Ja, Sie können in Echtzeit und vom Handy aus sehen, wie alle Ihre Prozesse laufen. Unsere adaptiven Dashboards ermöglichen es Ihnen, keine einzige Dateneinheit zu verpassen und Automatisierungen von überall aus zu überwachen.</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Is there a limit on the number of automations?</span>
+              <span>Sind meine Daten sicher?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>No limits. Since we charge per device and not per automation, you can create as many automations as you need without additional cost. This is what makes our model super competitive.</p>
+              <p>Absolut. Alle Daten sind verschlüsselt und werden sicher verarbeitet. Wir entsprechen GDPR und anderen Sicherheitsstandards. Ihre Geschäftsinformationen bleiben völlig privat und geschützt.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-category">
+          <h2>Automatisierungen</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Wie werden Automatisierungen erstellt?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Sobald unser KI-Modell genügend Informationen hat, erhalten Sie detaillierte Berichte und spezifische Automatisierungsempfehlungen. Sie können diese Empfehlungen unter Ihrer Aufsicht anwenden.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Kann ich kontrollieren, was automatisiert wird?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Natürlich. Alle Automatisierungen werden unter Ihrer Aufsicht angewendet. Sie entscheiden, welche Prozesse automatisiert werden und können jede Automatisierung jederzeit aktivieren oder deaktivieren.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Gibt es eine Grenze für die Anzahl der Automatisierungen?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Keine Grenzen. Da wir pro Gerät und nicht pro Automatisierung berechnen, können Sie so viele Automatisierungen erstellen, wie Sie benötigen, ohne zusätzliche Kosten. Das macht unser Modell super wettbewerbsfähig.</p>
             </div>
           </div>
         </div>
       </div>
       
       <div class="contact-section text-center mt-4">
-        <h2>Still have questions?</h2>
-        <p>Can't find the answer you're looking for? Our team is here to help.</p>
-        <a href="#" class="btn">Contact Support</a>
+        <h2>Haben Sie noch Fragen?</h2>
+        <p>Können Sie die gesuchte Antwort nicht finden? Unser Team ist hier, um zu helfen.</p>
+        <a href="#" class="btn">Support kontaktieren</a>
       </div>
     </div>
   </section>
@@ -226,7 +226,7 @@ const t = useTranslations(lang);
   
   .faq-answer.active {
     padding: 1.5rem;
-    max-height: 200px;
+    max-height: 300px;
   }
   
   .faq-item.active .faq-icon {
@@ -234,16 +234,25 @@ const t = useTranslations(lang);
   }
   
   .contact-section {
-    background: radial-gradient(circle at center, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+    background: rgba(255, 255, 255, 0.05);
     padding: 3rem 2rem;
-    border-radius: 16px;
+    border-radius: 12px;
     margin-top: 3rem;
+  }
+  
+  .contact-section h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .contact-section p {
+    margin-bottom: 2rem;
+    opacity: 0.9;
   }
   
   @media (max-width: 768px) {
     .faq-question {
-      padding: 1rem;
       font-size: 1rem;
+      padding: 1rem;
     }
     
     .faq-answer.active {
@@ -255,7 +264,7 @@ const t = useTranslations(lang);
 <script>
   function toggleFaq(button) {
     const faqItem = button.parentElement;
-    const answer = faqItem.querySelector('.faq-answer');
+    const faqAnswer = faqItem.querySelector('.faq-answer');
     
     // Close all other FAQ items
     document.querySelectorAll('.faq-item').forEach(item => {
@@ -267,9 +276,6 @@ const t = useTranslations(lang);
     
     // Toggle current FAQ item
     faqItem.classList.toggle('active');
-    answer.classList.toggle('active');
+    faqAnswer.classList.toggle('active');
   }
-  
-  // Make function global
-  window.toggleFaq = toggleFaq;
 </script> 

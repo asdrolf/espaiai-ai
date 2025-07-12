@@ -1,0 +1,288 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t('nav.faq')} | ${t('site.title')}`} description={t('site.description')}>
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h1>Preguntes Freqüents</h1>
+        <p class="text-large">Troba respostes a preguntes comunes sobre Espai.ai</p>
+      </div>
+      
+      <div class="faq-container">
+        <div class="faq-category">
+          <h2>Preguntes Generals</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Què és Espai.ai?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Espai.ai és una plataforma d'IA que grava automàticament tots els esdeveniments i accions del teu sistema. Utilitzem el nostre model d'IA per analitzar aquests processos, crear timelines, detectar processos repetitius i colls d'ampolla, identificant quines variables intervenen en cada procés.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Com funciona el sistema de gravació?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>El nostre software s'instal·la als teus sistemes i automàticament comença a gravar tots els esdeveniments i accions. No necessites configurar res. La IA analitza aquesta informació de forma segura per crear automatitzacions personalitzades.</p>
+              <p><strong>Privacitat garantida:</strong> Les teves dades segueixen sent completament privades ja que no les veurà cap persona ni seran usades per entrenar els nostres models. En cas de voler usar les teves dades et contactarem per arribar a un acord previ.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Quin tipus d'insights puc obtenir?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Obtens insights valuosos sobre on inverteixen el temps els teus empleats, quins processos són repetitius, on estan els colls d'ampolla i quines variables afecten cada procés. Aquesta informació et permet prendre decisions per millorar el rendiment.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-category">
+          <h2>Preus i Model de Negoci</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Com funciona el pagament per dispositiu?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>A diferència d'altres proveïdors que cobren per automatització, nosaltres cobrem per dispositiu. Això fa que el nostre preu sigui súper competitiu. Pots crear totes les automatitzacions que vulguis sense cost addicional.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>És cert que no pago fins estalviar temps?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Correcte. No pagues fins que no comencis a estalviar temps dels teus empleats. Fins que les automatitzacions no comencin a funcionar i generar un estalvi real i mesurable, no pagues res.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Com mesuren l'estalvi de temps?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>El nostre sistema mesura automàticament el temps que s'estalvia amb cada automatització. Comparem el temps que tardaven els processos manuals amb el temps automatitzat, proporcionant mètriques clares i transparents.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-category">
+          <h2>Implementació i Suport</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Què inclou la instal·lació?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Nosaltres ens encarreguem de tot: instal·lació del software als teus sistemes, configuració inicial i posada en marxa. No necessites fer res tècnic. El nostre equip s'encarrega de tota la implementació.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Puc veure els meus processos en temps real?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Sí, pots veure en temps real i des del mòbil com van tots els teus processos. Els nostres dashboards adaptatius et permeten no perdre ni una sola dada i supervisar les automatitzacions des de qualsevol lloc.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Estan segures les meves dades?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Absolutament. Totes les dades estan xifrades i es processen de forma segura. Complim amb GDPR i altres estàndards de seguretat. La teva informació empresarial roman completament privada i protegida.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-category">
+          <h2>Automatitzacions</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Com es creen les automatitzacions?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Un cop el nostre model d'IA té prou informació, reps informes detallats i recomanacions específiques d'automatitzacions. Pots aplicar aquestes recomanacions sota la teva supervisió.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Puc controlar què s'automatitza?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Per descomptat. Totes les automatitzacions s'apliquen sota la teva supervisió. Tu decideixes quins processos automatitzar i pots activar o desactivar qualsevol automatització en qualsevol moment.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Hi ha límit en el nombre d'automatitzacions?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>No hi ha límits. Com que paguem per dispositiu i no per automatització, pots crear tantes automatitzacions com necessitis sense cost addicional. Això és el que fa el nostre model súper competitiu.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-section text-center mt-4">
+        <h2>Encara tens preguntes?</h2>
+        <p>No pots trobar la resposta que busques? El nostre equip està aquí per ajudar.</p>
+        <a href="#" class="btn">Contactar Suport</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .faq-category {
+    margin-bottom: 3rem;
+  }
+  
+  .faq-category h2 {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+  }
+  
+  .faq-item {
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .faq-item:hover {
+    border-color: var(--accent);
+  }
+  
+  .faq-question {
+    width: 100%;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: var(--space-white);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  .faq-question:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .faq-icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+  }
+  
+  .faq-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .faq-answer.active {
+    padding: 1.5rem;
+    max-height: 300px;
+  }
+  
+  .faq-item.active .faq-icon {
+    transform: rotate(45deg);
+  }
+  
+  .contact-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    margin-top: 3rem;
+  }
+  
+  .contact-section h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .contact-section p {
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  @media (max-width: 768px) {
+    .faq-question {
+      font-size: 1rem;
+      padding: 1rem;
+    }
+    
+    .faq-answer.active {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add click event listeners to all FAQ questions
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', function() {
+        const faqItem = this.parentElement;
+        const faqAnswer = faqItem.querySelector('.faq-answer');
+        
+        // Close all other FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+          if (item !== faqItem) {
+            item.classList.remove('active');
+            item.querySelector('.faq-answer').classList.remove('active');
+          }
+        });
+        
+        // Toggle current FAQ item
+        faqItem.classList.toggle('active');
+        faqAnswer.classList.toggle('active');
+      });
+    });
+  });
+</script> 

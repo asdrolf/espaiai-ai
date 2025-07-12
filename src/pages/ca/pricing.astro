@@ -1,6 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getLangFromUrl, useTranslations } from '../utils/i18n';
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,112 +10,112 @@ const t = useTranslations(lang);
   <section class="section">
     <div class="container">
       <div class="section-header text-center mb-4">
-        <h1>Per-Device Pricing</h1>
-        <p class="text-large">Pay per device + symbolic fee per automation for cloud infrastructure costs</p>
+        <h1>Preus per Dispositiu</h1>
+        <p class="text-large">Paga per dispositiu + tarifa simbòlica per automatització per costos d'infraestructura cloud</p>
         <div class="important-notice">
-          <p><strong>🎯 Don't pay until you generate savings:</strong> In all modalities, you don't start paying until you start generating savings from automations. Depending on the sector and complexity of processes, it can be a timeframe between 2 weeks or 3 months.</p>
+          <p><strong>🎯 No pagues fins generar estalvi:</strong> En totes les modalitats no es comença a pagar fins que no es comenci a generar estalvi a partir de les automatitzacions. Depenent del sector i la complexitat dels processos, pot ser un termini entre 2 setmanes o 3 mesos.</p>
         </div>
       </div>
       
       <div class="pricing-grid">
         <div class="pricing-card card fade-in">
           <div class="plan-header">
-            <h3>Basic</h3>
+            <h3>Bàsic</h3>
             <div class="price">
               <span class="currency">€</span>
               <span class="amount">100</span>
-              <span class="period">/device/month</span>
+              <span class="period">/dispositiu/mes</span>
             </div>
-            <p class="device-limit">Up to 10 devices</p>
+            <p class="device-limit">Fins a 10 dispositius</p>
           </div>
           <ul class="features">
-            <li>✓ Complete event and action recording</li>
-            <li>✓ Advanced AI analysis with timelines</li>
-            <li>✓ Up to 10 devices</li>
-            <li>✓ Repetitive process detection</li>
-            <li>✓ Real-time adaptive dashboards</li>
-            <li>✓ Unlimited automations</li>
-            <li>✓ Installation and setup included</li>
-            <li><strong>+ €18/month per automation created</strong></li>
+            <li>✓ Gravació completa d'esdeveniments i accions</li>
+            <li>✓ Anàlisi avançada d'IA amb timelines</li>
+            <li>✓ Fins a 10 dispositius</li>
+            <li>✓ Detecció de processos repetitius</li>
+            <li>✓ Dashboards adaptatius en temps real</li>
+            <li>✓ Automatitzacions il·limitades</li>
+            <li>✓ Instal·lació i configuració inclosa</li>
+            <li><strong>+ €18/mes per automatització creada</strong></li>
           </ul>
-          <a href="#" class="btn btn-secondary">Start Free</a>
+          <a href="#" class="btn btn-secondary">Començar Gratis</a>
         </div>
         
         <div class="pricing-card card featured fade-in">
           <div class="plan-header">
-            <div class="popular-badge">Most Popular</div>
+            <div class="popular-badge">Més Popular</div>
             <h3>Pro</h3>
             <div class="price">
               <span class="currency">€</span>
               <span class="amount">80</span>
-              <span class="period">/device/month</span>
+              <span class="period">/dispositiu/mes</span>
             </div>
-            <p class="device-limit">From 15 devices</p>
+            <p class="device-limit">A partir de 15 dispositius</p>
           </div>
           <ul class="features">
-            <li>✓ Everything included in Basic</li>
-            <li>✓ Full mobile access</li>
-            <li>✓ Priority support</li>
-            <li><strong>+ €8/month per automation created</strong></li>
+            <li>✓ Tot l'inclòs en Bàsic</li>
+            <li>✓ Accés mòbil complet</li>
+            <li>✓ Suport prioritari</li>
+            <li><strong>+ €8/mes per automatització creada</strong></li>
           </ul>
-          <a href="#" class="btn">Start Free</a>
+          <a href="#" class="btn">Començar Gratis</a>
         </div>
         
         <div class="pricing-card card fade-in">
           <div class="plan-header">
-            <h3>Pro Advanced</h3>
+            <h3>Pro Avançat</h3>
             <div class="price">
               <span class="currency">€</span>
               <span class="amount">70</span>
-              <span class="period">/device/month</span>
+              <span class="period">/dispositiu/mes</span>
             </div>
-            <p class="device-limit">From 30 devices</p>
+            <p class="device-limit">A partir de 30 dispositius</p>
           </div>
           <ul class="features">
-            <li>✓ Everything included in Pro</li>
-            <li>✓ 24/7 dedicated support</li>
-            <li>✓ Advanced process automation requiring manual configurations</li>
-            <li><strong>+ €5/month per automation created</strong></li>
+            <li>✓ Tot l'inclòs en Pro</li>
+            <li>✓ Suport dedicat 24/7</li>
+            <li>✓ Automatització de processos avançats que requereixen configuracions manuals</li>
+            <li><strong>+ €5/mes per automatització creada</strong></li>
           </ul>
-          <a href="#" class="btn">Contact Sales</a>
+          <a href="#" class="btn">Contactar Vendes</a>
         </div>
       </div>
       
       <div class="value-proposition mt-4">
         <div class="grid grid-2">
           <div class="card fade-in">
-            <h3>🎯 Unique Payment Model</h3>
-            <p>We charge per device plus a symbolic fee per automation to cover cloud infrastructure costs. This makes our pricing super competitive and scalable.</p>
+            <h3>🎯 Model de Pagament Únic</h3>
+            <p>Cobrem per dispositiu més una tarifa simbòlica per automatització per cobrir els costos d'infraestructura cloud. Això fa que el nostre preu sigui súper competitiu i escalable.</p>
           </div>
           
           <div class="card fade-in">
-            <h3>💡 Don't Pay Until You Save</h3>
-            <p>You only start paying when automations begin to work and generate real savings in your employees' time.</p>
+            <h3>💡 No Pagues Fins Estalviar</h3>
+            <p>Només comences a pagar quan les automatitzacions comencen a funcionar i generar estalvis reals en temps dels teus empleats.</p>
           </div>
         </div>
       </div>
       
       <div class="pricing-faq mt-4">
-        <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+        <h2 class="text-center mb-4">Preguntes Freqüents</h2>
         <div class="faq-grid">
           <div class="faq-item">
-            <h4>How does per-device pricing work?</h4>
-            <p>You pay a monthly fee per device based on quantity: €100 up to 10 devices, €80 from 15 devices, and €70 from 30 devices. Additionally, there's a symbolic monthly fee per automation created (€18 Basic, €8 Pro, €5 Pro Advanced) to cover cloud infrastructure costs.</p>
+            <h4>Com funciona el pagament per dispositiu?</h4>
+            <p>Pagues una tarifa mensual per dispositiu segons la quantitat: €100 fins a 10 dispositius, €80 des de 15 dispositius, i €70 des de 30 dispositius. Addicionalment, hi ha una tarifa simbòlica mensual per automatització creada (€18 Bàsic, €8 Pro, €5 Pro Avançat) per cobrir costos d'infraestructura cloud.</p>
           </div>
           
           <div class="faq-item">
-            <h4>Do I really not pay until I save time?</h4>
-            <p>Correct. You won't start paying until our automations begin generating real, measurable savings in your employees' time. This can take between 2 weeks and 3 months depending on the sector.</p>
+            <h4>Realment no pago fins estalviar temps?</h4>
+            <p>Correcte. No començaràs a pagar fins que les nostres automatitzacions comencin a generar estalvis reals i mesurables en temps dels teus empleats. Això pot trigar entre 2 setmanes i 3 mesos depenent del sector.</p>
           </div>
           
           <div class="faq-item">
-            <h4>What does installation include?</h4>
-            <p>We handle everything: software installation, initial setup, and deployment. You don't need to do anything technical.</p>
+            <h4>Què inclou la instal·lació?</h4>
+            <p>Nosaltres ens encarreguem de tot: instal·lació del software, configuració inicial i posada en marxa. No necessites fer res tècnic.</p>
           </div>
           
           <div class="faq-item">
-            <h4>Can I change plans?</h4>
-            <p>Yes, you can change plans at any time based on the number of devices you have. Changes apply immediately.</p>
+            <h4>Puc canviar de pla?</h4>
+            <p>Sí, pots canviar de pla en qualsevol moment segons el nombre de dispositius que tinguis. Els canvis s'apliquen immediatament.</p>
           </div>
         </div>
       </div>

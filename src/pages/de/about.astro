@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t('nav.about')} | ${t('site.title')}`} description={t('site.description')}>
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h1>Über Espai.ai</h1>
+        <p class="text-large">Geschäftsprozesse mit künstlicher Intelligenz revolutionieren</p>
+      </div>
+      
+      <div class="grid grid-2">
+        <div class="card fade-in">
+          <h3>Unsere Mission</h3>
+          <p>Wir glauben, dass jedes Unternehmen ungenutztes Potenzial hat. Unsere Mission ist es, Unternehmen dabei zu helfen, Ineffizienzen zu entdecken, repetitive Aufgaben zu automatisieren und ihre Abläufe mit modernster KI-Technologie zu optimieren.</p>
+        </div>
+        
+        <div class="card fade-in">
+          <h3>Unsere Vision</h3>
+          <p>Die führende KI-gestützte Plattform für Geschäftsoptimierung zu werden und Unternehmen weltweit zu befähigen, beispiellose Effizienz und Wachstum zu erreichen.</p>
+        </div>
+      </div>
+      
+      <div class="section mt-4">
+        <h2 class="text-center mb-4">Was wir tun</h2>
+        <div class="grid grid-3">
+          <div class="card fade-in">
+            <h4>Prozessanalyse</h4>
+            <p>Wir tauchen tief in Ihre Geschäftsabläufe ein, um Engpässe und Ineffizienzen zu identifizieren.</p>
+          </div>
+          
+          <div class="card fade-in">
+            <h4>KI-Empfehlungen</h4>
+            <p>Erhalten Sie intelligente Vorschläge für Prozessverbesserungen und Automatisierungsmöglichkeiten.</p>
+          </div>
+          
+          <div class="card fade-in">
+            <h4>Implementierungsunterstützung</h4>
+            <p>Anleitung und Unterstützung während des gesamten Optimierungs- und Automatisierungsprozesses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout> 

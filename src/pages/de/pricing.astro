@@ -1,6 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getLangFromUrl, useTranslations } from '../utils/i18n';
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,10 +10,10 @@ const t = useTranslations(lang);
   <section class="section">
     <div class="container">
       <div class="section-header text-center mb-4">
-        <h1>Per-Device Pricing</h1>
-        <p class="text-large">Pay per device + symbolic fee per automation for cloud infrastructure costs</p>
+        <h1>Pro-Gerät-Preise</h1>
+        <p class="text-large">Zahlen Sie pro Gerät + symbolische Gebühr pro Automatisierung für Cloud-Infrastrukturkosten</p>
         <div class="important-notice">
-          <p><strong>🎯 Don't pay until you generate savings:</strong> In all modalities, you don't start paying until you start generating savings from automations. Depending on the sector and complexity of processes, it can be a timeframe between 2 weeks or 3 months.</p>
+          <p><strong>🎯 Zahlen Sie erst bei Einsparungen:</strong> In allen Modalitäten zahlen Sie erst, wenn Sie Einsparungen durch Automatisierungen generieren. Je nach Sektor und Komplexität der Prozesse kann dies zwischen 2 Wochen und 3 Monaten dauern.</p>
         </div>
       </div>
       
@@ -24,41 +24,41 @@ const t = useTranslations(lang);
             <div class="price">
               <span class="currency">€</span>
               <span class="amount">100</span>
-              <span class="period">/device/month</span>
+              <span class="period">/Gerät/Monat</span>
             </div>
-            <p class="device-limit">Up to 10 devices</p>
+            <p class="device-limit">Bis zu 10 Geräte</p>
           </div>
           <ul class="features">
-            <li>✓ Complete event and action recording</li>
-            <li>✓ Advanced AI analysis with timelines</li>
-            <li>✓ Up to 10 devices</li>
-            <li>✓ Repetitive process detection</li>
-            <li>✓ Real-time adaptive dashboards</li>
-            <li>✓ Unlimited automations</li>
-            <li>✓ Installation and setup included</li>
-            <li><strong>+ €18/month per automation created</strong></li>
+            <li>✓ Vollständige Ereignis- und Aktionsaufzeichnung</li>
+            <li>✓ Erweiterte KI-Analyse mit Timelines</li>
+            <li>✓ Bis zu 10 Geräte</li>
+            <li>✓ Erkennung repetitiver Prozesse</li>
+            <li>✓ Adaptive Dashboards in Echtzeit</li>
+            <li>✓ Unbegrenzte Automatisierungen</li>
+            <li>✓ Installation und Konfiguration inbegriffen</li>
+            <li><strong>+ €18/Monat pro erstellter Automatisierung</strong></li>
           </ul>
-          <a href="#" class="btn btn-secondary">Start Free</a>
+          <a href="#" class="btn btn-secondary">Kostenlos starten</a>
         </div>
         
         <div class="pricing-card card featured fade-in">
           <div class="plan-header">
-            <div class="popular-badge">Most Popular</div>
+            <div class="popular-badge">Am beliebtesten</div>
             <h3>Pro</h3>
             <div class="price">
               <span class="currency">€</span>
               <span class="amount">80</span>
-              <span class="period">/device/month</span>
+              <span class="period">/Gerät/Monat</span>
             </div>
-            <p class="device-limit">From 15 devices</p>
+            <p class="device-limit">Ab 15 Geräten</p>
           </div>
           <ul class="features">
-            <li>✓ Everything included in Basic</li>
-            <li>✓ Full mobile access</li>
-            <li>✓ Priority support</li>
-            <li><strong>+ €8/month per automation created</strong></li>
+            <li>✓ Alles aus Basic enthalten</li>
+            <li>✓ Vollständiger mobiler Zugang</li>
+            <li>✓ Prioritäts-Support</li>
+            <li><strong>+ €8/Monat pro erstellter Automatisierung</strong></li>
           </ul>
-          <a href="#" class="btn">Start Free</a>
+          <a href="#" class="btn">Kostenlos starten</a>
         </div>
         
         <div class="pricing-card card fade-in">
@@ -67,55 +67,55 @@ const t = useTranslations(lang);
             <div class="price">
               <span class="currency">€</span>
               <span class="amount">70</span>
-              <span class="period">/device/month</span>
+              <span class="period">/Gerät/Monat</span>
             </div>
-            <p class="device-limit">From 30 devices</p>
+            <p class="device-limit">Ab 30 Geräten</p>
           </div>
           <ul class="features">
-            <li>✓ Everything included in Pro</li>
-            <li>✓ 24/7 dedicated support</li>
-            <li>✓ Advanced process automation requiring manual configurations</li>
-            <li><strong>+ €5/month per automation created</strong></li>
+            <li>✓ Alles aus Pro enthalten</li>
+            <li>✓ 24/7 dedizierter Support</li>
+            <li>✓ Automatisierung fortgeschrittener Prozesse mit manuellen Konfigurationen</li>
+            <li><strong>+ €5/Monat pro erstellter Automatisierung</strong></li>
           </ul>
-          <a href="#" class="btn">Contact Sales</a>
+          <a href="#" class="btn">Vertrieb kontaktieren</a>
         </div>
       </div>
       
       <div class="value-proposition mt-4">
         <div class="grid grid-2">
           <div class="card fade-in">
-            <h3>🎯 Unique Payment Model</h3>
-            <p>We charge per device plus a symbolic fee per automation to cover cloud infrastructure costs. This makes our pricing super competitive and scalable.</p>
+            <h3>🎯 Einzigartiges Zahlungsmodell</h3>
+            <p>Wir berechnen pro Gerät plus eine symbolische Gebühr pro Automatisierung zur Deckung der Cloud-Infrastrukturkosten. Das macht unsere Preise super wettbewerbsfähig und skalierbar.</p>
           </div>
           
           <div class="card fade-in">
-            <h3>💡 Don't Pay Until You Save</h3>
-            <p>You only start paying when automations begin to work and generate real savings in your employees' time.</p>
+            <h3>💡 Zahlen Sie erst beim Sparen</h3>
+            <p>Sie zahlen erst, wenn Automatisierungen funktionieren und echte Einsparungen bei der Arbeitszeit Ihrer Mitarbeiter generieren.</p>
           </div>
         </div>
       </div>
       
       <div class="pricing-faq mt-4">
-        <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+        <h2 class="text-center mb-4">Häufig gestellte Fragen</h2>
         <div class="faq-grid">
           <div class="faq-item">
-            <h4>How does per-device pricing work?</h4>
-            <p>You pay a monthly fee per device based on quantity: €100 up to 10 devices, €80 from 15 devices, and €70 from 30 devices. Additionally, there's a symbolic monthly fee per automation created (€18 Basic, €8 Pro, €5 Pro Advanced) to cover cloud infrastructure costs.</p>
+            <h4>Wie funktioniert die Pro-Gerät-Preisgestaltung?</h4>
+            <p>Sie zahlen eine monatliche Gebühr pro Gerät basierend auf der Anzahl: €100 bis zu 10 Geräte, €80 ab 15 Geräten und €70 ab 30 Geräten. Zusätzlich gibt es eine symbolische monatliche Gebühr pro erstellter Automatisierung (€18 Basic, €8 Pro, €5 Pro Advanced) zur Deckung der Cloud-Infrastrukturkosten.</p>
           </div>
           
           <div class="faq-item">
-            <h4>Do I really not pay until I save time?</h4>
-            <p>Correct. You won't start paying until our automations begin generating real, measurable savings in your employees' time. This can take between 2 weeks and 3 months depending on the sector.</p>
+            <h4>Zahle ich wirklich erst, wenn ich Zeit spare?</h4>
+            <p>Richtig. Sie zahlen erst, wenn unsere Automatisierungen echte, messbare Einsparungen bei der Arbeitszeit Ihrer Mitarbeiter generieren. Dies kann je nach Sektor zwischen 2 Wochen und 3 Monaten dauern.</p>
           </div>
           
           <div class="faq-item">
-            <h4>What does installation include?</h4>
-            <p>We handle everything: software installation, initial setup, and deployment. You don't need to do anything technical.</p>
+            <h4>Was beinhaltet die Installation?</h4>
+            <p>Wir kümmern uns um alles: Software-Installation, Ersteinrichtung und Bereitstellung. Sie müssen nichts Technisches tun.</p>
           </div>
           
           <div class="faq-item">
-            <h4>Can I change plans?</h4>
-            <p>Yes, you can change plans at any time based on the number of devices you have. Changes apply immediately.</p>
+            <h4>Kann ich den Plan wechseln?</h4>
+            <p>Ja, Sie können jederzeit den Plan basierend auf der Anzahl Ihrer Geräte wechseln. Änderungen werden sofort wirksam.</p>
           </div>
         </div>
       </div>

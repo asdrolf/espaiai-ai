@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t('nav.about')} | ${t('site.title')}`} description={t('site.description')}>
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h1>Sobre Espai.ai</h1>
+        <p class="text-large">Revolucionant els processos empresarials amb intel·ligència artificial</p>
+      </div>
+      
+      <div class="grid grid-2">
+        <div class="card fade-in">
+          <h3>La Nostra Missió</h3>
+          <p>Creiem que cada empresa té un potencial sense explotar. La nostra missió és ajudar les empreses a descobrir ineficiències, automatitzar tasques repetitives i optimitzar les seves operacions utilitzant tecnologia d'IA d'avantguarda.</p>
+        </div>
+        
+        <div class="card fade-in">
+          <h3>La Nostra Visió</h3>
+          <p>Convertir-nos en la plataforma líder d'optimització empresarial impulsada per IA, empoderant empreses d'arreu del món per assolir nivells sense precedents d'eficiència i creixement.</p>
+        </div>
+      </div>
+      
+      <div class="section mt-4">
+        <h2 class="text-center mb-4">Què Fem</h2>
+        <div class="grid grid-3">
+          <div class="card fade-in">
+            <h4>Anàlisi de Processos</h4>
+            <p>Aprofundim en els teus fluxos de treball empresarials per identificar colls d'ampolla i ineficiències.</p>
+          </div>
+          
+          <div class="card fade-in">
+            <h4>Recomanacions d'IA</h4>
+            <p>Obté suggeriments intel·ligents per a millores de processos i oportunitats d'automatització.</p>
+          </div>
+          
+          <div class="card fade-in">
+            <h4>Suport d'Implementació</h4>
+            <p>Orientació i suport durant tot el procés d'implementació d'optimització i automatització.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout> 

@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t('nav.about')} | ${t('site.title')}`} description={t('site.description')}>
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h1>Acerca de Espai.ai</h1>
+        <p class="text-large">Revolucionando los procesos empresariales con inteligencia artificial</p>
+      </div>
+      
+      <div class="grid grid-2">
+        <div class="card fade-in">
+          <h3>Nuestra Misión</h3>
+          <p>Creemos que cada empresa tiene un potencial sin explotar. Nuestra misión es ayudar a las empresas a descubrir ineficiencias, automatizar tareas repetitivas y optimizar sus operaciones utilizando tecnología de IA de vanguardia.</p>
+        </div>
+        
+        <div class="card fade-in">
+          <h3>Nuestra Visión</h3>
+          <p>Convertirnos en la plataforma líder de optimización empresarial impulsada por IA, empoderando a empresas de todo el mundo para lograr niveles sin precedentes de eficiencia y crecimiento.</p>
+        </div>
+      </div>
+      
+      <div class="section mt-4">
+        <h2 class="text-center mb-4">Lo Que Hacemos</h2>
+        <div class="grid grid-3">
+          <div class="card fade-in">
+            <h4>Análisis de Procesos</h4>
+            <p>Profundizamos en tus flujos de trabajo empresariales para identificar cuellos de botella e ineficiencias.</p>
+          </div>
+          
+          <div class="card fade-in">
+            <h4>Recomendaciones de IA</h4>
+            <p>Obtén sugerencias inteligentes para mejoras de procesos y oportunidades de automatización.</p>
+          </div>
+          
+          <div class="card fade-in">
+            <h4>Soporte de Implementación</h4>
+            <p>Orientación y apoyo durante todo el proceso de implementación de optimización y automatización.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout> 

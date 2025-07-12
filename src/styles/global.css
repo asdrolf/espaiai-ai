@@ -80,19 +80,38 @@ body {
   background: var(--space-white);
   border-radius: 50%;
   animation: twinkle 3s infinite;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
 }
 
 .star:nth-child(odd) {
   animation-delay: 1s;
+  background: var(--accent-light);
+  box-shadow: 0 0 8px var(--accent-light);
 }
 
 .star:nth-child(3n) {
   animation-delay: 2s;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.star:nth-child(5n) {
+  animation-delay: 0.5s;
+  background: var(--space-purple);
+  box-shadow: 0 0 8px var(--space-purple);
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
+  0%, 100% { 
+    opacity: 0.4; 
+    transform: scale(1);
+    box-shadow: 0 0 6px currentColor;
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.5);
+    box-shadow: 0 0 15px currentColor;
+  }
 }
 
 .planet {
@@ -113,12 +132,15 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 0 1rem 0;
   font-weight: 700;
   line-height: 1.2;
+  color: var(--space-white);
+}
+
+/* Special gradient effect only for main titles */
+h1 {
   background: var(--accent-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 400% 400%;
-  animation: gradientShift 3s ease infinite;
 }
 
 @keyframes gradientShift {
@@ -268,6 +290,27 @@ a:hover {
 .language-selector select option {
   background: var(--space-dark);
   color: var(--space-white);
+}
+
+/* Process steps */
+.process-step {
+  text-align: center;
+  position: relative;
+}
+
+.step-number {
+  width: 60px;
+  height: 60px;
+  background: var(--accent-gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--space-white);
+  margin: 0 auto 1.5rem auto;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
 }
 
 /* Utility classes */
