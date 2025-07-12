@@ -61,7 +61,6 @@ const t = useTranslations(lang);
                 <label for="interest">{t('contact.form.interest')} *</label>
                 <select id="interest" name="interest" required>
                   <option value="">Auswählen...</option>
-                  <option value="analysis">{t('contact.form.interest.analysis')}</option>
                   <option value="demo">{t('contact.form.interest.demo')}</option>
                   <option value="pricing">{t('contact.form.interest.pricing')}</option>
                   <option value="other">{t('contact.form.interest.other')}</option>
@@ -89,11 +88,6 @@ const t = useTranslations(lang);
         
         <div class="contact-info">
           <div class="contact-card">
-            <h3>🚀 {t('contact.form.interest.analysis')}</h3>
-            <p>Erhalten Sie eine umfassende Analyse Ihrer Geschäftsprozesse kostenlos. Unsere KI identifiziert Optimierungsmöglichkeiten in Ihren aktuellen Arbeitsabläufen.</p>
-          </div>
-          
-          <div class="contact-card">
             <h3>📊 {t('contact.form.interest.demo')}</h3>
             <p>Sehen Sie Espai.ai in Aktion mit einer personalisierten Demo, die auf Ihre Branche und Geschäftsanforderungen zugeschnitten ist.</p>
           </div>
@@ -101,6 +95,11 @@ const t = useTranslations(lang);
           <div class="contact-card">
             <h3>💰 Wettbewerbsfähige Preise</h3>
             <p>Zahlen Sie pro Gerät, nicht pro Automatisierung. Keine Zahlung, bis Sie echte Zeiteinsparungen durch unsere Automatisierungen sehen.</p>
+          </div>
+          
+          <div class="contact-card">
+            <h3>🚀 Geschäftsoptimierung</h3>
+            <p>Transformieren Sie Ihre Geschäftsprozesse mit KI-gestützter Automatisierung. Unsere Lösungen passen sich an Ihre spezifischen Anforderungen und Branchenanforderungen an.</p>
           </div>
         </div>
       </div>
@@ -159,6 +158,22 @@ const t = useTranslations(lang);
     color: var(--text-color);
     font-size: 1rem;
     transition: all 0.3s ease;
+  }
+  
+  .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+  
+  .form-group select option {
+    background: var(--space-dark);
+    color: var(--space-white);
+    padding: 0.5rem;
   }
   
   .form-group input:focus,
@@ -284,10 +299,20 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-  // EmailJS configuration (you'll need to set these up)
-  const EMAILJS_SERVICE_ID = 'your_service_id';
-  const EMAILJS_TEMPLATE_ID = 'your_template_id';
-  const EMAILJS_PUBLIC_KEY = 'your_public_key';
+  // EmailJS configuration - Update these with your actual values
+  const EMAIL_CONFIG = {
+    emailjs: {
+      serviceId: 'service_espaiai', // Your EmailJS service ID
+      templateId: 'template_c9fzb0s', // Your EmailJS template ID
+      publicKey: 'sE_Qtko-v5JRrulg9', // Your EmailJS public key
+      enabled: true // EmailJS is now configured and enabled
+    },
+    formspree: {
+      endpoint: 'https://formspree.io/f/YOUR_FORM_ID', // Replace with your Formspree endpoint
+      enabled: false // Set to true if you want to use Formspree instead
+    },
+    fallbackEmail: 'contact@espai.ai'
+  };
   
   // Form validation
   function validateForm() {
@@ -391,6 +416,101 @@ ${message}
     showMessage('E-Mail-Client geöffnet. Bitte senden Sie die E-Mail, um Ihre Anfrage abzuschließen.', 'success');
   }
   
+  // Email sending functions
+  async function sendViaEmailJS(formData) {
+    if (!EMAIL_CONFIG.emailjs.enabled) {
+      throw new Error('EmailJS is not configured');
+    }
+    
+    await loadEmailJS();
+    
+    const templateParams = {
+      from_name: formData.get('name'),
+      from_email: formData.get('email'),
+      company: formData.get('company'),
+      phone: formData.get('phone') || 'Nicht angegeben',
+      employees: formData.get('employees'),
+      interest: formData.get('interest'),
+      message: formData.get('message'),
+      to_email: EMAIL_CONFIG.fallbackEmail
+    };
+    
+    return emailjs.send(
+      EMAIL_CONFIG.emailjs.serviceId,
+      EMAIL_CONFIG.emailjs.templateId,
+      templateParams,
+      EMAIL_CONFIG.emailjs.publicKey
+    );
+  }
+  
+  async function sendViaFormspree(formData) {
+    if (!EMAIL_CONFIG.formspree.enabled) {
+      throw new Error('Formspree is not configured');
+    }
+    
+    const response = await fetch(EMAIL_CONFIG.formspree.endpoint, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Formspree error: ${response.status}`);
+    }
+    
+    return response.json();
+  }
+  
+  function sendEmailFallback(formData) {
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const company = formData.get('company');
+    const phone = formData.get('phone');
+    const employees = formData.get('employees');
+    const interest = formData.get('interest');
+    const message = formData.get('message');
+    
+    const subject = `Kontaktformular - ${interest} - ${company}`;
+    const body = `
+Name: ${name}
+E-Mail: ${email}
+Unternehmen: ${company}
+Telefon: ${phone || 'Nicht angegeben'}
+Mitarbeiter: ${employees}
+Interesse: ${interest}
+
+Nachricht:
+${message}
+    `.trim();
+    
+    const mailtoLink = `mailto:${EMAIL_CONFIG.fallbackEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+    
+    showMessage('E-Mail-Client geöffnet. Bitte senden Sie die E-Mail ab, um Ihre Anfrage zu vervollständigen.', 'success');
+  }
+  
+  // Load EmailJS library
+  async function loadEmailJS() {
+    if (typeof emailjs !== 'undefined') {
+      return;
+    }
+    
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+      script.onload = () => {
+        if (EMAIL_CONFIG.emailjs.publicKey !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+          emailjs.init(EMAIL_CONFIG.emailjs.publicKey);
+        }
+        resolve();
+      };
+      script.onerror = () => reject(new Error('Failed to load EmailJS'));
+      document.head.appendChild(script);
+    });
+  }
+  
   // Form submission handler
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -404,12 +524,19 @@ ${message}
     
     try {
       // Try EmailJS first (if configured)
-      if (typeof emailjs !== 'undefined' && EMAILJS_SERVICE_ID !== 'your_service_id') {
-        await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, this, EMAILJS_PUBLIC_KEY);
+      if (EMAIL_CONFIG.emailjs.enabled) {
+        await sendViaEmailJS(formData);
         showMessage('Nachricht erfolgreich gesendet! Wir werden uns bald bei Ihnen melden.', 'success');
         this.reset();
-      } else {
-        // Fallback to mailto
+      }
+      // Try Formspree as fallback
+      else if (EMAIL_CONFIG.formspree.enabled) {
+        await sendViaFormspree(formData);
+        showMessage('Nachricht erfolgreich gesendet! Wir werden uns bald bei Ihnen melden.', 'success');
+        this.reset();
+      }
+      // Use mailto as final fallback
+      else {
         sendEmailFallback(formData);
       }
     } catch (error) {
@@ -419,16 +546,4 @@ ${message}
       setLoading(false);
     }
   });
-  
-  // Load EmailJS if available
-  if (typeof emailjs === 'undefined') {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
-    script.onload = function() {
-      if (EMAILJS_PUBLIC_KEY !== 'your_public_key') {
-        emailjs.init(EMAILJS_PUBLIC_KEY);
-      }
-    };
-    document.head.appendChild(script);
-  }
 </script> 

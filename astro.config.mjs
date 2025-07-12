@@ -10,12 +10,9 @@ export default defineConfig({
   site: "https://espai.ai",
   integrations: [mdx(), sitemap()],
   adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
-    imageService: "compile",
-    mode: "advanced"
+    imageService: "compile"
   }),
+  output: "static",
   image: {
     service: {
       entrypoint: "astro/assets/services/sharp"

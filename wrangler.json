@@ -7,16 +7,6 @@
     "directory": "./dist",
     "binding": "ASSETS"
   },
-  "routes": [
-    {
-      "pattern": "espai.ai/*",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.espai.ai/*",
-      "custom_domain": true
-    }
-  ],
   "observability": {
     "enabled": true
   },
