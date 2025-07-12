@@ -13,12 +13,30 @@ export default defineConfig({
     platformProxy: {
       enabled: true,
     },
+    imageService: "compile",
+    mode: "advanced"
   }),
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp"
+    }
+  },
   i18n: {
     defaultLocale: "en",
     locales: ["en", "es", "ca", "de"],
     routing: {
       prefixDefaultLocale: false
+    }
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor': ['astro/runtime/client/hmr.js']
+          }
+        }
+      }
     }
   }
 });
