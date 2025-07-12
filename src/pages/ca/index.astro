@@ -1,6 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getLangFromUrl, useTranslations } from '../utils/i18n';
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -25,8 +25,8 @@ const t = useTranslations(lang);
   <section class="section" id="features">
     <div class="container">
       <div class="section-header text-center mb-4">
-        <h2>Transform Your Business with AI</h2>
-        <p class="text-large">Discover inefficiencies, automate processes, and unlock your company's potential</p>
+        <h2>Transforma el teu Negoci amb IA</h2>
+        <p class="text-large">Descobreix ineficiències, automatitza processos i allibera el potencial de la teva empresa</p>
       </div>
       
       <div class="grid grid-3">
@@ -40,8 +40,8 @@ const t = useTranslations(lang);
               <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3"/>
             </svg>
           </div>
-          <h3>Process Analysis</h3>
-          <p>AI-powered analysis of your entire business workflow to identify bottlenecks and inefficiencies.</p>
+          <h3>Anàlisi de Processos</h3>
+          <p>Anàlisi impulsada per IA de tot el teu flux de treball empresarial per identificar colls d'ampolla i ineficiències.</p>
         </div>
         
         <div class="card fade-in">
@@ -50,8 +50,8 @@ const t = useTranslations(lang);
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
           </div>
-          <h3>Smart Automation</h3>
-          <p>Identify processes that can be automated and get implementation recommendations.</p>
+          <h3>Automatització Intel·ligent</h3>
+          <p>Identifica processos que poden ser automatitzats i obté recomanacions d'implementació.</p>
         </div>
         
         <div class="card fade-in">
@@ -61,44 +61,8 @@ const t = useTranslations(lang);
               <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
             </svg>
           </div>
-          <h3>Performance Insights</h3>
-          <p>Get detailed insights and actionable recommendations to improve your business performance.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works Section -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header text-center mb-4">
-        <h2>How It Works</h2>
-        <p class="text-large">Simple, powerful, and intelligent</p>
-      </div>
-      
-      <div class="grid grid-2">
-        <div class="process-step fade-in">
-          <div class="step-number">1</div>
-          <h3>Connect Your Systems</h3>
-          <p>Integrate with your existing tools and workflows. Our AI securely analyzes your business processes.</p>
-        </div>
-        
-        <div class="process-step fade-in">
-          <div class="step-number">2</div>
-          <h3>AI Analysis</h3>
-          <p>Our advanced AI algorithms analyze your data to identify patterns, bottlenecks, and optimization opportunities.</p>
-        </div>
-        
-        <div class="process-step fade-in">
-          <div class="step-number">3</div>
-          <h3>Get Recommendations</h3>
-          <p>Receive detailed reports with actionable insights and automation recommendations tailored to your business.</p>
-        </div>
-        
-        <div class="process-step fade-in">
-          <div class="step-number">4</div>
-          <h3>Implement & Optimize</h3>
-          <p>Apply the recommendations and watch your business efficiency soar. Continuous monitoring ensures optimal performance.</p>
+          <h3>Insights de Rendiment</h3>
+          <p>Obté insights detallats i recomanacions accionables per millorar el rendiment del teu negoci.</p>
         </div>
       </div>
     </div>
@@ -108,11 +72,11 @@ const t = useTranslations(lang);
   <section class="section section-cta" id="contact">
     <div class="container">
       <div class="cta-content text-center">
-        <h2>Ready to Transform Your Business?</h2>
-        <p class="text-large">Join companies that have already optimized their processes with AI</p>
+        <h2>Preparat per Transformar el teu Negoci?</h2>
+        <p class="text-large">Uneix-te a les empreses que ja han optimitzat els seus processos amb IA</p>
         <div class="cta-actions">
-          <a href="#" class="btn">Start Free Analysis</a>
-          <a href="#" class="btn btn-secondary">Schedule Demo</a>
+          <a href="#" class="btn">Iniciar Anàlisi Gratuït</a>
+          <a href="#" class="btn btn-secondary">Programar Demo</a>
         </div>
       </div>
     </div>
@@ -159,25 +123,6 @@ const t = useTranslations(lang);
     justify-content: center;
     margin-bottom: 1.5rem;
     color: var(--space-white);
-  }
-  
-  .process-step {
-    text-align: center;
-    padding: 2rem;
-  }
-  
-  .step-number {
-    width: 60px;
-    height: 60px;
-    background: var(--accent-gradient);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--space-white);
-    margin: 0 auto 1.5rem;
   }
   
   .section-cta {
@@ -228,4 +173,4 @@ const t = useTranslations(lang);
   .fade-in:nth-child(2) { animation-delay: 0.2s; }
   .fade-in:nth-child(3) { animation-delay: 0.3s; }
   .fade-in:nth-child(4) { animation-delay: 0.4s; }
-</style>
+</style> 

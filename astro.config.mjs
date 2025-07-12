@@ -7,11 +7,18 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://espai.ai",
   integrations: [mdx(), sitemap()],
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
     },
   }),
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "es", "ca", "de"],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  }
 });

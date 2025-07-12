@@ -1,0 +1,240 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t('nav.faq')} | ${t('site.title')}`} description={t('site.description')}>
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h1>Frequently Asked Questions</h1>
+        <p class="text-large">Find answers to common questions about Espai.ai</p>
+      </div>
+      
+      <div class="faq-container">
+        <div class="faq-category">
+          <h2>General Questions</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>What is Espai.ai?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Espai.ai is an AI-powered platform that analyzes your business processes to identify bottlenecks, inefficiencies, and automation opportunities. We help companies optimize their operations and increase productivity through intelligent process analysis.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How does the AI analysis work?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Our AI algorithms analyze your business data, workflow patterns, and process metrics to identify areas for improvement. We use machine learning to detect inefficiencies and provide actionable recommendations for optimization.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>What types of businesses can benefit from Espai.ai?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Espai.ai is designed for businesses of all sizes across various industries. Whether you're a small startup or a large enterprise, our platform can help optimize your processes and improve efficiency.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-category">
+          <h2>Technical Questions</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How do you integrate with existing systems?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>We offer various integration options including APIs, webhooks, and direct database connections. Our platform can connect with popular business tools like CRM systems, ERP software, and project management platforms.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Is my data secure?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, we take data security very seriously. All data is encrypted in transit and at rest. We comply with GDPR, SOC 2, and other industry standards to ensure your business data remains secure and private.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Can I customize the analysis parameters?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Absolutely! Our platform allows you to customize analysis parameters, set specific KPIs, and focus on particular aspects of your business processes that matter most to you.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-category">
+          <h2>Pricing & Support</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Do you offer a free trial?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, we offer a 14-day free trial for all new customers. No credit card required. You can explore all features and see how our AI can help optimize your business processes.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>What kind of support do you provide?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>We provide comprehensive support including email support, documentation, video tutorials, and dedicated account managers for enterprise clients. Our support team is available to help you get the most out of our platform.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Can I cancel my subscription anytime?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, you can cancel your subscription at any time. There are no long-term contracts or cancellation fees. Your account will remain active until the end of your current billing period.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-section text-center mt-4">
+        <h2>Still have questions?</h2>
+        <p>Can't find the answer you're looking for? Our team is here to help.</p>
+        <a href="#" class="btn">Contact Support</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .faq-category {
+    margin-bottom: 3rem;
+  }
+  
+  .faq-category h2 {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+  }
+  
+  .faq-item {
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .faq-item:hover {
+    border-color: var(--accent);
+  }
+  
+  .faq-question {
+    width: 100%;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: var(--space-white);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  .faq-question:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .faq-icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+  }
+  
+  .faq-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .faq-answer.active {
+    padding: 1.5rem;
+    max-height: 200px;
+  }
+  
+  .faq-item.active .faq-icon {
+    transform: rotate(45deg);
+  }
+  
+  .contact-section {
+    background: radial-gradient(circle at center, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+    padding: 3rem 2rem;
+    border-radius: 16px;
+    margin-top: 3rem;
+  }
+  
+  @media (max-width: 768px) {
+    .faq-question {
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    
+    .faq-answer.active {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  function toggleFaq(button) {
+    const faqItem = button.parentElement;
+    const answer = faqItem.querySelector('.faq-answer');
+    
+    // Close all other FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+      if (item !== faqItem) {
+        item.classList.remove('active');
+        item.querySelector('.faq-answer').classList.remove('active');
+      }
+    });
+    
+    // Toggle current FAQ item
+    faqItem.classList.toggle('active');
+    answer.classList.toggle('active');
+  }
+  
+  // Make function global
+  window.toggleFaq = toggleFaq;
+</script> 

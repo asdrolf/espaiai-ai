@@ -1,0 +1,221 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t('nav.pricing')} | ${t('site.title')}`} description={t('site.description')}>
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h1>Pricing Plans</h1>
+        <p class="text-large">Choose the perfect plan for your business needs</p>
+      </div>
+      
+      <div class="pricing-grid">
+        <div class="pricing-card card fade-in">
+          <div class="plan-header">
+            <h3>Starter</h3>
+            <div class="price">
+              <span class="currency">€</span>
+              <span class="amount">299</span>
+              <span class="period">/month</span>
+            </div>
+          </div>
+          <ul class="features">
+            <li>✓ Basic process analysis</li>
+            <li>✓ Up to 5 workflows</li>
+            <li>✓ Monthly reports</li>
+            <li>✓ Email support</li>
+            <li>✓ Basic automation recommendations</li>
+          </ul>
+          <a href="#" class="btn btn-secondary">Get Started</a>
+        </div>
+        
+        <div class="pricing-card card featured fade-in">
+          <div class="plan-header">
+            <div class="popular-badge">Most Popular</div>
+            <h3>Professional</h3>
+            <div class="price">
+              <span class="currency">€</span>
+              <span class="amount">799</span>
+              <span class="period">/month</span>
+            </div>
+          </div>
+          <ul class="features">
+            <li>✓ Advanced AI analysis</li>
+            <li>✓ Up to 25 workflows</li>
+            <li>✓ Weekly reports</li>
+            <li>✓ Priority support</li>
+            <li>✓ Advanced automation recommendations</li>
+            <li>✓ Custom integrations</li>
+            <li>✓ Performance dashboard</li>
+          </ul>
+          <a href="#" class="btn">Get Started</a>
+        </div>
+        
+        <div class="pricing-card card fade-in">
+          <div class="plan-header">
+            <h3>Enterprise</h3>
+            <div class="price">
+              <span class="currency">€</span>
+              <span class="amount">1999</span>
+              <span class="period">/month</span>
+            </div>
+          </div>
+          <ul class="features">
+            <li>✓ Enterprise-grade AI analysis</li>
+            <li>✓ Unlimited workflows</li>
+            <li>✓ Real-time reporting</li>
+            <li>✓ 24/7 dedicated support</li>
+            <li>✓ Custom AI models</li>
+            <li>✓ Advanced integrations</li>
+            <li>✓ White-label solution</li>
+            <li>✓ On-premise deployment</li>
+          </ul>
+          <a href="#" class="btn">Contact Sales</a>
+        </div>
+      </div>
+      
+      <div class="pricing-faq mt-4">
+        <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h4>Can I change my plan anytime?</h4>
+            <p>Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h4>Is there a free trial?</h4>
+            <p>We offer a 14-day free trial for all new customers. No credit card required.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h4>What kind of support do you offer?</h4>
+            <p>We provide email support for Starter plans, priority support for Professional plans, and dedicated 24/7 support for Enterprise customers.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h4>Do you offer custom solutions?</h4>
+            <p>Yes, we can create custom solutions for enterprise clients. Contact our sales team to discuss your specific needs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .pricing-card {
+    position: relative;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .pricing-card.featured {
+    transform: scale(1.05);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+  }
+  
+  .popular-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-gradient);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  
+  .plan-header {
+    margin-bottom: 2rem;
+  }
+  
+  .plan-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+  
+  .currency {
+    font-size: 1.5rem;
+    color: var(--accent);
+  }
+  
+  .amount {
+    font-size: 3rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .period {
+    font-size: 1rem;
+    color: var(--space-gray);
+  }
+  
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    text-align: left;
+  }
+  
+  .features li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .features li:last-child {
+    border-bottom: none;
+  }
+  
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .faq-item {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .faq-item h4 {
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+  
+  @media (max-width: 768px) {
+    .pricing-card.featured {
+      transform: none;
+    }
+    
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style> 
