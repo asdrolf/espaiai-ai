@@ -53,9 +53,9 @@ export function shouldShowLanguagePrompt(currentLang: Lang, detectedLang: Lang):
   const dismissed = localStorage.getItem('lang-detection-dismissed');
   if (dismissed === 'true') return false;
   
-  // Don't show if user already switched manually
-  const hasManualSwitch = localStorage.getItem('lang-manual-switch');
-  if (hasManualSwitch === 'true') return false;
+  // Don't show if user has already set a preferred language
+  const preferredLang = localStorage.getItem('user-preferred-lang');
+  if (preferredLang) return false;
   
   return true;
 }
@@ -64,8 +64,16 @@ export function dismissLanguagePrompt(): void {
   localStorage.setItem('lang-detection-dismissed', 'true');
 }
 
-export function markManualLanguageSwitch(): void {
-  localStorage.setItem('lang-manual-switch', 'true');
+export function setUserPreferredLanguage(lang: Lang): void {
+  localStorage.setItem('user-preferred-lang', lang);
+}
+
+export function getUserPreferredLanguage(): Lang | null {
+  const preferred = localStorage.getItem('user-preferred-lang');
+  if (preferred && preferred in UI_TEXT) {
+    return preferred as Lang;
+  }
+  return null;
 }
 
 export function switchToLanguage(newLang: Lang): void {
@@ -82,8 +90,8 @@ export function switchToLanguage(newLang: Lang): void {
     ? segments.join('/') || '/'
     : `/${newLang}${segments.join('/') || '/'}`;
   
-  // Mark as manual switch
-  markManualLanguageSwitch();
+  // Save user's preferred language
+  setUserPreferredLanguage(newLang);
   
   // Navigate to new URL
   window.location.href = newPath;

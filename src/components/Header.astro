@@ -28,7 +28,6 @@ const flagMap = {
       <div class="nav-menu" id="navMenu" aria-hidden="true">
         <HeaderLink href={lang === 'en' ? '/' : `/${lang}/`}>{t('nav.home')}</HeaderLink>
         <HeaderLink href={lang === 'en' ? '/about' : `/${lang}/about`}>{t('nav.about')}</HeaderLink>
-        <!-- <HeaderLink href={lang === 'en' ? '/blog' : `/${lang}/blog`}>{t('nav.blog')}</HeaderLink> -->
         <HeaderLink href={lang === 'en' ? '/pricing' : `/${lang}/pricing`}>{t('nav.pricing')}</HeaderLink>
         <HeaderLink href={lang === 'en' ? '/faq' : `/${lang}/faq`}>{t('nav.faq')}</HeaderLink>
       </div>
@@ -352,8 +351,8 @@ const flagMap = {
       ? segments.join('/') || '/'
       : `/${newLang}${segments.join('/') || '/'}`;
     
-    // Mark as manual language switch
-    localStorage.setItem('lang-manual-switch', 'true');
+    // Save user's preferred language
+    localStorage.setItem('user-preferred-lang', newLang);
     
     window.location.href = newPath;
   }

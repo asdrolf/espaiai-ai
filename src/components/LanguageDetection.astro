@@ -269,8 +269,8 @@ const t = useTranslations(lang);
     const dismissed = localStorage.getItem('lang-detection-dismissed');
     if (dismissed === 'true') return false;
     
-    const hasManualSwitch = localStorage.getItem('lang-manual-switch');
-    if (hasManualSwitch === 'true') return false;
+    const preferredLang = localStorage.getItem('user-preferred-lang');
+    if (preferredLang) return false;
     
     return true;
   }
@@ -279,8 +279,12 @@ const t = useTranslations(lang);
     localStorage.setItem('lang-detection-dismissed', 'true');
   }
 
-  function markManualLanguageSwitch() {
-    localStorage.setItem('lang-manual-switch', 'true');
+  function setUserPreferredLanguage(lang) {
+    localStorage.setItem('user-preferred-lang', lang);
+  }
+
+  function getUserPreferredLanguage() {
+    return localStorage.getItem('user-preferred-lang');
   }
 
   function switchToLanguage(newLang) {
@@ -295,7 +299,7 @@ const t = useTranslations(lang);
       ? segments.join('/') || '/'
       : `/${newLang}${segments.join('/') || '/'}`;
     
-    markManualLanguageSwitch();
+    setUserPreferredLanguage(newLang);
     window.location.href = newPath;
   }
 
@@ -308,10 +312,18 @@ const t = useTranslations(lang);
   function initLanguageDetection() {
     if (typeof window === 'undefined') return;
 
+    const currentLang = getLangFromUrl(new URL(window.location.href));
+    const preferredLang = getUserPreferredLanguage();
+    
+    // If user has a preferred language and it's different from current, redirect
+    if (preferredLang && preferredLang !== currentLang) {
+      switchToLanguage(preferredLang);
+      return;
+    }
+
     const banner = document.getElementById('language-detection-banner');
     if (!banner) return;
 
-    const currentLang = getLangFromUrl(new URL(window.location.href));
     const detectedLang = detectBrowserLanguage();
     
     if (!detectedLang || !shouldShowLanguagePrompt(currentLang, detectedLang)) {
@@ -361,6 +373,7 @@ const t = useTranslations(lang);
 
     if (stayBtn) {
       stayBtn.addEventListener('click', () => {
+        setUserPreferredLanguage(currentLang);
         hideBanner();
       });
     }
