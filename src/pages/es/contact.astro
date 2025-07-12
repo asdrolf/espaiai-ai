@@ -402,7 +402,7 @@ const t = useTranslations(lang);
 Nombre: ${name}
 Email: ${email}
 Empresa: ${company}
-Teléfono: ${phone}
+Teléfono: ${phone || 'No proporcionado'}
 Empleados: ${employees}
 Interés: ${interest}
 
@@ -410,7 +410,7 @@ Mensaje:
 ${message}
     `.trim();
     
-    const mailtoLink = `mailto:contact@espai.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoLink = `mailto:${EMAIL_CONFIG.fallbackEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;
     
     showMessage('Cliente de email abierto. Por favor envía el email para completar tu solicitud.', 'success');
@@ -462,34 +462,7 @@ ${message}
     
     return response.json();
   }
-  
-  function sendEmailFallback(formData) {
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const company = formData.get('company');
-    const phone = formData.get('phone');
-    const employees = formData.get('employees');
-    const interest = formData.get('interest');
-    const message = formData.get('message');
-    
-    const subject = `Formulario de Contacto - ${interest} - ${company}`;
-    const body = `
-Nombre: ${name}
-Email: ${email}
-Empresa: ${company}
-Teléfono: ${phone || 'No proporcionado'}
-Empleados: ${employees}
-Interés: ${interest}
 
-Mensaje:
-${message}
-    `.trim();
-    
-    const mailtoLink = `mailto:${EMAIL_CONFIG.fallbackEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
-    
-    showMessage('Cliente de email abierto. Por favor envía el email para completar tu solicitud.', 'success');
-  }
   
   // Load EmailJS library
   async function loadEmailJS() {

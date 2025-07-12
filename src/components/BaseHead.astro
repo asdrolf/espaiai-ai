@@ -23,6 +23,7 @@ const { title, description, image = '/favicon.svg' } = Astro.props;
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.woff2" as="font" type="font/woff2" crossorigin>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -49,3 +50,28 @@ const { title, description, image = '/favicon.svg' } = Astro.props;
 <!-- Theme -->
 <meta name="theme-color" content="#06b6d4" />
 <meta name="color-scheme" content="dark" />
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Espai.ai",
+  "url": "https://espai.ai",
+  "logo": "https://espai.ai/logo.png",
+  "description": "AI-powered business process optimization platform",
+  "sameAs": [
+    "https://www.linkedin.com/company/espai-ai"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+34-XXX-XXX-XXX",
+    "contactType": "customer service",
+    "availableLanguage": ["English", "Spanish", "Catalan", "German"]
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "ES"
+  }
+}
+</script>
