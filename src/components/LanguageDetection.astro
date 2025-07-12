@@ -16,7 +16,7 @@ const t = useTranslations(lang);
       </svg>
     </div>
     <div class="banner-text">
-      <h3 class="banner-title" id="detection-title">{t('lang.detection.title')}</h3>
+      <h3 class="banner-title" id="detection-title"></h3>
       <p class="banner-message" id="detection-message"></p>
     </div>
     <div class="banner-actions">
@@ -24,10 +24,8 @@ const t = useTranslations(lang);
         <span id="switch-text"></span>
       </button>
       <button id="stay-language-btn" class="btn btn-secondary">
-        {t('lang.detection.stay')}
       </button>
       <button id="dismiss-language-btn" class="btn btn-text">
-        {t('lang.detection.dismiss')}
       </button>
     </div>
     <button id="close-banner-btn" class="close-btn" aria-label="Close">
@@ -214,20 +212,32 @@ const t = useTranslations(lang);
 
   const UI_TEXT = {
     en: {
+      'lang.detection.title': 'Language Preference',
       'lang.detection.message': 'We detected your browser language is {language}. Would you like to switch to this language?',
-      'lang.detection.switch': 'Switch to {language}'
+      'lang.detection.switch': 'Switch to {language}',
+      'lang.detection.stay': 'Stay in English',
+      'lang.detection.dismiss': 'Don\'t ask again'
     },
     es: {
+      'lang.detection.title': 'Preferencia de Idioma',
       'lang.detection.message': 'Detectamos que tu navegador está en {language}. ¿Te gustaría cambiar a este idioma?',
-      'lang.detection.switch': 'Cambiar a {language}'
+      'lang.detection.switch': 'Cambiar a {language}',
+      'lang.detection.stay': 'Quedarse en Español',
+      'lang.detection.dismiss': 'No preguntar de nuevo'
     },
     ca: {
+      'lang.detection.title': 'Preferència d\'Idioma',
       'lang.detection.message': 'Hem detectat que el teu navegador està en {language}. Vols canviar a aquest idioma?',
-      'lang.detection.switch': 'Canviar a {language}'
+      'lang.detection.switch': 'Canviar a {language}',
+      'lang.detection.stay': 'Quedar-se en Català',
+      'lang.detection.dismiss': 'No tornar a preguntar'
     },
     de: {
+      'lang.detection.title': 'Spracheinstellung',
       'lang.detection.message': 'Wir haben erkannt, dass Ihr Browser auf {language} eingestellt ist. Möchten Sie zu dieser Sprache wechseln?',
-      'lang.detection.switch': 'Zu {language} wechseln'
+      'lang.detection.switch': 'Zu {language} wechseln',
+      'lang.detection.stay': 'Bei Deutsch bleiben',
+      'lang.detection.dismiss': 'Nicht mehr fragen'
     }
   };
 
@@ -308,15 +318,29 @@ const t = useTranslations(lang);
       return;
     }
 
-    const t = useTranslations(currentLang);
+    // Use detected language for main message and switch button
+    const tDetected = useTranslations(detectedLang);
+    // Use current page language for "stay" button
+    const tCurrent = useTranslations(currentLang);
     
+    const titleEl = document.getElementById('detection-title');
     const messageEl = document.getElementById('detection-message');
     const switchTextEl = document.getElementById('switch-text');
+    const stayTextEl = document.getElementById('stay-language-btn');
+    const dismissTextEl = document.getElementById('dismiss-language-btn');
     
-    if (messageEl && switchTextEl) {
+    if (titleEl && messageEl && switchTextEl && stayTextEl && dismissTextEl) {
       const detectedLanguageName = LANGUAGES[detectedLang];
-      messageEl.textContent = t('lang.detection.message').replace('{language}', detectedLanguageName);
-      switchTextEl.textContent = t('lang.detection.switch').replace('{language}', detectedLanguageName);
+      const currentLanguageName = LANGUAGES[currentLang];
+      
+      // Main content in detected language
+      titleEl.textContent = tDetected('lang.detection.title');
+      messageEl.textContent = tDetected('lang.detection.message').replace('{language}', detectedLanguageName);
+      switchTextEl.textContent = tDetected('lang.detection.switch').replace('{language}', detectedLanguageName);
+      dismissTextEl.textContent = tDetected('lang.detection.dismiss');
+      
+      // Stay button in current page language
+      stayTextEl.textContent = tCurrent('lang.detection.stay');
     }
 
     banner.classList.remove('hidden');
