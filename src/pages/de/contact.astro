@@ -1,0 +1,434 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t('contact.title')} | ${t('site.title')}`} description={t('contact.subtitle')}>
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h1>{t('contact.title')}</h1>
+        <p class="text-large">{t('contact.subtitle')}</p>
+      </div>
+      
+      <div class="contact-wrapper">
+        <div class="contact-form-container">
+          <form id="contactForm" class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">{t('contact.form.name')} *</label>
+                <input type="text" id="name" name="name" required>
+                <span class="error-message" id="nameError"></span>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">{t('contact.form.email')} *</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message" id="emailError"></span>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="company">{t('contact.form.company')} *</label>
+                <input type="text" id="company" name="company" required>
+                <span class="error-message" id="companyError"></span>
+              </div>
+              
+              <div class="form-group">
+                <label for="phone">{t('contact.form.phone')}</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="employees">{t('contact.form.employees')} *</label>
+                <select id="employees" name="employees" required>
+                  <option value="">Auswählen...</option>
+                  <option value="1-10">{t('contact.form.employees.option1')}</option>
+                  <option value="11-50">{t('contact.form.employees.option2')}</option>
+                  <option value="51-200">{t('contact.form.employees.option3')}</option>
+                  <option value="200+">{t('contact.form.employees.option4')}</option>
+                </select>
+                <span class="error-message" id="employeesError"></span>
+              </div>
+              
+              <div class="form-group">
+                <label for="interest">{t('contact.form.interest')} *</label>
+                <select id="interest" name="interest" required>
+                  <option value="">Auswählen...</option>
+                  <option value="analysis">{t('contact.form.interest.analysis')}</option>
+                  <option value="demo">{t('contact.form.interest.demo')}</option>
+                  <option value="pricing">{t('contact.form.interest.pricing')}</option>
+                  <option value="other">{t('contact.form.interest.other')}</option>
+                </select>
+                <span class="error-message" id="interestError"></span>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">{t('contact.form.message')} *</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+              <span class="error-message" id="messageError"></span>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="submitBtn">
+                <span id="submitText">{t('contact.form.submit')}</span>
+                <span id="loadingText" style="display: none;">{t('contact.form.sending')}</span>
+              </button>
+            </div>
+            
+            <div id="formMessage" class="form-message" style="display: none;"></div>
+          </form>
+        </div>
+        
+        <div class="contact-info">
+          <div class="contact-card">
+            <h3>🚀 {t('contact.form.interest.analysis')}</h3>
+            <p>Erhalten Sie eine umfassende Analyse Ihrer Geschäftsprozesse kostenlos. Unsere KI identifiziert Optimierungsmöglichkeiten in Ihren aktuellen Arbeitsabläufen.</p>
+          </div>
+          
+          <div class="contact-card">
+            <h3>📊 {t('contact.form.interest.demo')}</h3>
+            <p>Sehen Sie Espai.ai in Aktion mit einer personalisierten Demo, die auf Ihre Branche und Geschäftsanforderungen zugeschnitten ist.</p>
+          </div>
+          
+          <div class="contact-card">
+            <h3>💰 Wettbewerbsfähige Preise</h3>
+            <p>Zahlen Sie pro Gerät, nicht pro Automatisierung. Keine Zahlung, bis Sie echte Zeiteinsparungen durch unsere Automatisierungen sehen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .contact-form-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  .error-message {
+    color: #ef4444;
+    font-size: 0.8rem;
+    display: none;
+  }
+  
+  .error-message.show {
+    display: block;
+  }
+  
+  .form-actions {
+    margin-top: 1rem;
+  }
+  
+  .btn-primary {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+  }
+  
+  .btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .form-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .form-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  
+  .form-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .contact-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .contact-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+  }
+  
+  .contact-card p {
+    margin: 0;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 768px) {
+    .contact-wrapper {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .contact-form-container {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // EmailJS configuration (you'll need to set these up)
+  const EMAILJS_SERVICE_ID = 'your_service_id';
+  const EMAILJS_TEMPLATE_ID = 'your_template_id';
+  const EMAILJS_PUBLIC_KEY = 'your_public_key';
+  
+  // Form validation
+  function validateForm() {
+    const form = document.getElementById('contactForm');
+    const formData = new FormData(form);
+    let isValid = true;
+    
+    // Clear previous errors
+    document.querySelectorAll('.error-message').forEach(el => {
+      el.classList.remove('show');
+    });
+    
+    // Required fields validation
+    const requiredFields = ['name', 'email', 'company', 'employees', 'interest', 'message'];
+    
+    requiredFields.forEach(field => {
+      const value = formData.get(field);
+      if (!value || value.trim() === '') {
+        showError(field, 'Dieses Feld ist erforderlich');
+        isValid = false;
+      }
+    });
+    
+    // Email validation
+    const email = formData.get('email');
+    if (email && !isValidEmail(email)) {
+      showError('email', 'Bitte geben Sie eine gültige E-Mail-Adresse ein');
+      isValid = false;
+    }
+    
+    return isValid;
+  }
+  
+  function showError(fieldName, message) {
+    const errorElement = document.getElementById(fieldName + 'Error');
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.classList.add('show');
+    }
+  }
+  
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+  
+  function showMessage(message, type) {
+    const messageElement = document.getElementById('formMessage');
+    messageElement.textContent = message;
+    messageElement.className = `form-message ${type}`;
+    messageElement.style.display = 'block';
+    
+    // Hide message after 5 seconds
+    setTimeout(() => {
+      messageElement.style.display = 'none';
+    }, 5000);
+  }
+  
+  function setLoading(isLoading) {
+    const submitBtn = document.getElementById('submitBtn');
+    const submitText = document.getElementById('submitText');
+    const loadingText = document.getElementById('loadingText');
+    
+    if (isLoading) {
+      submitBtn.disabled = true;
+      submitText.style.display = 'none';
+      loadingText.style.display = 'inline';
+    } else {
+      submitBtn.disabled = false;
+      submitText.style.display = 'inline';
+      loadingText.style.display = 'none';
+    }
+  }
+  
+  // Fallback email function using mailto
+  function sendEmailFallback(formData) {
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const company = formData.get('company');
+    const phone = formData.get('phone');
+    const employees = formData.get('employees');
+    const interest = formData.get('interest');
+    const message = formData.get('message');
+    
+    const subject = `Kontaktformular - ${interest} - ${company}`;
+    const body = `
+Name: ${name}
+E-Mail: ${email}
+Unternehmen: ${company}
+Telefon: ${phone}
+Mitarbeiter: ${employees}
+Interesse: ${interest}
+
+Nachricht:
+${message}
+    `.trim();
+    
+    const mailtoLink = `mailto:contact@espai.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+    
+    showMessage('E-Mail-Client geöffnet. Bitte senden Sie die E-Mail, um Ihre Anfrage abzuschließen.', 'success');
+  }
+  
+  // Form submission handler
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
+    setLoading(true);
+    const formData = new FormData(this);
+    
+    try {
+      // Try EmailJS first (if configured)
+      if (typeof emailjs !== 'undefined' && EMAILJS_SERVICE_ID !== 'your_service_id') {
+        await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, this, EMAILJS_PUBLIC_KEY);
+        showMessage('Nachricht erfolgreich gesendet! Wir werden uns bald bei Ihnen melden.', 'success');
+        this.reset();
+      } else {
+        // Fallback to mailto
+        sendEmailFallback(formData);
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      showMessage('Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.', 'error');
+    } finally {
+      setLoading(false);
+    }
+  });
+  
+  // Load EmailJS if available
+  if (typeof emailjs === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+    script.onload = function() {
+      if (EMAILJS_PUBLIC_KEY !== 'your_public_key') {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+      }
+    };
+    document.head.appendChild(script);
+  }
+</script> 

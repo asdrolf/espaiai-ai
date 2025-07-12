@@ -33,7 +33,7 @@ const t = useTranslations(lang);
             ))}
           </select>
         </div>
-        <a href="#contact" class="btn btn-secondary">Contact</a>
+        <a href={lang === 'en' ? '/contact' : `/${lang}/contact`} class="btn btn-secondary">Contact</a>
       </div>
     </nav>
   </div>
