@@ -11,6 +11,9 @@ export interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image = '/favicon.svg' } = Astro.props;
+
+// Google Analytics tracking ID from environment variables
+const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID;
 ---
 
 <!-- Global Metadata -->
@@ -50,6 +53,22 @@ const { title, description, image = '/favicon.svg' } = Astro.props;
 <!-- Theme -->
 <meta name="theme-color" content="#06b6d4" />
 <meta name="color-scheme" content="dark" />
+
+<!-- Google Analytics -->
+{GA_TRACKING_ID && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}></script>
+    <script is:inline define:vars={{ GA_TRACKING_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', GA_TRACKING_ID, {
+        page_title: document.title,
+        page_location: window.location.href,
+      });
+    </script>
+  </>
+)}
 
 <!-- Schema.org structured data -->
 <script type="application/ld+json">

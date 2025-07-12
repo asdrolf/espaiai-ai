@@ -16,6 +16,7 @@ Features:
 - ✅ Sitemap support
 - ✅ RSS Feed support
 - ✅ Markdown & MDX support
+- ✅ Google Analytics integration
 
 <!-- dash-content-end -->
 
@@ -28,6 +29,25 @@ npm create cloudflare@latest -- --template=cloudflare/templates/astro-blog-start
 ```
 
 A live public deployment of this template is available at [https://astro-blog-starter-template.templates.workers.dev](https://astro-blog-starter-template.templates.workers.dev)
+
+## ⚙️ Configuration
+
+### Google Analytics
+
+To enable Google Analytics tracking, create a `.env` file in the root of your project and add your Google Analytics tracking ID:
+
+```bash
+# .env
+GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
+```
+
+To get your tracking ID:
+1. Go to [Google Analytics](https://analytics.google.com/)
+2. Create a new property or select an existing one
+3. Go to Admin > Data Streams > Web
+4. Copy your Measurement ID (format: G-XXXXXXXXXX)
+
+The analytics script will only be loaded if the `GOOGLE_ANALYTICS_ID` environment variable is set.
 
 ## 🚀 Project Structure
 
