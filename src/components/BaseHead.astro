@@ -53,21 +53,15 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <meta name="theme-color" content="#06b6d4" />
 <meta name="color-scheme" content="dark" />
 
-<!-- Google Analytics -->
-{GA_TRACKING_ID && (
-  <>
-    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}></script>
-    <script is:inline define:vars={{ GA_TRACKING_ID }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', GA_TRACKING_ID, {
-        page_title: document.title,
-        page_location: window.location.href,
-      });
-    </script>
-  </>
-)}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KQMS7MSVDR"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KQMS7MSVDR');
+</script>
 
 <!-- Schema.org structured data -->
 <script type="application/ld+json">
