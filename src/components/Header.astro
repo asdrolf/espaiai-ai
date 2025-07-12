@@ -5,6 +5,14 @@ import { getLangFromUrl, useTranslations } from '../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Map language codes to flag classes
+const flagMap = {
+  en: 'lang-icon-en',
+  es: 'lang-icon-es', 
+  ca: 'lang-icon-ca',
+  de: 'lang-icon-de'
+};
 ---
 
 <header class="header">
@@ -27,11 +35,21 @@ const t = useTranslations(lang);
       
       <div class="nav-actions">
         <div class="language-selector">
-          <select id="language-select" onchange="changeLanguage(this.value)">
+          <div class="language-display" id="language-display">
+            <span class={`lang-icon ${flagMap[lang]}`}></span>
+            <span class="language-name">{LANGUAGES[lang]}</span>
+            <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+              <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="language-dropdown" id="language-dropdown">
             {Object.entries(LANGUAGES).map(([code, name]) => (
-              <option value={code} selected={code === lang}>{name}</option>
+              <div class="language-option" data-lang={code} onclick={`changeLanguage('${code}')`}>
+                <span class={`lang-icon ${flagMap[code]}`}></span>
+                <span class="language-option-name">{name}</span>
+              </div>
             ))}
-          </select>
+          </div>
         </div>
         <a href={lang === 'en' ? '/contact' : `/${lang}/contact`} class="btn btn-secondary">Contact</a>
       </div>
@@ -102,6 +120,110 @@ const t = useTranslations(lang);
     gap: 1rem;
     align-items: center;
   }
+
+  /* Language selector styles */
+  .language-selector {
+    position: relative;
+  }
+
+  .language-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+  }
+
+  .language-display:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .lang-icon {
+    display: inline-block;
+    width: 25px;
+    height: 15px;
+    background-image: url('/lang-flags.png');
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+  }
+
+  .language-name {
+    color: white;
+    font-size: 0.9rem;
+    flex: 1;
+  }
+
+  .dropdown-arrow {
+    color: rgba(255, 255, 255, 0.7);
+    transition: transform 0.3s ease;
+  }
+
+  .language-selector.open .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .language-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .language-selector.open .language-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .language-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 0.25rem;
+    margin: 0.25rem;
+  }
+
+  .language-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .language-option-name {
+    color: white;
+    font-size: 0.9rem;
+  }
+
+  /* Flag sprite positions */
+  .lang-icon-en {
+    background-position: -450px -60px;
+  }
+  .lang-icon-es {
+    background-position: -100px -75px;
+  }
+  .lang-icon-ca {
+    background-position: -0px -45px;
+  }
+  .lang-icon-de {
+    background-position: -50px -60px;
+  }
   
   @media (max-width: 768px) {
     .nav-menu {
@@ -124,6 +246,15 @@ const t = useTranslations(lang);
     .logo-text {
       font-size: 1.25rem;
     }
+
+    .language-display {
+      min-width: 100px;
+      padding: 0.4rem 0.6rem;
+    }
+
+    .language-name {
+      font-size: 0.8rem;
+    }
   }
   
   @media (max-width: 480px) {
@@ -133,6 +264,15 @@ const t = useTranslations(lang);
     
     .logo-img {
       height: 36px;
+    }
+
+    .language-display {
+      min-width: 80px;
+      padding: 0.3rem 0.5rem;
+    }
+
+    .language-name {
+      display: none;
     }
   }
 </style>
@@ -154,6 +294,30 @@ const t = useTranslations(lang);
     
     window.location.href = newPath;
   }
+  
+  // Handle dropdown toggle
+  function toggleLanguageDropdown() {
+    const selector = document.querySelector('.language-selector');
+    selector.classList.toggle('open');
+  }
+  
+  // Close dropdown when clicking outside
+  function closeLanguageDropdown(event) {
+    const selector = document.querySelector('.language-selector');
+    if (!selector.contains(event.target)) {
+      selector.classList.remove('open');
+    }
+  }
+  
+  // Initialize dropdown functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const languageDisplay = document.getElementById('language-display');
+    if (languageDisplay) {
+      languageDisplay.addEventListener('click', toggleLanguageDropdown);
+    }
+    
+    document.addEventListener('click', closeLanguageDropdown);
+  });
   
   // Make function global
   window.changeLanguage = changeLanguage;
