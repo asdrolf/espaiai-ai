@@ -29,6 +29,7 @@ export const UI_TEXT = {
     'hero.cta': 'Get Started',
     'hero.cta.secondary': 'Learn More',
     'footer.rights': 'All rights reserved.',
+    'footer.crafted': 'crafted with ♡ in barcelona',
     // Contact form translations
     'contact.title': 'Contact Us',
     'contact.subtitle': 'Ready to transform your business? Get in touch with our team',
@@ -73,6 +74,7 @@ export const UI_TEXT = {
     'hero.cta': 'Comenzar',
     'hero.cta.secondary': 'Saber Más',
     'footer.rights': 'Todos los derechos reservados.',
+    'footer.crafted': 'creado con ♡ en barcelona',
     // Contact form translations
     'contact.title': 'Contacta con Nosotros',
     'contact.subtitle': '¿Listo para transformar tu negocio? Ponte en contacto con nuestro equipo',
@@ -117,6 +119,7 @@ export const UI_TEXT = {
     'hero.cta': 'Començar',
     'hero.cta.secondary': 'Saber-ne Més',
     'footer.rights': 'Tots els drets reservats.',
+    'footer.crafted': 'fet amb ♡ a barcelona',
     // Contact form translations
     'contact.title': 'Contacta amb Nosaltres',
     'contact.subtitle': 'Preparat per transformar el teu negoci? Posa\'t en contacte amb el nostre equip',
@@ -161,6 +164,7 @@ export const UI_TEXT = {
     'hero.cta': 'Loslegen',
     'hero.cta.secondary': 'Mehr erfahren',
     'footer.rights': 'Alle Rechte vorbehalten.',
+    'footer.crafted': 'gemacht mit ♡ in barcelona',
     // Contact form translations
     'contact.title': 'Kontaktieren Sie uns',
     'contact.subtitle': 'Bereit, Ihr Unternehmen zu transformieren? Nehmen Sie Kontakt mit unserem Team auf',

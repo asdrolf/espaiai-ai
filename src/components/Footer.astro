@@ -6,12 +6,19 @@ const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 ---
 
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 <footer class="footer">
   <div class="container">
     <div class="footer-content">
       <div class="footer-section">
         <h3>Espai.ai</h3>
         <p>{t('site.description')}</p>
+        <p class="crafted">
+          <span class="crafted-text">{t('footer.crafted').split('♡')[0]}</span>
+          <span class="crafted-heart">♡</span>
+          <span class="crafted-text">{t('footer.crafted').split('♡')[1]}</span>
+        </p>
       </div>
       
       <div class="footer-section">
@@ -128,6 +135,30 @@ const currentYear = new Date().getFullYear();
   .footer-bottom p {
     color: var(--space-gray);
     margin: 0;
+  }
+  
+  .crafted {
+    font-size: 0.95rem;
+    color: var(--space-gray);
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-family: 'Pacifico', 'Comic Sans MS', cursive, sans-serif;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+  }
+  .crafted-heart {
+    color: #e25555;
+    font-size: 1.1em;
+    margin: 0 0.1em;
+    font-family: inherit;
+    vertical-align: middle;
+    font-style: normal;
+  }
+  .crafted-text {
+    font-family: 'Pacifico', 'Comic Sans MS', cursive, sans-serif;
+    font-size: 0.95em;
   }
   
   @media (max-width: 768px) {
