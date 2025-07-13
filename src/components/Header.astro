@@ -361,12 +361,19 @@ const flagMap = {
     }
 
     .language-display {
-      min-width: 100px;
+      min-width: 120px;
       padding: 0.4rem 0.6rem;
     }
-
-    .language-name {
-      font-size: 0.8rem;
+    .language-dropdown {
+      min-width: 140px;
+      left: 0;
+      right: auto;
+      width: max-content;
+      max-width: 90vw;
+      overflow-x: auto;
+    }
+    .language-option-name {
+      display: inline;
     }
   }
   
@@ -380,12 +387,23 @@ const flagMap = {
     }
 
     .language-display {
-      min-width: 80px;
+      min-width: 100px;
       padding: 0.3rem 0.5rem;
     }
 
     .language-name {
       display: none;
+    }
+    .language-dropdown {
+      min-width: 120px;
+      left: 0;
+      right: auto;
+      width: max-content;
+      max-width: 95vw;
+      overflow-x: auto;
+    }
+    .language-option-name {
+      display: inline;
     }
   }
 </style>
