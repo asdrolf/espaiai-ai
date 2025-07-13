@@ -66,6 +66,7 @@ const flagMap = {
               </g>
             </svg>
           </span>
+          <span class="mobile-title">Espai.AI</span>
           <span class="logo-text">Espai.AI</span>
         </a>
       </div>
@@ -385,7 +386,19 @@ const flagMap = {
     .logo-img {
       height: 36px;
     }
-
+    .mobile-title {
+      display: inline-block;
+      font-family: 'Nasalization', 'Atkinson Hyperlegible', Arial, sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+      margin-left: 0.25rem;
+      vertical-align: middle;
+    }
     .language-display {
       min-width: 48px;
       padding: 0.2rem 0.4rem 0.2rem 0.2rem;
@@ -394,26 +407,20 @@ const flagMap = {
       justify-content: center;
       gap: 0.2rem;
     }
-
     .language-name {
       display: none;
     }
     .lang-icon {
+      display: inline-block;
       margin-right: 0.2rem;
     }
     .dropdown-arrow {
       margin-left: 0.1rem;
     }
-    .language-dropdown {
-      min-width: 120px;
-      left: 0;
-      right: auto;
-      width: max-content;
-      max-width: 95vw;
-      overflow-x: auto;
-    }
-    .language-option-name {
-      display: inline;
+  }
+  @media (min-width: 481px) {
+    .mobile-title {
+      display: none;
     }
   }
 </style>
