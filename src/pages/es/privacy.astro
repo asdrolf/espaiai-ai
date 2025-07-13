@@ -1,5 +1,17 @@
 ---
----
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
 
-<h1>Política de Privacidad</h1>
-<p>Esta página está en construcción. El texto legal se añadirá pronto.</p> 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<Layout title={`Política de Privacidad | Espai.ai`} description={t('site.description')}>
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h1>Política de Privacidad</h1>
+        <p class="text-large">Esta página está en construcción. El texto legal se añadirá pronto.</p>
+      </div>
+    </div>
+  </section>
+</Layout> 
