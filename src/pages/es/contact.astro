@@ -75,6 +75,14 @@ const t = useTranslations(lang);
               <span class="error-message" id="messageError"></span>
             </div>
             
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="consent" name="consent" required>
+                He leído y acepto la <a href="/es/privacy" target="_blank">política de tratamiento de datos</a>.
+              </label>
+              <span class="error-message" id="consentError"></span>
+            </div>
+            
             <div class="form-actions">
               <button type="submit" class="btn btn-primary" id="submitBtn">
                 <span id="submitText">{t('contact.form.submit')}</span>
@@ -326,12 +334,14 @@ const t = useTranslations(lang);
     });
     
     // Required fields validation
-    const requiredFields = ['name', 'email', 'company', 'employees', 'interest', 'message'];
+    const requiredFields = ['name', 'email', 'company', 'employees', 'interest', 'message', 'consent'];
     
     requiredFields.forEach(field => {
       const value = formData.get(field);
       if (!value || value.trim() === '') {
-        showError(field, 'Este campo es obligatorio');
+        let errorMsg = 'Este campo es obligatorio';
+        if (field === 'consent') errorMsg = 'Debes aceptar la política de tratamiento de datos';
+        showError(field, errorMsg);
         isValid = false;
       }
     });
