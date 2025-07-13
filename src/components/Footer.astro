@@ -24,10 +24,13 @@ const currentYear = new Date().getFullYear();
       </div>
       
       <div class="footer-section">
-        <h4>Resources</h4>
+        <h4>{t('nav.resources')}</h4>
         <ul>
           <li><a href={lang === 'en' ? '/faq' : `/${lang}/faq`}>{t('nav.faq')}</a></li>
-          <li><a href={lang === 'en' ? '/contact' : `/${lang}/contact`}>Contact</a></li>
+          <li><a href={lang === 'en' ? '/contact' : `/${lang}/contact`}>{t('nav.contact')}</a></li>
+          <li>
+            <a href={lang === 'en' ? '/privacy' : `/${lang}/privacy`}>{t('nav.privacy')}</a>
+          </li>
         </ul>
       </div>
       
