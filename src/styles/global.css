@@ -268,7 +268,7 @@ a:hover {
 /* Language selector */
 .language-selector {
   position: relative;
-  display: inline-block;
+  z-index: 2147483647 !important;
 }
 
 .language-selector select {

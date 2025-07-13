@@ -20,6 +20,12 @@ const t = useTranslations(lang);
 <html lang={lang}>
   <head>
     <BaseHead title={title} description={description || t('site.description')} />
+    <!-- Klaro CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" />
+    <!-- Klaro config -->
+    <script src="/klaro-config.js" is:inline></script>
+    <!-- Klaro JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.js"></script>
   </head>
   <body>
     <SpaceBackground />
@@ -29,6 +35,7 @@ const t = useTranslations(lang);
       <slot />
     </main>
     <Footer />
+    <div id="klaro"></div>
   </body>
 </html>
 
