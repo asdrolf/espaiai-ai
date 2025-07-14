@@ -21,9 +21,10 @@ const t = useTranslations(lang);
   <head>
     <BaseHead title={title} description={description || t('site.description')} />
     <!-- Klaro CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" />
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" /></noscript>
     <!-- Klaro config -->
-    <script src="/klaro-config.js" is:inline></script>
+    <script src="/klaro-config.js" defer></script>
     <!-- Klaro JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.js"></script>
   </head>
