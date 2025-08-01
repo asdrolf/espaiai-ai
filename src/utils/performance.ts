@@ -91,6 +91,13 @@ export class PerformanceUtils {
     if (!placeholder) return;
 
     placeholder.addEventListener('click', () => {
+      // Check YouTube consent before loading
+      if (window.klaro && !window.klaro.getManager().consents.youtube) {
+        // Show consent request for YouTube
+        window.klaro.getManager().showConsentModal();
+        return;
+      }
+      
       const iframe = document.createElement('iframe');
       iframe.width = '560';
       iframe.height = '315';
@@ -354,6 +361,7 @@ declare global {
     klaro?: {
       getManager: () => {
         consents: Record<string, boolean>;
+        showConsentModal: () => void;
       };
     };
   }

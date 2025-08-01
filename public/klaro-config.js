@@ -28,6 +28,10 @@ var klaroConfig = {
                 description: 'Google Analytics is used to collect anonymous usage statistics.',
                 title: 'Google Analytics'
             },
+            youtube: {
+                description: 'YouTube is used to display video content. YouTube may set cookies for analytics and personalization.',
+                title: 'YouTube'
+            },
             purposes: {
                 analytics: 'Analytics'
             },
@@ -54,6 +58,10 @@ var klaroConfig = {
                 description: 'Google Analytics se utiliza para recopilar estadísticas de uso anónimas.',
                 title: 'Google Analytics'
             },
+            youtube: {
+                description: 'YouTube se utiliza para mostrar contenido de video. YouTube puede establecer cookies para análisis y personalización.',
+                title: 'YouTube'
+            },
             purposes: {
                 analytics: 'Analítica'
             },
@@ -75,6 +83,10 @@ var klaroConfig = {
             googleAnalytics: {
                 description: 'Google Analytics s\'utilitza per recopilar estadístiques d\'ús anònimes.',
                 title: 'Google Analytics'
+            },
+            youtube: {
+                description: 'YouTube s\'utilitza per mostrar contingut de vídeo. YouTube pot establir cookies per a l\'anàlisi i la personalització.',
+                title: 'YouTube'
             },
             purposes: {
                 analytics: 'Analítica'
@@ -98,6 +110,10 @@ var klaroConfig = {
                 description: 'Google Analytics wird verwendet, um anonyme Nutzungsstatistiken zu sammeln.',
                 title: 'Google Analytics'
             },
+            youtube: {
+                description: 'YouTube wird verwendet, um Videoinhalte anzuzeigen. YouTube kann Cookies für Analysen und Personalisierung setzen.',
+                title: 'YouTube'
+            },
             purposes: {
                 analytics: 'Analyse'
             },
@@ -114,6 +130,15 @@ var klaroConfig = {
             title: 'Google Analytics',
             purposes: ['analytics'],
             cookies: [/^_ga/, /^_gid/, /^_gat/],
+            required: false,
+            optOut: false,
+            onlyOnce: true
+        },
+        {
+            name: 'youtube',
+            title: 'YouTube',
+            purposes: ['analytics'],
+            cookies: [/^VISITOR_INFO1_LIVE/, /^LOGIN_INFO/, /^SID/, /^HSID/, /^SSID/, /^APISID/, /^SAPISID/, /^__Secure-1PSID/, /^__Secure-3PSID/],
             required: false,
             optOut: false,
             onlyOnce: true

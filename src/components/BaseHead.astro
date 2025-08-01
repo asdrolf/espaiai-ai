@@ -68,13 +68,11 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
 <!-- Preconnect to critical origins to establish connections early -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 
 <!-- Preload critical assets with higher priority -->
 <link rel="preload" href="/logoespaiai.webp" as="image" type="image/webp">
@@ -204,11 +202,9 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   
-  // Only initialize GA if consent is given
-  if (window.klaro && window.klaro.getManager().consents.googleAnalytics) {
-    gtag('js', new Date());
-    gtag('config', 'G-TS3W9Z4WJ2');
-  }
+  // Initialize GA only when this script is activated by Klaro
+  gtag('js', new Date());
+  gtag('config', 'G-TS3W9Z4WJ2');
 </script>
 
 <!-- Enhanced Schema.org structured data optimized for AI -->

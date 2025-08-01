@@ -273,7 +273,14 @@ const t = useTranslations(lang);
     if (!placeholder) return;
 
     placeholder.addEventListener('click', function() {
-      // Create iframe only when clicked
+      // Check YouTube consent before loading
+      if (window.klaro && !window.klaro.getManager().consents.youtube) {
+        // Show consent request for YouTube
+        window.klaro.getManager().showConsentModal();
+        return;
+      }
+      
+      // Create iframe only when clicked and consent given
       const iframe = document.createElement('iframe');
       iframe.width = '560';
       iframe.height = '315';
