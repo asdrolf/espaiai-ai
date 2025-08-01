@@ -73,7 +73,6 @@ export default defineConfig({
     },
     // Optimize dependencies
     optimizeDeps: {
-      include: ['klaro'],
       // Pre-bundle critical dependencies
       force: true
     },
