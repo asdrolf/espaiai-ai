@@ -2,8 +2,8 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-
 import cloudflare from "@astrojs/cloudflare";
+import autoprefixer from "autoprefixer";
 
 // https://astro.build/config
 export default defineConfig({
@@ -55,12 +55,39 @@ export default defineConfig({
       cssCodeSplit: true,
       // Enable minification
       minify: 'esbuild',
-      // Optimize assets
-      assetsInlineLimit: 4096,
+      // Optimize assets - increase inline limit for critical CSS
+      assetsInlineLimit: 8192,
+      // Optimize chunk size
+      chunkSizeWarningLimit: 1000,
+      // Rollup options for better tree shaking
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Separate vendor chunks
+            vendor: ['klaro'],
+            // Separate font chunks
+            fonts: ['@fontsource/inter']
+          }
+        }
+      }
     },
     // Optimize dependencies
     optimizeDeps: {
-      include: ['klaro']
+      include: ['klaro'],
+      // Pre-bundle critical dependencies
+      force: true
+    },
+    // CSS optimization
+    css: {
+      // Enable CSS code splitting
+      devSourcemap: false,
+      // Optimize CSS output
+      postcss: {
+        plugins: [
+                  // Add autoprefixer for better browser compatibility
+        autoprefixer
+        ]
+      }
     }
   }
 });

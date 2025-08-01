@@ -38,48 +38,19 @@ const t = useTranslations(lang);
     <Footer />
     <div id="klaro"></div>
     
-    <!-- Load Klaro asynchronously after page load to prevent blocking -->
+    <!-- Performance optimization script -->
     <script>
-      // Defer Klaro loading to prevent forced reflow
-      function loadKlaro() {
-        // Use requestIdleCallback for better performance with longer timeout
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => {
-            loadKlaroScripts();
-          }, { timeout: 3000 });
-        } else {
-          // Fallback for browsers without requestIdleCallback
-          setTimeout(loadKlaroScripts, 2000);
-        }
-      }
+      // Initialize performance monitoring
+      import { performanceUtils } from '../utils/performance.js';
       
-      function loadKlaroScripts() {
-        // Load config first
-        const configScript = document.createElement('script');
-        configScript.src = '/klaro-config.js';
-        configScript.async = true;
-        
-        // Load Klaro library after config
-        configScript.onload = function() {
-          const klaroScript = document.createElement('script');
-          klaroScript.src = 'https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.js';
-          klaroScript.async = true;
-          document.head.appendChild(klaroScript);
-        };
-        
-        document.head.appendChild(configScript);
-      }
+      // Monitor Core Web Vitals
+      performanceUtils.monitorCoreWebVitals();
       
-      // Load Klaro after page is fully loaded with additional delay
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-          // Additional delay to prioritize critical content
-          setTimeout(loadKlaro, 1500);
-        });
-      } else {
-        // If DOM is already loaded, wait a bit more
-        setTimeout(loadKlaro, 1500);
-      }
+      // Optimize Klaro loading
+      performanceUtils.optimizeKlaroLoading();
+      
+      // Preload critical resources
+      performanceUtils.preloadCriticalResources();
     </script>
   </body>
 </html>

@@ -70,9 +70,17 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-<!-- Preload critical assets -->
+<!-- Preconnect to critical origins to establish connections early -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+
+<!-- Preload critical assets with higher priority -->
 <link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml">
 <link rel="preload" href="/logoespaiai.webp" as="image" type="image/webp">
+<link rel="preload" href="/fonts/AstroSpace.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin>
 
 <!-- SEO Meta Tags -->
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -109,15 +117,11 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <meta name="technology-stack" content="Artificial Intelligence, Machine Learning, Process Mining, Workflow Automation" />
 <meta name="business-model" content="SaaS, Pay-per-device" />
 
-<!-- Font preloads and preconnects -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<!-- Critical font (Inter) - load immediately with optimized display strategy -->
+<!-- Optimized font loading strategy -->
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" onload="this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
 
-<!-- Inline font-face for faster loading of critical font weights -->
+<!-- Inline critical font fallbacks to prevent layout shift -->
 <style>
   /* Inline critical font fallbacks to prevent layout shift */
   :root {
@@ -131,6 +135,23 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
     font-weight: 400;
     font-display: swap;
     src: local('Inter'), local('Inter-Regular');
+  }
+  
+  /* Preload critical font weights to reduce layout shift */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: local('Inter'), local('Inter-Medium');
+  }
+  
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: local('Inter'), local('Inter-SemiBold');
   }
 </style>
 
