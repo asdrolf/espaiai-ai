@@ -1,217 +1,187 @@
 /**
- * Performance utilities to prevent forced reflow and optimize rendering
+ * Performance optimization utilities for Espai.ai
+ * Helps reduce JavaScript execution time and improve Core Web Vitals
  */
 
 // Performance monitoring
-export class PerformanceMonitor {
-  private static instance: PerformanceMonitor;
-  private reflowCount = 0;
-  private lastTime = 0;
-
-  static getInstance(): PerformanceMonitor {
-    if (!PerformanceMonitor.instance) {
-      PerformanceMonitor.instance = new PerformanceMonitor();
+export const performanceUtils = {
+  /**
+   * Measure execution time of a function
+   */
+  measureExecutionTime<T>(fn: () => T, label: string): T {
+    const start = performance.now();
+    const result = fn();
+    const end = performance.now();
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`${label}: ${(end - start).toFixed(2)}ms`);
     }
-    return PerformanceMonitor.instance;
-  }
+    
+    return result;
+  },
 
-  // Monitor forced reflow
-  monitorReflow() {
-    if (typeof window === 'undefined') return;
+  /**
+   * Defer non-critical JavaScript execution
+   */
+  deferExecution(fn: () => void, delay: number = 100): void {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(fn, { timeout: delay + 1000 });
+    } else {
+      setTimeout(fn, delay);
+    }
+  },
 
-    const observer = new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        if (entry.entryType === 'measure') {
-          this.reflowCount++;
-          console.warn(`Forced reflow detected: ${entry.name} took ${entry.duration}ms`);
+  /**
+   * Load script with performance optimization
+   */
+  loadScript(src: string, options: {
+    async?: boolean;
+    defer?: boolean;
+    onload?: () => void;
+    onerror?: () => void;
+  } = {}): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = options.async ?? true;
+      script.defer = options.defer ?? false;
+      
+      script.onload = () => {
+        options.onload?.();
+        resolve();
+      };
+      
+      script.onerror = () => {
+        options.onerror?.();
+        reject(new Error(`Failed to load script: ${src}`));
+      };
+      
+      document.head.appendChild(script);
+    });
+  },
+
+  /**
+   * Preload critical resources
+   */
+  preloadResource(href: string, as: string): void {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.href = href;
+    link.as = as;
+    document.head.appendChild(link);
+  },
+
+  /**
+   * Intersection Observer for lazy loading
+   */
+  createLazyLoader(
+    selector: string,
+    callback: (element: Element) => void,
+    options: IntersectionObserverInit = {}
+  ): IntersectionObserver {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          callback(entry.target);
+          observer.unobserve(entry.target);
         }
-      }
+      });
+    }, {
+      rootMargin: '50px',
+      threshold: 0.1,
+      ...options
     });
 
-    try {
-      observer.observe({ entryTypes: ['measure'] });
-    } catch (e) {
-      // PerformanceObserver not supported
-    }
-  }
-
-  // Get reflow count
-  getReflowCount(): number {
-    return this.reflowCount;
-  }
-
-  // Reset counters
-  reset() {
-    this.reflowCount = 0;
-    this.lastTime = 0;
-  }
-}
-
-// Utility functions to prevent forced reflow
-export const PerformanceUtils = {
-  /**
-   * Batch DOM reads to prevent forced reflow
-   */
-  batchReads<T>(readOperations: (() => T)[]): T[] {
-    const results: T[] = [];
-    
-    // Force a reflow to get current values
-    document.body.offsetHeight;
-    
-    // Perform all read operations
-    for (const operation of readOperations) {
-      results.push(operation());
-    }
-    
-    return results;
-  },
-
-  /**
-   * Batch DOM writes to prevent forced reflow
-   */
-  batchWrites(writeOperations: (() => void)[]): void {
-    // Use requestAnimationFrame to batch writes
-    requestAnimationFrame(() => {
-      for (const operation of writeOperations) {
-        operation();
-      }
-    });
-  },
-
-  /**
-   * Defer non-critical operations
-   */
-  defer<T>(operation: () => T, timeout = 100): Promise<T> {
-    return new Promise((resolve) => {
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => resolve(operation()), { timeout });
-      } else {
-        setTimeout(() => resolve(operation()), timeout);
-      }
-    });
-  },
-
-  /**
-   * Optimize element measurements
-   */
-  measureElement(element: HTMLElement): DOMRect {
-    // Force a reflow to get accurate measurements
-    element.offsetHeight;
-    return element.getBoundingClientRect();
-  },
-
-  /**
-   * Create optimized style updates
-   */
-  updateStyles(element: HTMLElement, styles: Record<string, string>): void {
-    // Batch style updates
-    const cssText = Object.entries(styles)
-      .map(([property, value]) => `${property}: ${value}`)
-      .join('; ');
-    
-    element.style.cssText += `; ${cssText}`;
-  },
-
-  /**
-   * Optimize class list operations
-   */
-  updateClasses(element: HTMLElement, operations: Array<{ type: 'add' | 'remove' | 'toggle', className: string }>): void {
-    requestAnimationFrame(() => {
-      for (const operation of operations) {
-        switch (operation.type) {
-          case 'add':
-            element.classList.add(operation.className);
-            break;
-          case 'remove':
-            element.classList.remove(operation.className);
-            break;
-          case 'toggle':
-            element.classList.toggle(operation.className);
-            break;
-        }
-      }
-    });
+    document.querySelectorAll(selector).forEach((el) => observer.observe(el));
+    return observer;
   }
 };
 
-// Debounce utility for performance
-export function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  wait: number
-): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout;
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
-  };
-}
-
-// Throttle utility for performance
-export function throttle<T extends (...args: any[]) => any>(
-  func: T,
-  limit: number
-): (...args: Parameters<T>) => void {
-  let inThrottle: boolean;
-  return (...args: Parameters<T>) => {
-    if (!inThrottle) {
-      func(...args);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-    }
-  };
-}
-
-// Intersection Observer utility for lazy loading
-export function createIntersectionObserver(
-  callback: IntersectionObserverCallback,
-  options: IntersectionObserverInit = {}
-): IntersectionObserver {
-  const defaultOptions: IntersectionObserverInit = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1,
-    ...options
-  };
-
-  return new IntersectionObserver(callback, defaultOptions);
-}
-
-// Resize Observer utility
-export function createResizeObserver(
-  callback: ResizeObserverCallback
-): ResizeObserver | null {
-  if (typeof ResizeObserver === 'undefined') {
-    return null;
-  }
-  return new ResizeObserver(callback);
-}
-
-// Memory management utilities
-export const MemoryUtils = {
+// YouTube optimization utilities
+export const youtubeUtils = {
   /**
-   * Clean up event listeners
+   * Create lazy-loaded YouTube iframe
    */
-  cleanupEventListeners(element: HTMLElement, eventType: string): void {
-    const clone = element.cloneNode(true) as HTMLElement;
-    element.parentNode?.replaceChild(clone, element);
+  createLazyYouTubeIframe(
+    videoId: string,
+    options: {
+      width?: number;
+      height?: number;
+      autoplay?: boolean;
+      title?: string;
+    } = {}
+  ): HTMLIFrameElement {
+    const iframe = document.createElement('iframe');
+    const params = new URLSearchParams({
+      si: '8fWvfSFNjr-paqAy',
+      ...(options.autoplay && { autoplay: '1' })
+    });
+
+    iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?${params}`;
+    iframe.width = options.width?.toString() || '560';
+    iframe.height = options.height?.toString() || '315';
+    iframe.title = options.title || 'YouTube video player';
+    iframe.frameBorder = '0';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    iframe.allowFullscreen = true;
+    iframe.style.borderRadius = '16px';
+
+    return iframe;
   },
 
   /**
-   * Remove all child elements efficiently
+   * Track video play event for analytics
    */
-  clearElement(element: HTMLElement): void {
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
+  trackVideoPlay(videoId: string, label: string = 'demo_video'): void {
+    if (window.klaro && window.klaro.getManager().consents.googleAnalytics) {
+      if (window.gtag) {
+        window.gtag('event', 'video_play', {
+          'event_category': 'engagement',
+          'event_label': label,
+          'video_id': videoId
+        });
+      }
     }
-  },
-
-  /**
-   * Create document fragment for batch DOM operations
-   */
-  createFragment(): DocumentFragment {
-    return document.createDocumentFragment();
   }
 };
 
-// Export default instance
-export default PerformanceMonitor.getInstance(); 
+// Cookie consent utilities
+export const consentUtils = {
+  /**
+   * Check if analytics consent is given
+   */
+  hasAnalyticsConsent(): boolean {
+    return !!(window.klaro && window.klaro.getManager().consents.googleAnalytics);
+  },
+
+  /**
+   * Initialize analytics only after consent
+   */
+  initAnalyticsAfterConsent(trackingId: string): void {
+    if (this.hasAnalyticsConsent()) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(...args: any[]) {
+        window.dataLayer.push(args);
+      }
+      gtag('js', new Date());
+      gtag('config', trackingId);
+    }
+  }
+};
+
+// Export for global use
+declare global {
+  interface Window {
+    performanceUtils: typeof performanceUtils;
+    youtubeUtils: typeof youtubeUtils;
+    consentUtils: typeof consentUtils;
+  }
+}
+
+// Make utilities available globally in development
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  window.performanceUtils = performanceUtils;
+  window.youtubeUtils = youtubeUtils;
+  window.consentUtils = consentUtils;
+} 

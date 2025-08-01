@@ -179,12 +179,17 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <meta name="theme-color" content="#06b6d4" />
 <meta name="color-scheme" content="dark" />
 
-<!-- Google Analytics managed by Klaro -->
+<!-- Google Analytics managed by Klaro - only loads after consent -->
 <script type="text/plain" data-type="text/javascript" data-name="googleAnalytics">
+  // Initialize dataLayer only when consent is given
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-TS3W9Z4WJ2');
+  
+  // Only initialize GA if consent is given
+  if (window.klaro && window.klaro.getManager().consents.googleAnalytics) {
+    gtag('js', new Date());
+    gtag('config', 'G-TS3W9Z4WJ2');
+  }
 </script>
 
 <!-- Enhanced Schema.org structured data optimized for AI -->

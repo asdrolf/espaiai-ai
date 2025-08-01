@@ -405,20 +405,26 @@ const t = useTranslations(lang);
   }
 
   // Defer initialization to prevent blocking initial render
+  // Use a more aggressive delay to prioritize critical content
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-      // Use requestIdleCallback for better performance
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(initLanguageDetection, { timeout: 1000 });
-      } else {
-        setTimeout(initLanguageDetection, 100);
-      }
+      // Delay language detection to prioritize critical content
+      setTimeout(() => {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(initLanguageDetection, { timeout: 2000 });
+        } else {
+          setTimeout(initLanguageDetection, 500);
+        }
+      }, 1000); // Additional 1 second delay
     });
   } else {
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(initLanguageDetection, { timeout: 1000 });
-    } else {
-      setTimeout(initLanguageDetection, 100);
-    }
+    // If DOM is already loaded, wait a bit more
+    setTimeout(() => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(initLanguageDetection, { timeout: 2000 });
+      } else {
+        setTimeout(initLanguageDetection, 500);
+      }
+    }, 1000);
   }
 </script> 

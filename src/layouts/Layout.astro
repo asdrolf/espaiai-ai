@@ -42,14 +42,14 @@ const t = useTranslations(lang);
     <script>
       // Defer Klaro loading to prevent forced reflow
       function loadKlaro() {
-        // Use requestIdleCallback for better performance
+        // Use requestIdleCallback for better performance with longer timeout
         if ('requestIdleCallback' in window) {
           requestIdleCallback(() => {
             loadKlaroScripts();
-          }, { timeout: 2000 });
+          }, { timeout: 3000 });
         } else {
           // Fallback for browsers without requestIdleCallback
-          setTimeout(loadKlaroScripts, 100);
+          setTimeout(loadKlaroScripts, 2000);
         }
       }
       
@@ -70,11 +70,15 @@ const t = useTranslations(lang);
         document.head.appendChild(configScript);
       }
       
-      // Load Klaro after page is fully loaded
+      // Load Klaro after page is fully loaded with additional delay
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadKlaro);
+        document.addEventListener('DOMContentLoaded', () => {
+          // Additional delay to prioritize critical content
+          setTimeout(loadKlaro, 1500);
+        });
       } else {
-        loadKlaro();
+        // If DOM is already loaded, wait a bit more
+        setTimeout(loadKlaro, 1500);
       }
     </script>
   </body>
