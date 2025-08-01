@@ -1,0 +1,43 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  embedUrl: string;
+  thumbnailUrl?: string;
+  uploadDate?: string;
+  duration?: string;
+}
+
+const { 
+  name, 
+  description, 
+  embedUrl, 
+  thumbnailUrl = 'https://espai.ai/logoespaiai.webp',
+  uploadDate = '2024-01-01',
+  duration = 'PT2M30S' // ISO 8601 duration format
+} = Astro.props;
+---
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": {JSON.stringify(name)},
+  "description": {JSON.stringify(description)},
+  "embedUrl": {JSON.stringify(embedUrl)},
+  "thumbnailUrl": {JSON.stringify(thumbnailUrl)},
+  "uploadDate": {JSON.stringify(uploadDate)},
+  "duration": {JSON.stringify(duration)},
+  "publisher": {
+    "@type": "Organization",
+    "name": "Espai.ai",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://espai.ai/logoespaiai.webp"
+    }
+  },
+  "contentUrl": {JSON.stringify(embedUrl)},
+  "isFamilyFriendly": true,
+  "inLanguage": "en"
+}
+</script> 

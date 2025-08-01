@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import VideoSchema from '../components/schemas/VideoSchema.astro';
+import ServiceSchema from '../components/schemas/ServiceSchema.astro';
 import { getLangFromUrl, useTranslations } from '../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
@@ -256,3 +258,22 @@ const t = useTranslations(lang);
   .fade-in:nth-child(3) { animation-delay: 0.3s; }
   .fade-in:nth-child(4) { animation-delay: 0.4s; }
 </style>
+
+<!-- Structured Data Schemas -->
+<VideoSchema 
+  name="Espai.ai - AI Business Process Automation Platform"
+  description="Watch our short video to see how Espai.ai can transform your business with AI-powered automation, process recording, and optimization."
+  embedUrl="https://www.youtube-nocookie.com/embed/0hypUiBaT3Q"
+  duration="PT2M30S"
+/>
+
+<ServiceSchema 
+  name="AI Business Process Automation"
+  description="Comprehensive business process optimization using artificial intelligence. We record all system events, analyze with AI, and create custom automations."
+  serviceType="Business Process Automation"
+  offers={{
+    price: "70-100",
+    priceCurrency: "EUR",
+    description: "Per device per month pricing with automation fees"
+  }}
+/>

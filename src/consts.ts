@@ -17,6 +17,13 @@ export const UI_TEXT = {
   en: {
     'site.title': 'Espai.ai',
     'site.description': 'AI-powered business process optimization',
+    // SEO Meta Descriptions
+    'meta.home.description': 'Transform your business with AI-powered process automation. Record, analyze, and optimize your workflows automatically. Pay per device, save time instantly.',
+    'meta.about.description': 'Learn about Espai.ai\'s mission to revolutionize business processes with AI. Discover how we help companies optimize operations and unlock their potential.',
+    'meta.pricing.description': 'Transparent per-device pricing for AI business automation. Pay only when you start saving time. Plans from €70-100/device/month plus automation fees.',
+    'meta.faq.description': 'Frequently asked questions about Espai.ai AI automation platform. Learn how our process recording, analysis, and optimization works for your business.',
+    'meta.contact.description': 'Contact Espai.ai team for AI business automation consultation. Get started with intelligent process optimization and workflow automation today.',
+    'meta.privacy.description': 'Espai.ai privacy policy and data protection practices. Learn how we secure your business data in our AI process automation platform.',
     'nav.home': 'Home',
     'nav.about': 'About',
     'nav.pricing': 'Pricing',
@@ -62,6 +69,13 @@ export const UI_TEXT = {
   es: {
     'site.title': 'Espai.ai',
     'site.description': 'Optimización de procesos empresariales con IA',
+    // SEO Meta Descriptions
+    'meta.home.description': 'Transforma tu negocio con automatización de procesos con IA. Registra, analiza y optimiza tus flujos de trabajo de forma automática. Paga por dispositivo, ahorra tiempo instantáneamente.',
+    'meta.about.description': 'Aprende sobre la misión de Espai.ai para revolucionar los procesos empresariales con IA. Descubre cómo ayudamos a las empresas a optimizar sus operaciones y desbloquear su potencial.',
+    'meta.pricing.description': 'Precios transparentes por dispositivo para la automatización de negocios con IA. Paga solo cuando empieces a ahorrar tiempo. Planes desde €70-100/dispositivo/mes más tarifas de automatización.',
+    'meta.faq.description': 'Preguntas frecuentes sobre la plataforma de automatización de procesos de Espai.ai. Aprende cómo funciona nuestro registro, análisis y optimización de procesos para tu negocio.',
+    'meta.contact.description': 'Contacta con el equipo de Espai.ai para una consulta sobre la automatización de negocios con IA. ¡Comienza con la optimización inteligente de procesos y la automatización de flujos de trabajo hoy!',
+    'meta.privacy.description': 'Política de privacidad y prácticas de protección de datos de Espai.ai. Aprende cómo protegemos tus datos de negocio en nuestra plataforma de automatización de procesos con IA.',
     'nav.home': 'Inicio',
     'nav.about': 'Acerca de',
     'nav.pricing': 'Precios',
@@ -107,6 +121,13 @@ export const UI_TEXT = {
   ca: {
     'site.title': 'Espai.ai',
     'site.description': 'Optimització de processos empresarials amb IA',
+    // SEO Meta Descriptions
+    'meta.home.description': 'Optimitza el teu negoci amb automatització de processos amb IA. Registra, analitza i optimitza els teus fluxos de treball de forma automàtica. Paga per dispositiu, ahorra temps instantàniament.',
+    'meta.about.description': 'Aprendeu sobre la missió d\'Espai.ai per revolucionar els processos empresarials amb IA. Descubreu com ens ajudem les empreses a optimitzar les seves operacions i desbloqueu el seu potencial.',
+    'meta.pricing.description': 'Preus transparents per dispositiu per a l\'automatització d\'empreses amb IA. Paga només quan comences a estalviar temps. Plans des de €70-100/dispositiu/mes més tarifes d\'automatització.',
+    'meta.faq.description': 'Preguntes freqüents sobre la plataforma d\'automatització de processos d\'Espai.ai. Apreneu com funciona el nostre registre, anàlisi i optimització de processos per al teu negoci.',
+    'meta.contact.description': 'Contacta amb l\'equip d\'Espai.ai per a una consulta sobre l\'automatització d\'empreses amb IA. ¡Comenceu amb l\'optimització intel·ligent de processos i l\'automatització de fluxos de treball avui!',
+    'meta.privacy.description': 'Política de privacitat i pràctiques de protecció de dades d\'Espai.ai. Apreneu com protegim els teus dades de negoci a la nostra plataforma d\'automatització de processos amb IA.',
     'nav.home': 'Inici',
     'nav.about': 'Sobre nosaltres',
     'nav.pricing': 'Preus',
@@ -152,6 +173,13 @@ export const UI_TEXT = {
   de: {
     'site.title': 'Espai.ai',
     'site.description': 'KI-gestützte Optimierung von Geschäftsprozessen',
+    // SEO Meta Descriptions
+    'meta.home.description': 'Optimieren Sie Ihren Geschäftsprozess mit intelligenten Automatisierungsfunktionen. Prozessaufzeichnung, Analyse und Optimierung Ihrer Arbeitsabläufe automatisch. Kosten pro Gerät, Zeit sparen Sie sofort.',
+    'meta.about.description': 'Erfahren Sie mehr über die Mission von Espai.ai, um Geschäftsprozesse mit KI zu revolutionieren. Entdecken Sie, wie wir Unternehmen dabei unterstützen, ihre Operationen zu optimieren und ihr Potenzial zu entfalten.',
+    'meta.pricing.description': 'Transparente Preise pro Gerät für intelligentes Unternehmensautomatisierung. Zahlung nur, wenn Sie mit der Zeit sparen. Pläne ab €70-100/Gerät/Monat plus Automatisierungsgebühren.',
+    'meta.faq.description': 'Häufig gestellte Fragen zur KI-Automatisierungsplattform von Espai.ai. Erfahren Sie, wie unser Prozessaufzeichnung, Analyse und Optimierung für Ihr Unternehmen funktioniert.',
+    'meta.contact.description': 'Kontaktieren Sie den Espai.ai-Team für eine Beratung zur intelligenten Unternehmensautomatisierung. Beginnen Sie heute mit intelligenten Prozessoptimierung und Workflow-Automatisierung!',
+    'meta.privacy.description': 'Datenschutzerklärung und Datenschutzpraxis von Espai.ai. Erfahren Sie, wie wir Ihre Geschäftedaten in unserer KI-Prozessautomatisierungsplattform sichern.',
     'nav.home': 'Startseite',
     'nav.about': 'Über uns',
     'nav.pricing': 'Preise',

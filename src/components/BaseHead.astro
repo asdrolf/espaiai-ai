@@ -9,9 +9,11 @@ export interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	keywords?: string;
+	type?: 'website' | 'article' | 'service';
 }
 
-const { title, description, image = '/favicon.svg' } = Astro.props;
+const { title, description, image = '/favicon.svg', keywords, type = 'website' } = Astro.props;
 
 // Get current language from URL
 const currentLang = getLangFromUrl(Astro.url);
@@ -62,6 +64,18 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
+<!-- SEO Meta Tags -->
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="author" content="Espai.ai Team" />
+<meta name="publisher" content="Espai.ai" />
+{keywords && <meta name="keywords" content={keywords} />}
+
+<!-- Geographic and Local SEO -->
+<meta name="geo.region" content="ES-CT" />
+<meta name="geo.placename" content="Barcelona, Spain" />
+<meta name="geo.position" content="41.3851;2.1734" />
+<meta name="ICBM" content="41.3851, 2.1734" />
+
 <!-- Font preloads and preconnects -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,11 +98,14 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={type} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Espai.ai" />
 <meta property="og:locale" content={currentLang === 'en' ? 'en_US' : currentLang === 'es' ? 'es_ES' : currentLang === 'ca' ? 'ca_ES' : 'de_DE'} />
 {hreflangUrls.filter(h => h.lang !== currentLang).map(({ lang, url }) => (
   <meta property="og:locale:alternate" content={lang === 'en' ? 'en_US' : lang === 'es' ? 'es_ES' : lang === 'ca' ? 'ca_ES' : 'de_DE'} />
@@ -100,6 +117,8 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:site" content="@EspaiAI" />
+<meta property="twitter:creator" content="@EspaiAI" />
 
 <!-- Theme -->
 <meta name="theme-color" content="#06b6d4" />
@@ -120,8 +139,10 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
   "@type": "Organization",
   "name": "Espai.AI",
   "url": "https://espai.ai",
-  "logo": "https://espai.ai/logo.png",
+  "logo": "https://espai.ai/logoespaiai.webp",
+  "image": "https://espai.ai/logoespaiai.webp",
   "description": "AI-powered business process optimization platform",
+  "foundingDate": "2024",
   "sameAs": [
     "https://www.linkedin.com/company/espai-ai"
   ],
@@ -129,6 +150,7 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
     "@type": "ContactPoint",
     "telephone": "+34-XXX-XXX-XXX",
     "contactType": "customer service",
+    "areaServed": ["ES", "US", "DE", "FR"],
     "availableLanguage": [
       {
         "@type": "Language",
@@ -154,7 +176,9 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
   },
   "address": {
     "@type": "PostalAddress",
-    "addressCountry": "ES"
+    "addressCountry": "ES",
+    "addressRegion": "Catalonia",
+    "addressLocality": "Barcelona"
   },
   "potentialAction": {
     "@type": "SearchAction",
@@ -164,6 +188,19 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
       "description": "Available in multiple languages"
     },
     "query-input": "required name=language"
+  },
+  "offers": {
+    "@type": "Offer",
+    "description": "AI-powered business process automation",
+    "priceCurrency": "EUR",
+    "price": "70",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "70-100",
+      "priceCurrency": "EUR",
+      "unitCode": "MON",
+      "unitText": "per device per month"
+    }
   }
 }
 </script>
@@ -173,14 +210,33 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": {title},
-  "description": {description},
+  "name": {JSON.stringify(title)},
+  "description": {JSON.stringify(description)},
   "url": {JSON.stringify(canonicalURL.href)},
   "inLanguage": {JSON.stringify(currentLang)},
   "isPartOf": {
     "@type": "WebSite",
     "name": "Espai.AI",
-    "url": "https://espai.ai"
+    "url": "https://espai.ai",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://espai.ai/search?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://espai.ai"
+      }
+    ]
   }
 }
 </script>

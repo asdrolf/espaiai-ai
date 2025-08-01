@@ -5,7 +5,7 @@ import { getLangFromUrl, useTranslations } from '../../utils/i18n';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
-<Layout title={`Datenschutzrichtlinie | Espai.ai`} description={t('site.description')}>
+<Layout title={`Datenschutzrichtlinie | Espai.ai`} description={t('meta.privacy.description')}>
   <section class="section">
     <div class="container">
       <div class="section-header text-center mb-4">

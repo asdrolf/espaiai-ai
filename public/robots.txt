@@ -1,0 +1,35 @@
+User-agent: *
+Allow: /
+
+# Crawl-delay to be respectful to server resources
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://espai.ai/sitemap-index.xml
+Sitemap: https://espai.ai/sitemap-0.xml
+
+# Block crawling of admin or sensitive areas if they exist
+Disallow: /admin
+Disallow: /.well-known/
+Disallow: /*?*utm_*
+Disallow: /*?*ref=*
+Disallow: /*?*fbclid=*
+
+# Allow all search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: / 

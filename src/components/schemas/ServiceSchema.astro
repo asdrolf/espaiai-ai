@@ -1,0 +1,55 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  serviceType: string;
+  provider?: string;
+  areaServed?: string[];
+  offers?: {
+    price: string;
+    priceCurrency: string;
+    description: string;
+  };
+}
+
+const { 
+  name, 
+  description, 
+  serviceType,
+  provider = 'Espai.ai',
+  areaServed = ['ES', 'US', 'DE', 'FR'],
+  offers
+} = Astro.props;
+---
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": {JSON.stringify(name)},
+  "description": {JSON.stringify(description)},
+  "serviceType": {JSON.stringify(serviceType)},
+  "provider": {
+    "@type": "Organization",
+    "name": {JSON.stringify(provider)},
+    "url": "https://espai.ai"
+  },
+  "areaServed": {JSON.stringify(areaServed)},
+  "category": "Business Process Automation",
+  "audience": {
+    "@type": "BusinessAudience",
+    "audienceType": "Business"
+  },
+  {offers && `"offers": ${JSON.stringify({
+    "@type": "Offer",
+    "price": offers.price,
+    "priceCurrency": offers.priceCurrency,
+    "description": offers.description,
+    "availability": "https://schema.org/InStock"
+  })},`}
+  "brand": {
+    "@type": "Brand",
+    "name": "Espai.ai"
+  }
+}
+</script> 
