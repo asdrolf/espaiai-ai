@@ -37,6 +37,7 @@
     background: var(--space-white);
     border-radius: 50%;
     animation: twinkle 3s infinite;
+    will-change: opacity, transform; /* Optimize for animations */
   }
 
   .star:nth-child(odd) {
@@ -66,6 +67,7 @@
     border-radius: 50%;
     opacity: 0.1;
     animation: float 20s infinite ease-in-out;
+    will-change: transform; /* Optimize for animations */
   }
 
   .planet-1 {
@@ -120,33 +122,54 @@
 </style>
 
 <script>
-  // Generate random stars
+  // Generate random stars with optimized DOM manipulation
   function createStars() {
     const starsContainer = document.getElementById('stars');
     if (!starsContainer) return;
     
     const starCount = 100;
     
+    // Create document fragment to batch DOM operations
+    const fragment = document.createDocumentFragment();
+    
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
       star.className = 'star';
       
-      // Random position
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      
-      // Random size
+      // Set all styles at once to avoid multiple reflows
       const size = Math.random() * 3 + 1;
-      star.style.width = size + 'px';
-      star.style.height = size + 'px';
+      const left = Math.random() * 100;
+      const top = Math.random() * 100;
+      const duration = Math.random() * 3 + 2;
       
-      // Random animation duration
-      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      star.style.cssText = `
+        left: ${left}%;
+        top: ${top}%;
+        width: ${size}px;
+        height: ${size}px;
+        animation-duration: ${duration}s;
+      `;
       
-      starsContainer.appendChild(star);
+      fragment.appendChild(star);
+    }
+    
+    // Single DOM operation
+    starsContainer.appendChild(fragment);
+  }
+  
+  // Defer star creation to prevent blocking initial render
+  function initStars() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(createStars, { timeout: 2000 });
+    } else {
+      setTimeout(createStars, 200);
     }
   }
   
   // Initialize stars when DOM is loaded
-  document.addEventListener('DOMContentLoaded', createStars);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStars);
+  } else {
+    initStars();
+  }
 </script> 

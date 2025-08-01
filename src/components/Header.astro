@@ -417,37 +417,38 @@ const flagMap = {
     window.location.href = normalizedPath;
   }
   
-  // Handle dropdown toggle
+  // Handle dropdown toggle with optimized event handling
   function toggleLanguageDropdown() {
     const selector = document.querySelector('.language-selector');
-    selector.classList.toggle('open');
+    if (selector) {
+      selector.classList.toggle('open');
+    }
   }
   
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside with event delegation
   function closeLanguageDropdown(event) {
     const selector = document.querySelector('.language-selector');
-    if (!selector.contains(event.target)) {
+    if (selector && !selector.contains(event.target)) {
       selector.classList.remove('open');
     }
   }
   
-  // Initialize dropdown functionality
-  document.addEventListener('DOMContentLoaded', function() {
+  // Initialize dropdown functionality with deferred loading
+  function initHeaderFunctionality() {
     const languageDisplay = document.getElementById('language-display');
     if (languageDisplay) {
       languageDisplay.addEventListener('click', toggleLanguageDropdown);
     }
     
     document.addEventListener('click', closeLanguageDropdown);
-  });
+  }
   
-  // Make function global
-  window.changeLanguage = changeLanguage;
-  
-  // Mobile menu functionality
+  // Mobile menu functionality with optimized DOM queries
   function toggleMobileMenu() {
     const navMenu = document.getElementById('navMenu');
     const mobileToggle = document.getElementById('mobileMenuToggle');
+    
+    if (!navMenu || !mobileToggle) return;
     
     const isActive = navMenu.classList.contains('active');
     
@@ -459,25 +460,26 @@ const flagMap = {
     navMenu.setAttribute('aria-hidden', isActive);
   }
   
-  // Initialize mobile menu
-  document.addEventListener('DOMContentLoaded', function() {
+  // Initialize mobile menu with deferred loading
+  function initMobileMenu() {
     const mobileToggle = document.getElementById('mobileMenuToggle');
     if (mobileToggle) {
       mobileToggle.addEventListener('click', toggleMobileMenu);
     }
     
-    // Close mobile menu when clicking on a link
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
+    // Close mobile menu when clicking on a link with event delegation
+    document.addEventListener('click', (event) => {
+      if (event.target.closest('.nav-menu a')) {
         const navMenu = document.getElementById('navMenu');
         const mobileToggle = document.getElementById('mobileMenuToggle');
         
-        navMenu.classList.remove('active');
-        mobileToggle.classList.remove('active');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        navMenu.setAttribute('aria-hidden', 'true');
-      });
+        if (navMenu && mobileToggle) {
+          navMenu.classList.remove('active');
+          mobileToggle.classList.remove('active');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          navMenu.setAttribute('aria-hidden', 'true');
+        }
+      }
     });
     
     // Keyboard navigation
@@ -486,7 +488,7 @@ const flagMap = {
         const navMenu = document.getElementById('navMenu');
         const mobileToggle = document.getElementById('mobileMenuToggle');
         
-        if (navMenu.classList.contains('active')) {
+        if (navMenu && mobileToggle && navMenu.classList.contains('active')) {
           navMenu.classList.remove('active');
           mobileToggle.classList.remove('active');
           mobileToggle.setAttribute('aria-expanded', 'false');
@@ -495,5 +497,31 @@ const flagMap = {
         }
       }
     });
-  });
+  }
+  
+  // Initialize all header functionality with deferred loading
+  function initHeader() {
+    initHeaderFunctionality();
+    initMobileMenu();
+  }
+  
+  // Defer initialization to prevent blocking initial render
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(initHeader, { timeout: 1000 });
+      } else {
+        setTimeout(initHeader, 100);
+      }
+    });
+  } else {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initHeader, { timeout: 1000 });
+    } else {
+      setTimeout(initHeader, 100);
+    }
+  }
+  
+  // Make function global
+  window.changeLanguage = changeLanguage;
 </script>

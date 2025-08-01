@@ -50,6 +50,7 @@ const t = useTranslations(lang);
     transform: translateY(-100%);
     transition: transform 0.3s ease;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    will-change: transform; /* Optimize for animations */
   }
 
   .language-detection-banner.show {
@@ -355,10 +356,14 @@ const t = useTranslations(lang);
       stayTextEl.textContent = tCurrent('lang.detection.stay');
     }
 
-    banner.classList.remove('hidden');
-    setTimeout(() => {
-      banner.classList.add('show');
-    }, 100);
+    // Use requestAnimationFrame to avoid forced reflow
+    requestAnimationFrame(() => {
+      banner.classList.remove('hidden');
+      // Use another requestAnimationFrame for the show animation
+      requestAnimationFrame(() => {
+        banner.classList.add('show');
+      });
+    });
 
     const switchBtn = document.getElementById('switch-language-btn');
     const stayBtn = document.getElementById('stay-language-btn');
@@ -399,9 +404,21 @@ const t = useTranslations(lang);
     }
   }
 
+  // Defer initialization to prevent blocking initial render
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLanguageDetection);
+    document.addEventListener('DOMContentLoaded', () => {
+      // Use requestIdleCallback for better performance
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(initLanguageDetection, { timeout: 1000 });
+      } else {
+        setTimeout(initLanguageDetection, 100);
+      }
+    });
   } else {
-    initLanguageDetection();
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initLanguageDetection, { timeout: 1000 });
+    } else {
+      setTimeout(initLanguageDetection, 100);
+    }
   }
 </script> 

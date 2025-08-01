@@ -27,11 +27,33 @@ const t = useTranslations(lang);
     <!-- Klaro CSS - load asynchronously since it's not critical for initial render -->
     <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" /></noscript>
+  </head>
+  <body>
+    <SpaceBackground />
+    <LanguageDetection />
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <div id="klaro"></div>
     
-    <!-- Load Klaro asynchronously since it's for cookie consent -->
+    <!-- Load Klaro asynchronously after page load to prevent blocking -->
     <script>
-      // Load Klaro configuration and library asynchronously
-      (function() {
+      // Defer Klaro loading to prevent forced reflow
+      function loadKlaro() {
+        // Use requestIdleCallback for better performance
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => {
+            loadKlaroScripts();
+          }, { timeout: 2000 });
+        } else {
+          // Fallback for browsers without requestIdleCallback
+          setTimeout(loadKlaroScripts, 100);
+        }
+      }
+      
+      function loadKlaroScripts() {
         // Load config first
         const configScript = document.createElement('script');
         configScript.src = '/klaro-config.js';
@@ -46,18 +68,15 @@ const t = useTranslations(lang);
         };
         
         document.head.appendChild(configScript);
-      })();
+      }
+      
+      // Load Klaro after page is fully loaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadKlaro);
+      } else {
+        loadKlaro();
+      }
     </script>
-  </head>
-  <body>
-    <SpaceBackground />
-    <LanguageDetection />
-    <Header />
-    <main>
-      <slot />
-    </main>
-    <Footer />
-    <div id="klaro"></div>
   </body>
 </html>
 
