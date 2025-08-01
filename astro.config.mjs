@@ -8,7 +8,28 @@ import cloudflare from "@astrojs/cloudflare";
 // https://astro.build/config
 export default defineConfig({
   site: "https://espai.ai",
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(), 
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en",
+          es: "es", 
+          ca: "ca",
+          de: "de"
+        }
+      },
+      // Ensure consistent URL format with trailing slashes
+      serialize(item) {
+        // Add trailing slash if not present and not a file
+        if (!item.url.endsWith('/') && !item.url.includes('.')) {
+          item.url += '/';
+        }
+        return item;
+      }
+    })
+  ],
   adapter: cloudflare({
     imageService: "compile"
   }),
@@ -25,6 +46,8 @@ export default defineConfig({
       prefixDefaultLocale: false
     }
   },
+  // Ensure trailing slashes for consistency
+  trailingSlash: "always",
   vite: {
     build: {
       rollupOptions: {

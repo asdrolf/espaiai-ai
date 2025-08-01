@@ -2,6 +2,8 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
+import { getLangFromUrl } from '../utils/i18n';
+import { LANGUAGES } from '../consts';
 
 export interface Props {
 	title: string;
@@ -9,8 +11,46 @@ export interface Props {
 	image?: string;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image = '/favicon.svg' } = Astro.props;
+
+// Get current language from URL
+const currentLang = getLangFromUrl(Astro.url);
+
+// Generate canonical URL for current language
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Generate hreflang URLs for all languages
+function generateHreflangUrls() {
+  const basePath = Astro.url.pathname;
+  const hreflangUrls = [];
+  
+  // Remove current language prefix from path to get base path
+  let cleanPath = basePath;
+  if (basePath.startsWith('/es/') || basePath.startsWith('/ca/') || basePath.startsWith('/de/')) {
+    cleanPath = basePath.substring(3); // Remove /xx/ prefix
+  }
+  
+  // Generate URLs for each language
+  Object.keys(LANGUAGES).forEach(lang => {
+    let langUrl;
+    if (lang === 'en') {
+      // English doesn't have prefix
+      langUrl = cleanPath === '/' ? '/' : cleanPath;
+    } else {
+      // Other languages have prefix
+      langUrl = `/${lang}${cleanPath}`;
+    }
+    
+    hreflangUrls.push({
+      lang: lang,
+      url: new URL(langUrl, Astro.site).href
+    });
+  });
+  
+  return hreflangUrls;
+}
+
+const hreflangUrls = generateHreflangUrls();
 
 // Google Analytics tracking ID from environment variables
 const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
@@ -31,6 +71,13 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
+<!-- Hreflang tags for multilingual SEO -->
+{hreflangUrls.map(({ lang, url }) => (
+  <link rel="alternate" hreflang={lang} href={url} />
+))}
+<!-- x-default hreflang points to English version -->
+<link rel="alternate" hreflang="x-default" href={hreflangUrls.find(h => h.lang === 'en')?.url} />
+
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
@@ -42,6 +89,10 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:locale" content={currentLang === 'en' ? 'en_US' : currentLang === 'es' ? 'es_ES' : currentLang === 'ca' ? 'ca_ES' : 'de_DE'} />
+{hreflangUrls.filter(h => h.lang !== currentLang).map(({ lang, url }) => (
+  <meta property="og:locale:alternate" content={lang === 'en' ? 'en_US' : lang === 'es' ? 'es_ES' : lang === 'ca' ? 'ca_ES' : 'de_DE'} />
+))}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -62,7 +113,7 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
   gtag('config', 'G-TS3W9Z4WJ2');
 </script>
 
-<!-- Schema.org structured data -->
+<!-- Schema.org structured data with multilingual support -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -78,11 +129,58 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
     "@type": "ContactPoint",
     "telephone": "+34-XXX-XXX-XXX",
     "contactType": "customer service",
-    "availableLanguage": ["English", "Spanish", "Catalan", "German"]
+    "availableLanguage": [
+      {
+        "@type": "Language",
+        "name": "English",
+        "alternateName": "en"
+      },
+      {
+        "@type": "Language", 
+        "name": "Spanish",
+        "alternateName": "es"
+      },
+      {
+        "@type": "Language",
+        "name": "Catalan", 
+        "alternateName": "ca"
+      },
+      {
+        "@type": "Language",
+        "name": "German",
+        "alternateName": "de"
+      }
+    ]
   },
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "ES"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://espai.ai/{language}",
+      "description": "Available in multiple languages"
+    },
+    "query-input": "required name=language"
+  }
+}
+</script>
+
+<!-- WebPage structured data for current page -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {title},
+  "description": {description},
+  "url": {JSON.stringify(canonicalURL.href)},
+  "inLanguage": {JSON.stringify(currentLang)},
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Espai.AI",
+    "url": "https://espai.ai"
   }
 }
 </script>
