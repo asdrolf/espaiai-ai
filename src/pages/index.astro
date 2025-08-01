@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import VideoSchema from '../components/schemas/VideoSchema.astro';
 import ServiceSchema from '../components/schemas/ServiceSchema.astro';
+import AITechnologySchema from '../components/schemas/AITechnologySchema.astro';
+import PricingSchema from '../components/schemas/PricingSchema.astro';
 import { getLangFromUrl, useTranslations } from '../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
@@ -276,4 +278,17 @@ const t = useTranslations(lang);
     priceCurrency: "EUR",
     description: "Per device per month pricing with automation fees"
   }}
+/>
+
+<!-- Advanced AI Technology Schema -->
+<AITechnologySchema 
+  name="Espai.ai AI Process Automation Platform"
+  description="Advanced AI technology for business process automation, recording, analysis and optimization using machine learning and process mining"
+  lang={lang}
+/>
+
+<!-- Detailed Pricing Schema -->
+<PricingSchema 
+  currency="EUR"
+  lang={lang}
 />

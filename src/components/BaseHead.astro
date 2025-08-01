@@ -76,6 +76,29 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <meta name="geo.position" content="41.3851;2.1734" />
 <meta name="ICBM" content="41.3851, 2.1734" />
 
+<!-- AI and Search Engine Optimization -->
+<meta name="application-name" content="Espai.ai" />
+<meta name="msapplication-TileColor" content="#06b6d4" />
+<meta name="apple-mobile-web-app-title" content="Espai.ai" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+
+<!-- AI-specific meta tags for better content understanding -->
+<meta name="business-type" content="AI Software as a Service" />
+<meta name="industry" content="Business Process Automation" />
+<meta name="target-audience" content="Business Enterprises, SMEs" />
+<meta name="service-category" content="AI Process Optimization" />
+<meta name="price-range" content="€70-100 per device per month" />
+<meta name="availability" content="International" />
+<meta name="languages-supported" content="English, Spanish, Catalan, German" />
+<meta name="content-language" content={currentLang} />
+
+<!-- Rich snippet hints for AI -->
+<meta name="description-extended" content="Espai.ai provides AI-powered business process automation. We record system events, analyze workflows with artificial intelligence, and create custom automations. Perfect for businesses looking to optimize operations, reduce manual work, and increase efficiency. Pay-per-device pricing model." />
+<meta name="key-features" content="AI Process Recording, Workflow Analysis, Automatic Optimization, Business Intelligence, Custom Automation" />
+<meta name="technology-stack" content="Artificial Intelligence, Machine Learning, Process Mining, Workflow Automation" />
+<meta name="business-model" content="SaaS, Pay-per-device" />
+
 <!-- Font preloads and preconnects -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,17 +155,35 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
   gtag('config', 'G-TS3W9Z4WJ2');
 </script>
 
-<!-- Schema.org structured data with multilingual support -->
+<!-- Enhanced Schema.org structured data optimized for AI -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["Organization", "SoftwareApplication"],
   "name": "Espai.AI",
+  "alternateName": "Espai",
   "url": "https://espai.ai",
   "logo": "https://espai.ai/logoespaiai.webp",
   "image": "https://espai.ai/logoespaiai.webp",
-  "description": "AI-powered business process optimization platform",
+  "description": "AI-powered business process optimization platform that records system events, analyzes workflows with artificial intelligence, and creates custom automations to help businesses optimize operations and increase efficiency.",
   "foundingDate": "2024",
+  "industry": "Business Process Automation",
+  "naics": "541511",
+  "keywords": ["AI automation", "business process optimization", "workflow analysis", "process mining", "artificial intelligence", "business intelligence", "SaaS"],
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "Process Automation Software",
+  "operatingSystem": ["Windows", "macOS", "Linux"],
+  "softwareVersion": "1.0",
+  "releaseNotes": "AI-powered business process recording and optimization",
+  "featureList": [
+    "AI Process Recording",
+    "Workflow Analysis", 
+    "Automatic Process Optimization",
+    "Business Intelligence Dashboard",
+    "Custom Automation Creation",
+    "Multi-language Support",
+    "Real-time Process Monitoring"
+  ],
   "sameAs": [
     "https://www.linkedin.com/company/espai-ai"
   ],
@@ -150,7 +191,14 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
     "@type": "ContactPoint",
     "telephone": "+34-XXX-XXX-XXX",
     "contactType": "customer service",
-    "areaServed": ["ES", "US", "DE", "FR"],
+    "areaServed": ["ES", "US", "DE", "FR", "CA"],
+    "hoursAvailable": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00",
+      "timeZone": "Europe/Madrid"
+    },
     "availableLanguage": [
       {
         "@type": "Language",
@@ -178,29 +226,71 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
     "@type": "PostalAddress",
     "addressCountry": "ES",
     "addressRegion": "Catalonia",
-    "addressLocality": "Barcelona"
+    "addressLocality": "Barcelona",
+    "postalCode": "08001"
   },
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://espai.ai/{language}",
-      "description": "Available in multiple languages"
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 41.3851,
+    "longitude": 2.1734
+  },
+  "potentialAction": [
+    {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://espai.ai/{language}",
+        "description": "Available in multiple languages"
+      },
+      "query-input": "required name=language"
     },
-    "query-input": "required name=language"
-  },
-  "offers": {
-    "@type": "Offer",
-    "description": "AI-powered business process automation",
-    "priceCurrency": "EUR",
-    "price": "70",
-    "priceSpecification": {
-      "@type": "UnitPriceSpecification",
-      "price": "70-100",
-      "priceCurrency": "EUR",
-      "unitCode": "MON",
-      "unitText": "per device per month"
+    {
+      "@type": "ContactAction",
+      "target": "https://espai.ai/contact"
     }
+  ],
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Plan",
+      "description": "AI-powered business process automation - Basic tier",
+      "priceCurrency": "EUR",
+      "price": "70",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "70",
+        "priceCurrency": "EUR",
+        "unitCode": "MON",
+        "unitText": "per device per month",
+        "billingIncrement": 1
+      },
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2024-01-01",
+      "category": "Software Subscription"
+    },
+    {
+      "@type": "Offer", 
+      "name": "Premium Plan",
+      "description": "AI-powered business process automation - Premium tier with advanced features",
+      "priceCurrency": "EUR",
+      "price": "100",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "100",
+        "priceCurrency": "EUR",
+        "unitCode": "MON",
+        "unitText": "per device per month",
+        "billingIncrement": 1
+      },
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2024-01-01",
+      "category": "Software Subscription"
+    }
+  ],
+  "serviceType": "Business Process Automation",
+  "audience": {
+    "@type": "BusinessAudience",
+    "audienceType": "Businesses seeking process optimization"
   }
 }
 </script>
