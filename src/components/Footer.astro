@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations } from '../utils/i18n';
+import { getLangFromUrl, useTranslations, getNavLink } from '../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -24,19 +24,19 @@ const currentYear = new Date().getFullYear();
       <div class="footer-section">
         <h4>{t('nav.home')}</h4>
         <ul>
-          <li><a href={lang === 'en' ? '/' : `/${lang}/`}>{t('nav.home')}</a></li>
-          <li><a href={lang === 'en' ? '/about' : `/${lang}/about`}>{t('nav.about')}</a></li>
-          <li><a href={lang === 'en' ? '/pricing' : `/${lang}/pricing`}>{t('nav.pricing')}</a></li>
+          <li><a href={getNavLink('', lang)}>{t('nav.home')}</a></li>
+          <li><a href={getNavLink('about', lang)}>{t('nav.about')}</a></li>
+          <li><a href={getNavLink('pricing', lang)}>{t('nav.pricing')}</a></li>
         </ul>
       </div>
       
       <div class="footer-section">
         <h4>{t('nav.resources')}</h4>
         <ul>
-          <li><a href={lang === 'en' ? '/faq' : `/${lang}/faq`}>{t('nav.faq')}</a></li>
-          <li><a href={lang === 'en' ? '/contact' : `/${lang}/contact`}>{t('nav.contact')}</a></li>
+          <li><a href={getNavLink('faq', lang)}>{t('nav.faq')}</a></li>
+          <li><a href={getNavLink('contact', lang)}>{t('nav.contact')}</a></li>
           <li>
-            <a href={lang === 'en' ? '/privacy' : `/${lang}/privacy`}>{t('nav.privacy')}</a>
+            <a href={getNavLink('privacy', lang)}>{t('nav.privacy')}</a>
           </li>
         </ul>
       </div>

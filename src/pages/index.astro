@@ -4,7 +4,7 @@ import VideoSchema from '../components/schemas/VideoSchema.astro';
 import ServiceSchema from '../components/schemas/ServiceSchema.astro';
 import AITechnologySchema from '../components/schemas/AITechnologySchema.astro';
 import PricingSchema from '../components/schemas/PricingSchema.astro';
-import { getLangFromUrl, useTranslations } from '../utils/i18n';
+import { getLangFromUrl, useTranslations, getNavLink } from '../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -18,8 +18,8 @@ const t = useTranslations(lang);
         <h1 class="hero-title">{t('hero.title')}</h1>
         <p class="hero-subtitle text-large">{t('hero.subtitle')}</p>
         <div class="hero-actions">
-          <a href="/contact" class="btn">{t('hero.cta')}</a>
-          <a href="/faq" class="btn btn-secondary">{t('hero.cta.secondary')}</a>
+          <a href={getNavLink('contact', lang)} class="btn">{t('hero.cta')}</a>
+          <a href={getNavLink('faq', lang)} class="btn btn-secondary">{t('hero.cta.secondary')}</a>
         </div>
       </div>
     </div>
@@ -142,8 +142,8 @@ const t = useTranslations(lang);
         <h2>Ready to Transform Your Business?</h2>
         <p class="text-large">Join companies that have already optimized their processes with AI</p>
         <div class="cta-actions">
-          <a href="/contact" class="btn">Start Free Analysis</a>
-          <a href="/contact" class="btn btn-secondary">Schedule Demo</a>
+          <a href={getNavLink('contact', lang)} class="btn">Start Free Analysis</a>
+          <a href={getNavLink('contact', lang)} class="btn btn-secondary">Schedule Demo</a>
         </div>
       </div>
     </div>

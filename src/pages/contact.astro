@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getLangFromUrl, useTranslations } from '../utils/i18n';
+import { getLangFromUrl, useTranslations, getNavLink } from '../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -78,7 +78,7 @@ const t = useTranslations(lang);
             <div class="form-group">
               <label>
                 <input type="checkbox" id="consent" name="consent" required>
-                I have read and accept the <a href="/privacy" target="_blank">data processing policy</a>.
+                I have read and accept the <a href={getNavLink('privacy', lang)} target="_blank">data processing policy</a>.
               </label>
               <span class="error-message" id="consentError"></span>
             </div>

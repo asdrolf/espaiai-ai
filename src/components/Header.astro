@@ -1,7 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE, LANGUAGES } from '../consts';
-import { getLangFromUrl, useTranslations } from '../utils/i18n';
+import { getLangFromUrl, useTranslations, getNavLink } from '../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -18,21 +18,21 @@ const flagMap = {
 <header class="header">
   <div class="container">
     <nav class="nav">
-      <div class="nav-brand">
-        <a href={lang === 'en' ? '/' : `/${lang}/`} class="logo">
+            <div class="nav-brand">
+        <a href={getNavLink('', lang)} class="logo">
           <span class="logo-icon">
-            <picture>
-               <img src="/logoespaiai.webp" alt="Espai.AI logo" class="logo-img" style="height: 48px; width: auto; display: block;" />
-            </picture>
+             <picture>
+                <img src="/logoespaiai.webp" alt="Espai.AI logo" class="logo-img" style="height: 48px; width: auto; display: block;" />
+             </picture>
           </span>
         </a>
       </div>
       
       <div class="nav-menu" id="navMenu" aria-hidden="true">
-        <HeaderLink href={lang === 'en' ? '/' : `/${lang}/`}>{t('nav.home')}</HeaderLink>
-        <HeaderLink href={lang === 'en' ? '/about' : `/${lang}/about`}>{t('nav.about')}</HeaderLink>
-        <HeaderLink href={lang === 'en' ? '/pricing' : `/${lang}/pricing`}>{t('nav.pricing')}</HeaderLink>
-        <HeaderLink href={lang === 'en' ? '/faq' : `/${lang}/faq`}>{t('nav.faq')}</HeaderLink>
+        <HeaderLink href={getNavLink('', lang)}>{t('nav.home')}</HeaderLink>
+        <HeaderLink href={getNavLink('about', lang)}>{t('nav.about')}</HeaderLink>
+        <HeaderLink href={getNavLink('pricing', lang)}>{t('nav.pricing')}</HeaderLink>
+        <HeaderLink href={getNavLink('faq', lang)}>{t('nav.faq')}</HeaderLink>
       </div>
       
       <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu" aria-expanded="false">
@@ -59,7 +59,7 @@ const flagMap = {
             ))}
           </div>
         </div>
-        <a href={lang === 'en' ? '/contact' : `/${lang}/contact`} class="btn btn-secondary">{t('nav.contact')}</a>
+        <a href={getNavLink('contact', lang)} class="btn btn-secondary">{t('nav.contact')}</a>
       </div>
     </nav>
   </div>
@@ -414,10 +414,13 @@ const flagMap = {
       ? segments.join('/') || '/'
       : `/${newLang}${segments.join('/') || '/'}`;
     
+    // Ensure trailing slash for consistency
+    const normalizedPath = newPath.endsWith('/') ? newPath : newPath + '/';
+    
     // Save user's preferred language
     localStorage.setItem('user-preferred-lang', newLang);
     
-    window.location.href = newPath;
+    window.location.href = normalizedPath;
   }
   
   // Handle dropdown toggle

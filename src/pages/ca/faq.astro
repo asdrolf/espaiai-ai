@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+import { getLangFromUrl, useTranslations, getNavLink } from '../../utils/i18n';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -156,7 +156,7 @@ const t = useTranslations(lang);
       <div class="contact-section text-center mt-4">
         <h2>Encara tens preguntes?</h2>
         <p>No pots trobar la resposta que busques? El nostre equip està aquí per ajudar.</p>
-        <a href="/ca/contact" class="btn">Contactar Suport</a>
+        <a href={getNavLink('contact', lang)} class="btn">Contactar Suport</a>
       </div>
     </div>
   </section>

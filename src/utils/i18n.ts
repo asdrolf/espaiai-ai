@@ -27,6 +27,51 @@ export function removeLocaleFromUrl(url: string): string {
   return url;
 }
 
+/**
+ * Ensures a URL has a trailing slash for consistency with trailingSlash: "always"
+ * @param url - The URL to normalize
+ * @returns URL with trailing slash (except for files with extensions)
+ */
+export function ensureTrailingSlash(url: string): string {
+  // Don't add trailing slash to files with extensions
+  if (url.includes('.')) return url;
+  
+  // Don't add trailing slash to root
+  if (url === '/') return url;
+  
+  // Add trailing slash if not present
+  return url.endsWith('/') ? url : url + '/';
+}
+
+/**
+ * Creates a localized URL with proper trailing slash
+ * @param path - The path (e.g., '/about', '/contact')
+ * @param lang - The language code
+ * @returns Localized URL with trailing slash
+ */
+export function getLocalizedPath(path: string, lang: Lang): string {
+  const normalizedPath = ensureTrailingSlash(path);
+  if (lang === DEFAULT_LANG) return normalizedPath;
+  return `/${lang}${normalizedPath}`;
+}
+
+/**
+ * Creates a localized URL for navigation links
+ * @param path - The path (e.g., 'about', 'contact', '' for home)
+ * @param lang - The language code
+ * @returns Localized URL with trailing slash
+ */
+export function getNavLink(path: string, lang: Lang): string {
+  // Handle home page (empty path)
+  if (!path || path === '' || path === '/') {
+    return lang === DEFAULT_LANG ? '/' : `/${lang}/`;
+  }
+  
+  // Ensure path starts with /
+  const fullPath = path.startsWith('/') ? path : `/${path}`;
+  return getLocalizedPath(fullPath, lang);
+}
+
 // Browser language detection functions
 export function detectBrowserLanguage(): Lang | null {
   if (typeof window === 'undefined') return null;
@@ -90,9 +135,12 @@ export function switchToLanguage(newLang: Lang): void {
     ? segments.join('/') || '/'
     : `/${newLang}${segments.join('/') || '/'}`;
   
+  // Ensure trailing slash
+  const normalizedPath = ensureTrailingSlash(newPath);
+  
   // Save user's preferred language
   setUserPreferredLanguage(newLang);
   
   // Navigate to new URL
-  window.location.href = newPath;
+  window.location.href = normalizedPath;
 } 
