@@ -1,0 +1,260 @@
+---
+// Klaro Accessibility Enhancement Component
+// This component ensures the Klaro cookie consent dialog meets accessibility standards
+---
+
+<script>
+  // Enhance Klaro accessibility when the component loads
+  document.addEventListener('DOMContentLoaded', () => {
+    enhanceKlaroAccessibility();
+  });
+
+  function enhanceKlaroAccessibility() {
+    // Wait for Klaro to be available
+    const checkKlaro = () => {
+      if (window.klaro && typeof window.klaro.getManager === 'function') {
+        setupKlaroAccessibility();
+      } else {
+        setTimeout(checkKlaro, 100);
+      }
+    };
+    
+    checkKlaro();
+  }
+
+  function setupKlaroAccessibility() {
+    // Create a mutation observer to watch for dialog creation
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const element = node as Element;
+            if (element.getAttribute('role') === 'dialog') {
+              enhanceDialog(element as HTMLElement);
+            }
+          }
+        });
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Check if dialog already exists
+    const existingDialog = document.querySelector('[role="dialog"]');
+    if (existingDialog) {
+      enhanceDialog(existingDialog as HTMLElement);
+    }
+  }
+
+  function enhanceDialog(dialog: HTMLElement) {
+    // Ensure proper ARIA attributes
+    dialog.setAttribute('aria-modal', 'true');
+    
+    // Find or create title element
+    let titleElement = dialog.querySelector('[id*="title"], h1, h2, .title');
+    if (!titleElement) {
+      titleElement = document.createElement('h2');
+      titleElement.id = 'klaro-dialog-title';
+      titleElement.textContent = 'Cookie Consent';
+      titleElement.style.position = 'absolute';
+      titleElement.style.left = '-10000px';
+      titleElement.style.width = '1px';
+      titleElement.style.height = '1px';
+      titleElement.style.overflow = 'hidden';
+      dialog.appendChild(titleElement);
+    } else {
+      titleElement.id = 'klaro-dialog-title';
+    }
+    
+    // Find or create description element
+    let descriptionElement = dialog.querySelector('[id*="description"], .description, p');
+    if (!descriptionElement) {
+      descriptionElement = document.createElement('div');
+      descriptionElement.id = 'klaro-dialog-description';
+      descriptionElement.textContent = 'Cookie consent dialog for managing website cookies';
+      descriptionElement.style.position = 'absolute';
+      descriptionElement.style.left = '-10000px';
+      descriptionElement.style.width = '1px';
+      descriptionElement.style.height = '1px';
+      descriptionElement.style.overflow = 'hidden';
+      dialog.appendChild(descriptionElement);
+    } else {
+      descriptionElement.id = 'klaro-dialog-description';
+    }
+    
+    // Set proper ARIA attributes
+    dialog.setAttribute('aria-labelledby', 'klaro-dialog-title');
+    dialog.setAttribute('aria-describedby', 'klaro-dialog-description');
+    
+    // Add proper focus management
+    setupFocusManagement(dialog);
+    
+    // Add keyboard navigation
+    setupKeyboardNavigation(dialog);
+  }
+
+  function setupFocusManagement(dialog: HTMLElement) {
+    const focusableElements = dialog.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    
+    if (focusableElements.length === 0) return;
+    
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+    
+    // Focus first element when dialog opens
+    setTimeout(() => {
+      if (firstElement && !dialog.hasAttribute('aria-hidden')) {
+        firstElement.focus();
+      }
+    }, 100);
+    
+    // Store original focus to restore when dialog closes
+    const originalFocus = document.activeElement as HTMLElement;
+    
+    // Restore focus when dialog closes
+    const restoreFocus = () => {
+      if (originalFocus && typeof originalFocus.focus === 'function') {
+        originalFocus.focus();
+      }
+    };
+    
+    // Listen for dialog removal
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.removedNodes.forEach((node) => {
+          if (node === dialog) {
+            restoreFocus();
+            observer.disconnect();
+          }
+        });
+      });
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  function setupKeyboardNavigation(dialog: HTMLElement) {
+    const focusableElements = dialog.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    
+    if (focusableElements.length === 0) return;
+    
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+    
+    dialog.addEventListener('keydown', (e) => {
+      const event = e as KeyboardEvent;
+      
+      // Handle Escape key
+      if (event.key === 'Escape') {
+        const closeButton = dialog.querySelector('.cm-btn-danger, .cm-btn-close, [aria-label*="close"], [aria-label*="Close"]');
+        if (closeButton) {
+          (closeButton as HTMLElement).click();
+        }
+        return;
+      }
+      
+      // Handle Tab key for focus trap
+      if (event.key === 'Tab') {
+        if (event.shiftKey) {
+          if (document.activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    });
+  }
+
+  // Global type declarations
+  declare global {
+    interface Window {
+      klaro?: {
+        getManager: () => {
+          consents: Record<string, boolean>;
+        };
+      };
+    }
+  }
+</script>
+
+<style>
+  /* Ensure dialog has proper styling for accessibility */
+  [role="dialog"] {
+    outline: none;
+  }
+  
+  [role="dialog"]:focus-visible {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+  }
+  
+  /* Ensure proper contrast for accessibility */
+  [role="dialog"] {
+    background: #ffffff;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    /* Let Klaro handle positioning */
+    z-index: 999999 !important;
+    max-width: 400px !important;
+  }
+  
+  /* Ensure buttons have proper focus indicators */
+  [role="dialog"] button:focus-visible {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+  }
+  
+  /* Ensure proper button sizing for touch devices */
+  [role="dialog"] button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    [role="dialog"] {
+      border: 2px solid #000000;
+    }
+    
+    [role="dialog"] button {
+      border: 2px solid #000000;
+    }
+  }
+  
+  /* Responsive design for corner dialog */
+  @media (max-width: 768px) {
+    [role="dialog"] {
+      max-width: none !important;
+      margin: 0 10px !important;
+      padding: 1rem !important;
+      font-size: 0.85rem !important;
+    }
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    [role="dialog"] * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style> 

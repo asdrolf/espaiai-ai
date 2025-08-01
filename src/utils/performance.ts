@@ -136,6 +136,100 @@ export class PerformanceUtils {
     }
   }
 
+  /**
+   * Enhance Klaro accessibility
+   */
+  enhanceKlaroAccessibility(): void {
+    // Wait for Klaro to be loaded and initialized
+    const checkKlaro = () => {
+      if (window.klaro && typeof window.klaro.getManager === 'function') {
+        this.setupKlaroAccessibility();
+      } else {
+        setTimeout(checkKlaro, 100);
+      }
+    };
+    
+    checkKlaro();
+  }
+
+  private setupKlaroAccessibility(): void {
+    // Enhance dialog accessibility
+    const enhanceDialog = () => {
+      const dialog = document.querySelector('[role="dialog"]');
+      if (dialog) {
+        // Ensure dialog has proper ARIA attributes
+        dialog.setAttribute('aria-modal', 'true');
+        dialog.setAttribute('aria-labelledby', 'klaro-dialog-title');
+        dialog.setAttribute('aria-describedby', 'klaro-dialog-description');
+        
+        // Add proper focus management
+        dialog.addEventListener('keydown', (e) => {
+          if ((e as KeyboardEvent).key === 'Escape') {
+            const closeButton = dialog.querySelector('.cm-btn-danger, .cm-btn-close');
+            if (closeButton) {
+              (closeButton as HTMLElement).click();
+            }
+          }
+        });
+
+        // Ensure proper focus trap
+        this.setupFocusTrap(dialog as HTMLElement);
+      }
+    };
+
+    // Run enhancement when dialog appears
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const element = node as Element;
+            if (element.getAttribute('role') === 'dialog') {
+              enhanceDialog();
+            }
+          }
+        });
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Also check immediately in case dialog is already present
+    enhanceDialog();
+  }
+
+  private setupFocusTrap(dialog: HTMLElement): void {
+    const focusableElements = dialog.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+    if (firstElement && lastElement) {
+      dialog.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          if (e.shiftKey) {
+            if (document.activeElement === firstElement) {
+              e.preventDefault();
+              lastElement.focus();
+            }
+          } else {
+            if (document.activeElement === lastElement) {
+              e.preventDefault();
+              firstElement.focus();
+            }
+          }
+        }
+      });
+
+      // Focus first element when dialog opens
+      setTimeout(() => firstElement.focus(), 100);
+    }
+  }
+
   private loadKlaroScripts(): void {
     // Load config first
     const configScript = document.createElement('script');

@@ -330,3 +330,204 @@ a:hover {
     transform: translateY(0);
   }
 }
+
+/* Klaro Accessibility Improvements */
+.klaro-accessibility-enhanced {
+    /* Ensure dialog has proper focus management */
+    outline: none;
+}
+
+.klaro-accessibility-enhanced .cookie-notice {
+    /* Ensure dialog has proper ARIA attributes */
+    role: dialog;
+    aria-modal: true;
+    /* Let Klaro handle positioning, just ensure it's visible */
+    z-index: 999999 !important;
+    max-width: 400px !important;
+}
+
+/* Ensure dialog title is properly accessible */
+.klaro-accessibility-enhanced .cookie-notice h1,
+.klaro-accessibility-enhanced .cookie-notice h2,
+.klaro-accessibility-enhanced .cookie-notice .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color, #333);
+}
+
+/* Ensure dialog description is properly accessible */
+.klaro-accessibility-enhanced .cookie-notice .description {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    color: var(--text-color, #666);
+}
+
+/* Ensure buttons have proper focus indicators */
+.klaro-accessibility-enhanced .cookie-notice button {
+    position: relative;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.klaro-accessibility-enhanced .cookie-notice button:focus-visible {
+    outline: 2px solid var(--accent-color, #007bff);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+}
+
+/* Ensure proper contrast for accessibility */
+.klaro-accessibility-enhanced .cookie-notice {
+    background: var(--bg-color, #ffffff);
+    color: var(--text-color, #333333);
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    z-index: 999999 !important;
+    /* Corner-specific styling */
+    padding: 1.5rem !important;
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+}
+
+/* Ensure proper spacing for screen readers */
+.klaro-accessibility-enhanced .cookie-notice * + * {
+    margin-top: 0.5rem;
+}
+
+/* Ensure proper button sizing for touch devices */
+.klaro-accessibility-enhanced .cookie-notice button {
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    /* Corner-specific button styling */
+    margin: 0.25rem 0.25rem 0 0;
+}
+
+/* Primary button styling */
+.klaro-accessibility-enhanced .cookie-notice .cm-btn-success {
+    background: var(--primary-color, #007bff);
+    color: white;
+}
+
+.klaro-accessibility-enhanced .cookie-notice .cm-btn-success:hover {
+    background: var(--primary-hover, #0056b3);
+}
+
+/* Secondary button styling */
+.klaro-accessibility-enhanced .cookie-notice .cm-btn-danger {
+    background: var(--secondary-color, #6c757d);
+    color: white;
+}
+
+.klaro-accessibility-enhanced .cookie-notice .cm-btn-danger:hover {
+    background: var(--secondary-hover, #545b62);
+}
+
+/* Ensure proper focus management for keyboard navigation */
+.klaro-accessibility-enhanced .cookie-notice:focus {
+    outline: none;
+}
+
+/* Ensure proper screen reader announcements */
+.klaro-accessibility-enhanced .cookie-notice[aria-hidden="true"] {
+    display: none;
+}
+
+/* Ensure proper contrast ratios */
+.klaro-accessibility-enhanced .cookie-notice .cm-link {
+    color: var(--link-color, #007bff);
+    text-decoration: underline;
+}
+
+.klaro-accessibility-enhanced .cookie-notice .cm-link:hover {
+    color: var(--link-hover, #0056b3);
+}
+
+/* Ensure proper form controls accessibility */
+.klaro-accessibility-enhanced .cookie-notice input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem;
+}
+
+.klaro-accessibility-enhanced .cookie-notice label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/* Ensure proper spacing for form elements */
+.klaro-accessibility-enhanced .cookie-notice .cm-services {
+    margin: 1.5rem 0;
+}
+
+.klaro-accessibility-enhanced .cookie-notice .cm-service {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 6px;
+    background: var(--bg-secondary, #f8f9fa);
+}
+
+/* Ensure proper button group layout */
+.klaro-accessibility-enhanced .cookie-notice .cm-btn-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 1rem;
+    /* Corner-specific button group styling */
+    align-items: center;
+}
+
+/* Responsive design for accessibility */
+@media (max-width: 768px) {
+    .klaro-accessibility-enhanced .cookie-notice {
+        max-width: none !important;
+        margin: 0 10px !important;
+        padding: 1rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .klaro-accessibility-enhanced .cookie-notice .cm-btn-group {
+        flex-direction: row;
+        gap: 0.25rem;
+    }
+    
+    .klaro-accessibility-enhanced .cookie-notice .cm-btn-group button {
+        flex: 1;
+        min-width: auto;
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .klaro-accessibility-enhanced .cookie-notice {
+        border: 2px solid var(--text-color, #000);
+    }
+    
+    .klaro-accessibility-enhanced .cookie-notice button {
+        border: 2px solid var(--text-color, #000);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .klaro-accessibility-enhanced .cookie-notice * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
