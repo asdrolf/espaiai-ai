@@ -62,9 +62,8 @@ This document outlines the comprehensive performance optimizations implemented t
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 
 <!-- Preload critical assets -->
-<link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml">
 <link rel="preload" href="/logoespaiai.webp" as="image" type="image/webp">
-<link rel="preload" href="/fonts/AstroSpace.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="/fonts/NasalizationRg.otf" as="font" type="font/otf" crossorigin>
 ```
 
 ### Optimized Font Loading

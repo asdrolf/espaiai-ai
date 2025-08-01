@@ -281,10 +281,8 @@ export class PerformanceUtils {
    */
   preloadCriticalResources(): void {
     const criticalResources: ResourceHint[] = [
-      { rel: 'preload', href: '/favicon.svg', as: 'image', type: 'image/svg+xml' },
       { rel: 'preload', href: '/logoespaiai.webp', as: 'image', type: 'image/webp' },
-      { rel: 'preload', href: '/fonts/AstroSpace.otf', as: 'font', type: 'font/otf', crossorigin: true },
-      { rel: 'preload', href: '/fonts/atkinson-regular.woff', as: 'font', type: 'font/woff', crossorigin: true }
+      { rel: 'preload', href: '/fonts/NasalizationRg.otf', as: 'font', type: 'font/otf', crossorigin: true }
     ];
 
     this.addResourceHints(criticalResources);
