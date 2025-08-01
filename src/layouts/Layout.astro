@@ -20,13 +20,34 @@ const t = useTranslations(lang);
 <html lang={lang}>
   <head>
     <BaseHead title={title} description={description || t('site.description')} />
-    <!-- Klaro CSS -->
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/klaro-config.js" as="script">
+    
+    <!-- Klaro CSS - load asynchronously since it's not critical for initial render -->
     <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" /></noscript>
-    <!-- Klaro config -->
-    <script src="/klaro-config.js" defer></script>
-    <!-- Klaro JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.js"></script>
+    
+    <!-- Load Klaro asynchronously since it's for cookie consent -->
+    <script>
+      // Load Klaro configuration and library asynchronously
+      (function() {
+        // Load config first
+        const configScript = document.createElement('script');
+        configScript.src = '/klaro-config.js';
+        configScript.async = true;
+        
+        // Load Klaro library after config
+        configScript.onload = function() {
+          const klaroScript = document.createElement('script');
+          klaroScript.src = 'https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.js';
+          klaroScript.async = true;
+          document.head.appendChild(klaroScript);
+        };
+        
+        document.head.appendChild(configScript);
+      })();
+    </script>
   </head>
   <body>
     <SpaceBackground />

@@ -48,15 +48,19 @@ export default defineConfig({
   },
   // Ensure trailing slashes for consistency
   trailingSlash: "always",
+  // Performance optimizations
   vite: {
     build: {
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'vendor': ['astro/runtime/client/hmr.js']
-          }
-        }
-      }
+      // Optimize CSS
+      cssCodeSplit: true,
+      // Enable minification
+      minify: 'esbuild',
+      // Optimize assets
+      assetsInlineLimit: 4096,
+    },
+    // Optimize dependencies
+    optimizeDeps: {
+      include: ['klaro']
     }
   }
 });

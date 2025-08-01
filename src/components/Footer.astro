@@ -6,7 +6,35 @@ const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 ---
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<!-- Load Pacifico font asynchronously since it's only used in footer -->
+<script>
+  // Load Pacifico font only when footer becomes visible
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const link = document.createElement('link');
+          link.href = 'https://fonts.googleapis.com/css2?family=Pacifico&display=swap';
+          link.rel = 'stylesheet';
+          document.head.appendChild(link);
+          observer.disconnect();
+        }
+      });
+    });
+    
+    // Observe the footer
+    const footer = document.querySelector('footer');
+    if (footer) {
+      observer.observe(footer);
+    }
+  } else {
+    // Fallback for browsers without IntersectionObserver
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css2?family=Pacifico&display=swap';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }
+</script>
 
 <footer class="footer">
   <div class="container">

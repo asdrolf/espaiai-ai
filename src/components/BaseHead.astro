@@ -64,6 +64,16 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
+<!-- Resource hints for faster loading -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<!-- Preload critical assets -->
+<link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml">
+<link rel="preload" href="/logoespaiai.webp" as="image" type="image/webp">
+
 <!-- SEO Meta Tags -->
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta name="author" content="Espai.ai Team" />
@@ -102,8 +112,30 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <!-- Font preloads and preconnects -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Critical font (Inter) - load immediately with optimized display strategy -->
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" onload="this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+
+<!-- Inline font-face for faster loading of critical font weights -->
+<style>
+  /* Inline critical font fallbacks to prevent layout shift */
+  :root {
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  /* Ensure text remains visible during webfont load */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Inter'), local('Inter-Regular');
+  }
+</style>
+
+<!-- Non-critical font (Pacifico) - will be loaded by footer component -->
+<!-- This font is only used in the footer, so we defer loading it -->
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
