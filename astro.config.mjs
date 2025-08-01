@@ -33,7 +33,7 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: "compile"
   }),
-  output: "static",
+  output: "server",
   image: {
     service: {
       entrypoint: "astro/assets/services/sharp"
