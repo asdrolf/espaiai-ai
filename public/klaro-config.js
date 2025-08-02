@@ -14,6 +14,9 @@ var klaroConfig = {
         theme: ['bottom', 'corner'],
         additionalClass: 'klaro-accessibility-enhanced'
     },
+    // Performance optimizations
+    loadInHead: false, // Load in body to avoid blocking
+    loadAsync: true, // Load asynchronously
     translations: {
         en: {
             consentModal: {

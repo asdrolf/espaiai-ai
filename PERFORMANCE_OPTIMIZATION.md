@@ -1,249 +1,177 @@
-# Performance Optimization Guide - Espai.ai
+# Performance Optimization Improvements
 
 ## Overview
-This document outlines the comprehensive performance optimizations implemented to reduce critical request chains, improve Core Web Vitals scores, and enhance user experience for Espai.ai.
+This document tracks the performance optimizations implemented to reduce the critical request chain and improve Core Web Vitals scores.
 
-## Current Performance Issues Addressed
+## Current Performance Issues
+- **Critical Request Chain**: 288ms latency with sequential requests
+- **Missing Preconnect Hints**: No preconnect to critical origins
+- **Non-optimized Resource Loading**: Klaro and fonts loading could be optimized
+- **Large CSS/JS bundles**: Files could be better optimized
 
-### 1. Critical Request Chains Optimization
-**Problem**: Resources were loading in a chain, creating bottlenecks:
-- Main page: 148ms, 12.91 KiB
-- CSS file: 169ms, 4.64 KiB
-- No preconnect hints for external origins
+## Implemented Optimizations
 
-**Solution**: Implemented comprehensive resource optimization
-- Added preconnect hints for all critical external origins
-- Optimized font loading strategy with `font-display: swap`
-- Implemented critical CSS inlining
-- **Expected improvement**: ~30-50ms reduction in LCP
+### 1. Resource Hints Optimization (`BaseHead.astro`)
 
-### 2. Resource Loading Strategy
-**Problem**: Resources loading sequentially without prioritization
-
-**Solution**: Implemented intelligent resource loading
-- Preload critical assets (fonts, images, CSS)
-- Defer non-critical resources
-- Use `requestIdleCallback` for background tasks
-- **Expected improvement**: ~40-60ms reduction in initial load time
-
-### 3. Font Loading Optimization
-**Problem**: Fonts causing layout shifts and blocking rendering
-
-**Solution**: Optimized font loading strategy
-- Preload critical font weights (400, 500, 600)
-- Use `font-display: swap` for better perceived performance
-- Inline font fallbacks to prevent layout shifts
-- **Expected improvement**: ~20-30ms reduction in CLS
-
-### 4. YouTube Embed Optimization
-**Problem**: YouTube iframes loading immediately on page load
-
-**Solution**: Implemented lazy loading with click-to-play
-- Replaced immediate iframe with attractive placeholder
-- YouTube scripts only load when user clicks to play
-- **Expected reduction**: ~1,200ms in initial JavaScript execution
-
-### 5. Cookie Consent (Klaro) Optimization
-**Problem**: Klaro library loading from CDN was blocking initial render
-
-**Solution**: Deferred loading with aggressive delays
-- Increased timeout from 2000ms to 3000ms
-- Added 1.5s additional delay after DOM ready
-- **Expected reduction**: ~98ms in initial JavaScript execution
-
-## Implementation Details
-
-### Resource Hints and Preconnects
+#### Added DNS Prefetch for External Domains
 ```html
-<!-- Preconnect to critical origins -->
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://www.google-analytics.com">
+```
+
+#### Added Preconnect to Critical Origins
+```html
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-
-<!-- Preload critical assets -->
-<link rel="preload" href="/logoespaiai.webp" as="image" type="image/webp">
-<link rel="preload" href="/fonts/NasalizationRg.otf" as="font" type="font/otf" crossorigin>
+<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 ```
 
-### Optimized Font Loading
-```css
-/* Inline critical font fallbacks */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Inter'), local('Inter-Regular');
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: local('Inter'), local('Inter-Medium');
-}
+#### Preload Critical CSS and JS Files
+```html
+<link rel="preload" href="/_astro/performance.Bo0i0zB0.js" as="script" crossorigin>
+<link rel="preload" href="/_astro/about.BImT8VLy.css" as="style" crossorigin>
 ```
 
-### Performance Utilities
-Created `src/utils/performance.ts` with comprehensive utilities:
-- Core Web Vitals monitoring
-- Resource hint management
-- Lazy loading with Intersection Observer
-- YouTube optimization utilities
-- Cookie consent optimization
-- Performance metrics tracking
+### 2. Astro Configuration Optimization (`astro.config.mjs`)
 
-### Astro Configuration Optimizations
+#### Build Optimizations
+- **Target**: Set to `esnext` for modern browsers
+- **Source Maps**: Disabled in production
+- **Manual Chunks**: Separated performance utilities
+- **Compression**: Enabled for server responses
+
+#### Experimental Features
+- **View Transitions**: Enabled for better UX
+- **Assets Optimization**: Enabled for better asset handling
+
+### 3. Performance Utilities Enhancement (`performance.ts`)
+
+#### Klaro Loading Optimization
+- **Reduced Timeouts**: From 3000ms to 2000ms
+- **Reduced Delays**: From 1500ms to 1000ms
+- **Higher Priority**: Added `fetchPriority: 'high'` to scripts
+
+#### Resource Preloading
+- **Critical Resources**: Preload performance.js and about.css
+- **Optimized Loading**: Better resource hint management
+
+### 4. Klaro Configuration Optimization (`klaro-config.js`)
+
+#### Performance Settings
 ```javascript
-// Optimized build configuration
-vite: {
-  build: {
-    assetsInlineLimit: 8192, // Increased for critical CSS
-    chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['klaro'],
-          fonts: ['@fontsource/inter']
-        }
-      }
-    }
-  },
-  optimizeDeps: {
-    include: ['klaro'],
-    force: true
-  }
-}
+loadInHead: false, // Load in body to avoid blocking
+loadAsync: true,   // Load asynchronously
 ```
 
 ## Expected Performance Improvements
 
-### Critical Request Chains
-- **Before**: Sequential loading causing bottlenecks
-- **After**: Parallel loading with preconnects
-- **Improvement**: ~30-50ms reduction in LCP
+### Critical Request Chain
+- **Before**: 288ms latency with sequential requests
+- **After**: Expected reduction to ~150-200ms with parallel loading
 
-### Core Web Vitals Impact
-- **LCP**: Improved from 169ms to ~120-140ms
-- **FID**: Improved due to reduced main thread blocking
-- **CLS**: Improved due to better font loading strategy
-- **TBT**: Reduced by ~80-85% through deferred loading
+### Core Web Vitals
+- **LCP**: Improved with preloaded critical resources
+- **FID**: Reduced with optimized script loading
+- **CLS**: Maintained with font optimization
 
 ### Resource Loading
-- **Font Loading**: Optimized with preloads and fallbacks
-- **Image Loading**: Critical images preloaded
-- **CSS Loading**: Critical CSS inlined, non-critical deferred
-- **JavaScript**: Non-critical scripts deferred with `requestIdleCallback`
+- **DNS Resolution**: Faster with prefetch hints
+- **Connection Establishment**: Faster with preconnect hints
+- **Resource Download**: Parallel loading of critical resources
 
-## Monitoring and Maintenance
+## Monitoring and Validation
 
-### Performance Monitoring
-Use the performance utilities to monitor execution times:
-```javascript
-import { performanceUtils } from '../utils/performance';
+### Performance Metrics to Track
+1. **Largest Contentful Paint (LCP)**
+2. **First Input Delay (FID)**
+3. **Cumulative Layout Shift (CLS)**
+4. **Critical Request Chain Length**
+5. **Total Blocking Time (TBT)**
 
-// Monitor Core Web Vitals
-performanceUtils.monitorCoreWebVitals();
+### Tools for Monitoring
+- **Lighthouse**: Core Web Vitals measurement
+- **WebPageTest**: Detailed performance analysis
+- **Chrome DevTools**: Network and performance profiling
+- **Real User Monitoring**: Actual user experience data
 
-// Measure specific functions
-performanceUtils.measureExecutionTime(() => {
-  // Your code here
-}, 'Function Name');
-```
+## Additional Recommendations
 
-### Core Web Vitals Tracking
-The performance utilities automatically track:
-- **LCP** (Largest Contentful Paint)
-- **FID** (First Input Delay)
-- **CLS** (Cumulative Layout Shift)
-- **TBT** (Total Blocking Time)
+### 1. Image Optimization
+- Consider using WebP format for all images
+- Implement responsive images with `srcset`
+- Use lazy loading for below-the-fold images
 
-### Regular Audits
-- Monitor Core Web Vitals in Google PageSpeed Insights
-- Check JavaScript execution times in Chrome DevTools
-- Review bundle sizes and loading strategies
-- Test on various devices and network conditions
+### 2. Font Optimization
+- Consider self-hosting critical fonts
+- Implement font-display: swap for all fonts
+- Preload only the most critical font weights
 
-## Best Practices for Future Development
-
-### 1. Resource Loading
-```javascript
-// Use performance utilities for deferred execution
-performanceUtils.deferExecution(() => {
-  // Non-critical functionality
-}, 1000);
-
-// Add resource hints for new external resources
-performanceUtils.addResourceHints([
-  { rel: 'preconnect', href: 'https://new-cdn.com', crossorigin: true }
-]);
-```
-
-### 2. Lazy Loading
-```javascript
-// Use Intersection Observer for lazy loading
-performanceUtils.createLazyLoader('.lazy-element', (element) => {
-  // Load content when element is visible
-});
-```
-
-### 3. Third-Party Scripts
-- Always defer third-party scripts
-- Use async loading when possible
-- Implement consent-based loading
+### 3. Third-party Scripts
+- Audit and remove unnecessary third-party scripts
+- Use async/defer attributes appropriately
 - Consider self-hosting critical third-party resources
 
-### 4. Performance Budgets
-- **Initial JavaScript**: < 200KB
-- **Total Blocking Time**: < 200ms
-- **First Input Delay**: < 100ms
-- **Largest Contentful Paint**: < 2.5s
-- **Cumulative Layout Shift**: < 0.1
+### 4. Caching Strategy
+- Implement proper cache headers
+- Use service workers for offline functionality
+- Consider CDN for static assets
 
-## Testing Performance Improvements
+## Implementation Status
 
-### Tools to Use
-1. **Google PageSpeed Insights**: Core Web Vitals measurement
-2. **Chrome DevTools**: Performance profiling
-3. **WebPageTest**: Detailed performance analysis
-4. **Lighthouse**: Performance auditing
-5. **Built-in Performance Utils**: Real-time monitoring
+### ✅ Completed
+- [x] Resource hints optimization
+- [x] Astro configuration improvements
+- [x] Performance utilities enhancement
+- [x] Klaro configuration optimization
+- [x] Critical resource preloading
 
-### Key Metrics to Monitor
-- Critical Request Chains length
-- Resource loading times
-- Core Web Vitals scores
-- JavaScript execution time
-- Bundle sizes and chunk distribution
+### 🔄 In Progress
+- [ ] Performance monitoring implementation
+- [ ] Real user monitoring setup
 
-## Conclusion
+### 📋 Planned
+- [ ] Image optimization audit
+- [ ] Font loading optimization
+- [ ] Third-party script audit
+- [ ] Caching strategy implementation
 
-These optimizations provide a comprehensive solution for:
-- **Reducing critical request chains** by ~30-50ms
-- **Improving Core Web Vitals** across all metrics
-- **Enhancing user experience** with faster loading
-- **Setting up monitoring** for ongoing performance tracking
+## Testing Instructions
 
-The performance utilities provide a foundation for maintaining and improving performance as the application grows, with built-in monitoring and optimization tools.
+### 1. Performance Testing
+```bash
+# Run Lighthouse audit
+npm run lighthouse
 
-## Quick Reference
+# Run WebPageTest
+# Visit https://www.webpagetest.org/ and test espai.ai
+```
 
-### Critical Request Chain Optimization
-- ✅ Preconnect hints for external origins
-- ✅ Preload critical assets
-- ✅ Optimize font loading
-- ✅ Defer non-critical resources
+### 2. Development Testing
+```bash
+# Build and preview
+npm run build
+npm run preview
 
-### Core Web Vitals Targets
-- **LCP**: < 2.5s (Current: ~169ms → Target: < 150ms)
-- **FID**: < 100ms
-- **CLS**: < 0.1
-- **TBT**: < 200ms
+# Check bundle sizes
+npm run analyze
+```
 
-### Performance Utilities
-- `performanceUtils.monitorCoreWebVitals()` - Monitor metrics
-- `performanceUtils.optimizeKlaroLoading()` - Optimize consent
-- `performanceUtils.optimizeYouTubeLoading()` - Lazy load videos
-- `performanceUtils.preloadCriticalResources()` - Preload assets 
+### 3. Production Testing
+```bash
+# Deploy to production
+npm run deploy
+
+# Monitor performance in real environment
+```
+
+## Notes
+- All optimizations maintain existing functionality
+- Cookie consent and accessibility features preserved
+- Multi-language support maintained
+- SEO optimizations enhanced
+
+## Future Improvements
+1. **Service Worker**: Implement for offline functionality
+2. **HTTP/2 Push**: Consider for critical resources
+3. **Critical CSS Inlining**: For above-the-fold content
+4. **Resource Hints API**: For dynamic resource hints
+5. **Performance Budget**: Establish and monitor performance budgets 

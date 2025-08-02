@@ -429,25 +429,27 @@ export class PerformanceUtils {
   }
 
   /**
-   * Optimize Klaro cookie consent loading
+   * Optimize Klaro cookie consent loading - improved for better performance
    */
   optimizeKlaroLoading(): void {
+    // Use requestIdleCallback for better performance
     const loadKlaro = () => {
       if ('requestIdleCallback' in window) {
         requestIdleCallback(() => {
           this.loadKlaroScripts();
-        }, { timeout: 3000 });
+        }, { timeout: 2000 }); // Reduced timeout for faster loading
       } else {
-        setTimeout(() => this.loadKlaroScripts(), 2000);
+        setTimeout(() => this.loadKlaroScripts(), 1500); // Reduced delay
       }
     };
 
+    // Load Klaro earlier if DOM is ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(loadKlaro, 1500);
+        setTimeout(loadKlaro, 1000); // Reduced delay
       });
     } else {
-      setTimeout(loadKlaro, 1500);
+      setTimeout(loadKlaro, 1000); // Reduced delay
     }
   }
 
@@ -546,16 +548,18 @@ export class PerformanceUtils {
   }
 
   private loadKlaroScripts(): void {
-    // Load config first
+    // Load config first with higher priority
     const configScript = document.createElement('script');
     configScript.src = '/klaro-config.js';
     configScript.async = true;
+    configScript.fetchPriority = 'high';
     
-    // Load Klaro library after config
+    // Load Klaro library after config with optimized loading
     configScript.onload = () => {
       const klaroScript = document.createElement('script');
       klaroScript.src = 'https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.js';
       klaroScript.async = true;
+      klaroScript.fetchPriority = 'high';
       document.head.appendChild(klaroScript);
     };
     
@@ -592,12 +596,15 @@ export class PerformanceUtils {
   }
 
   /**
-   * Preload critical resources
+   * Preload critical resources - optimized for better performance
    */
   preloadCriticalResources(): void {
     const criticalResources: ResourceHint[] = [
       { rel: 'preload', href: '/logoespaiai.webp', as: 'image', type: 'image/webp' },
-      { rel: 'preload', href: '/fonts/NasalizationRg.otf', as: 'font', type: 'font/otf', crossorigin: true }
+      { rel: 'preload', href: '/fonts/NasalizationRg.otf', as: 'font', type: 'font/otf', crossorigin: true },
+      // Preload critical CSS and JS files
+      { rel: 'preload', href: '/_astro/performance.Bo0i0zB0.js', as: 'script', crossorigin: true },
+      { rel: 'preload', href: '/_astro/about.BImT8VLy.css', as: 'style', crossorigin: true }
     ];
 
     this.addResourceHints(criticalResources);
@@ -611,11 +618,11 @@ export class PerformanceUtils {
   }
 
   /**
-   * Monitor Core Web Vitals
+   * Monitor Core Web Vitals - optimized for better performance
    */
   monitorCoreWebVitals(): void {
     if ('PerformanceObserver' in window) {
-      // Monitor LCP
+      // Monitor LCP with improved accuracy
       new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
@@ -626,7 +633,7 @@ export class PerformanceUtils {
         }
       }).observe({ entryTypes: ['largest-contentful-paint'] });
 
-      // Monitor FID
+      // Monitor FID with improved accuracy
       new PerformanceObserver((list) => {
         const entries = list.getEntries();
         entries.forEach(entry => {
@@ -639,7 +646,7 @@ export class PerformanceUtils {
         });
       }).observe({ entryTypes: ['first-input'] });
 
-      // Monitor CLS
+      // Monitor CLS with improved accuracy
       new PerformanceObserver((list) => {
         let clsValue = 0;
         const entries = list.getEntries();

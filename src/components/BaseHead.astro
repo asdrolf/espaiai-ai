@@ -64,19 +64,28 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Resource hints for faster loading -->
+<!-- Critical Resource Hints - Optimized for faster loading -->
+<!-- DNS prefetch for all external domains -->
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://www.google-analytics.com">
 
 <!-- Preconnect to critical origins to establish connections early -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 
 <!-- Preload critical assets with higher priority -->
 <link rel="preload" href="/logoespaiai.webp" as="image" type="image/webp">
 <link rel="preload" href="/fonts/NasalizationRg.otf" as="font" type="font/otf" crossorigin>
+
+<!-- Preload critical CSS and JS -->
+<link rel="preload" href="/_astro/performance.Bo0i0zB0.js" as="script" crossorigin>
+<link rel="preload" href="/_astro/about.BImT8VLy.css" as="style" crossorigin>
 
 <!-- SEO Meta Tags -->
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -113,7 +122,7 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 <meta name="technology-stack" content="Artificial Intelligence, Machine Learning, Process Mining, Workflow Automation" />
 <meta name="business-model" content="SaaS, Pay-per-device" />
 
-<!-- Optimized font loading strategy -->
+<!-- Optimized font loading strategy with display=swap -->
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" onload="this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
 

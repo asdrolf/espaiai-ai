@@ -63,13 +63,17 @@ export default defineConfig({
       rollupOptions: {
         output: {
           manualChunks: {
-            // Separate vendor chunks
-            vendor: ['klaro'],
             // Separate font chunks
-            fonts: ['@fontsource/inter']
+            fonts: ['@fontsource/inter'],
+            // Separate performance utilities
+            performance: ['../utils/performance']
           }
         }
-      }
+      },
+      // Optimize target for modern browsers
+      target: 'esnext',
+      // Enable source maps only in development
+      sourcemap: false
     },
     // Optimize dependencies
     optimizeDeps: {
@@ -83,8 +87,8 @@ export default defineConfig({
       // Optimize CSS output
       postcss: {
         plugins: [
-                  // Add autoprefixer for better browser compatibility
-        autoprefixer
+          // Add autoprefixer for better browser compatibility
+          autoprefixer
         ]
       }
     }
