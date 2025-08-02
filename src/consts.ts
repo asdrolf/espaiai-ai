@@ -34,7 +34,7 @@ export const UI_TEXT = {
     'hero.title': 'Optimize Your Business Processes with AI',
     'hero.subtitle': 'Discover bottlenecks, automate workflows, and unlock your company\'s potential with intelligent process analysis',
     'hero.cta': 'Get Started',
-    'hero.cta.secondary': 'Learn More',
+    'hero.cta.secondary': 'View FAQ',
     'footer.rights': 'All rights reserved.',
     'footer.crafted': 'crafted with ♡ in barcelona',
     // Contact form translations
@@ -86,7 +86,7 @@ export const UI_TEXT = {
     'hero.title': 'Optimiza tus Procesos Empresariales con IA',
     'hero.subtitle': 'Descubre cuellos de botella, automatiza flujos de trabajo y desbloquea el potencial de tu empresa con análisis inteligente de procesos',
     'hero.cta': 'Comenzar',
-    'hero.cta.secondary': 'Saber Más',
+    'hero.cta.secondary': 'Ver FAQ',
     'footer.rights': 'Todos los derechos reservados.',
     'footer.crafted': 'creado con ♡ en barcelona',
     // Contact form translations
@@ -138,7 +138,7 @@ export const UI_TEXT = {
     'hero.title': 'Optimitza els teus Processos Empresarials amb IA',
     'hero.subtitle': 'Descobreix colls d\'ampolla, automatitza fluxos de treball i desbloqueja el potencial de la teva empresa amb anàlisi intel·ligent de processos',
     'hero.cta': 'Començar',
-    'hero.cta.secondary': 'Saber-ne Més',
+    'hero.cta.secondary': 'Veure FAQ',
     'footer.rights': 'Tots els drets reservats.',
     'footer.crafted': 'fet amb ♡ a barcelona',
     // Contact form translations
@@ -190,7 +190,7 @@ export const UI_TEXT = {
     'hero.title': 'Optimieren Sie Ihre Geschäftsprozesse mit KI',
     'hero.subtitle': 'Entdecken Sie Engpässe, automatisieren Sie Arbeitsabläufe und erschließen Sie das Potenzial Ihres Unternehmens mit intelligenter Prozessanalyse',
     'hero.cta': 'Loslegen',
-    'hero.cta.secondary': 'Mehr erfahren',
+    'hero.cta.secondary': 'FAQ ansehen',
     'footer.rights': 'Alle Rechte vorbehalten.',
     'footer.crafted': 'gemacht mit ♡ in barcelona',
     // Contact form translations
