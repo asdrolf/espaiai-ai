@@ -24,6 +24,14 @@ var klaroConfig = {
                 declineAll: 'Decline all cookies',
                 close: 'Close cookie settings'
             },
+            notice: {
+                title: 'Cookie consent',
+                description: 'We use cookies to ensure you get the best experience. You can choose which cookies you want to allow.',
+                acceptAll: 'Accept all cookies',
+                acceptSelected: 'Accept selected cookies',
+                declineAll: 'Decline all cookies',
+                close: 'Close cookie settings'
+            },
             googleAnalytics: {
                 description: 'Google Analytics is used to collect anonymous usage statistics.',
                 title: 'Google Analytics'
@@ -35,10 +43,6 @@ var klaroConfig = {
             purposes: {
                 analytics: 'Analytics'
             },
-            // Add accessibility-specific translations
-            purposes: {
-                analytics: 'Analytics'
-            },
             ok: 'OK',
             accept: 'Accept',
             decline: 'Decline',
@@ -47,6 +51,14 @@ var klaroConfig = {
         },
         es: {
             consentModal: {
+                title: 'Consentimiento de cookies',
+                description: 'Utilizamos cookies para asegurarnos de que obtienes la mejor experiencia. Puedes elegir qué cookies permitir.',
+                acceptAll: 'Aceptar todas las cookies',
+                acceptSelected: 'Aceptar cookies seleccionadas',
+                declineAll: 'Rechazar todas las cookies',
+                close: 'Cerrar configuración de cookies'
+            },
+            notice: {
                 title: 'Consentimiento de cookies',
                 description: 'Utilizamos cookies para asegurarnos de que obtienes la mejor experiencia. Puedes elegir qué cookies permitir.',
                 acceptAll: 'Aceptar todas las cookies',
@@ -80,6 +92,14 @@ var klaroConfig = {
                 declineAll: 'Rebutjar totes les cookies',
                 close: 'Tancar configuració de cookies'
             },
+            notice: {
+                title: 'Consentiment de cookies',
+                description: 'Utilitzem cookies per assegurar-nos que obtens la millor experiència. Pots triar quines cookies vols permetre.',
+                acceptAll: 'Acceptar totes les cookies',
+                acceptSelected: 'Acceptar cookies seleccionades',
+                declineAll: 'Rebutjar totes les cookies',
+                close: 'Tancar configuració de cookies'
+            },
             googleAnalytics: {
                 description: 'Google Analytics s\'utilitza per recopilar estadístiques d\'ús anònimes.',
                 title: 'Google Analytics'
@@ -99,6 +119,14 @@ var klaroConfig = {
         },
         de: {
             consentModal: {
+                title: 'Cookie-Einwilligung',
+                description: 'Wir verwenden Cookies, um sicherzustellen, dass Sie die beste Erfahrung machen. Sie können auswählen, welche Cookies Sie zulassen möchten.',
+                acceptAll: 'Alle Cookies akzeptieren',
+                acceptSelected: 'Ausgewählte Cookies akzeptieren',
+                declineAll: 'Alle Cookies ablehnen',
+                close: 'Cookie-Einstellungen schließen'
+            },
+            notice: {
                 title: 'Cookie-Einwilligung',
                 description: 'Wir verwenden Cookies, um sicherzustellen, dass Sie die beste Erfahrung machen. Sie können auswählen, welche Cookies Sie zulassen möchten.',
                 acceptAll: 'Alle Cookies akzeptieren',

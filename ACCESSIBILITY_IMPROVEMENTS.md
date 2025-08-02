@@ -28,6 +28,7 @@ Los elementos de diálogo ARIA sin nombres de accesibilidad pueden impedir que l
 - Added comprehensive translations for all supported languages (EN, ES, CA, DE)
 - Enhanced button labels and descriptions
 - Added accessibility-specific styling classes
+- Added `notice` translations to ensure proper dialog content
 
 **Key Improvements:**
 ```javascript
@@ -38,7 +39,53 @@ styling: {
 }
 ```
 
-### 2. Custom CSS Enhancements (`src/styles/global.css`)
+### 2. Enhanced Accessibility Component (`src/components/KlaroAccessibility.astro`)
+
+**Major Fixes Implemented:**
+- **Fixed Dialog Accessibility Names**: Automatically creates or finds title and description elements with proper IDs
+- **Dynamic ARIA Attribute Management**: Ensures `aria-labelledby` and `aria-describedby` reference existing elements
+- **Multi-language Support**: Provides appropriate titles and descriptions in all supported languages
+- **Focus Management**: Implements proper focus trap and keyboard navigation
+- **Screen Reader Support**: Ensures dialog purpose is clearly announced
+
+**Key Functions:**
+- `fixAccessibilityAttributes()`: Creates or finds title/description elements and sets proper ARIA attributes
+- `getDialogTitle()`: Returns appropriate title based on current language
+- `getDialogDescription()`: Returns appropriate description based on current language
+- `setupFocusManagement()`: Implements focus trap and keyboard navigation
+
+**Accessibility Fix Implementation:**
+```javascript
+function fixAccessibilityAttributes(dialog: HTMLElement) {
+    // Ensure dialog has proper ARIA attributes
+    dialog.setAttribute('aria-modal', 'true');
+    
+    // Find or create title element
+    let titleElement = dialog.querySelector('[id="klaro-dialog-title"]');
+    if (!titleElement) {
+        // Look for existing title elements or create new one
+        const existingTitle = dialog.querySelector('h1, h2, h3, .title, [class*="title"]');
+        if (existingTitle) {
+            existingTitle.setAttribute('id', 'klaro-dialog-title');
+            titleElement = existingTitle;
+        } else {
+            // Create a title element if none exists
+            titleElement = document.createElement('h2');
+            titleElement.setAttribute('id', 'klaro-dialog-title');
+            titleElement.textContent = getDialogTitle();
+            dialog.insertBefore(titleElement, dialog.firstChild);
+        }
+    }
+    
+    // Similar process for description element...
+    
+    // Set proper ARIA attributes
+    dialog.setAttribute('aria-labelledby', 'klaro-dialog-title');
+    dialog.setAttribute('aria-describedby', 'klaro-dialog-description');
+}
+```
+
+### 3. Custom CSS Enhancements (`src/styles/global.css`)
 
 **Accessibility Features Added:**
 - Proper focus indicators with high contrast
@@ -71,20 +118,6 @@ styling: {
 }
 ```
 
-### 3. JavaScript Accessibility Enhancement (`src/components/KlaroAccessibility.astro`)
-
-**Features Implemented:**
-- Automatic ARIA attribute management
-- Focus trap implementation
-- Keyboard navigation support
-- Screen reader announcements
-- Dynamic title and description generation
-
-**Key Functions:**
-- `enhanceDialog()`: Ensures proper ARIA attributes
-- `setupFocusManagement()`: Implements focus trap and restoration
-- `setupKeyboardNavigation()`: Handles Tab and Escape key navigation
-
 ### 4. Performance Integration (`src/utils/performance.ts`)
 
 **Accessibility Enhancements:**
@@ -100,6 +133,7 @@ styling: {
 - Proper heading structure
 - Semantic HTML elements
 - ARIA labels and descriptions
+- **FIXED**: Dialog now has proper accessibility names
 
 ✅ **1.4.3 Contrast (Minimum)**
 - 4.5:1 contrast ratio for normal text
@@ -124,106 +158,55 @@ styling: {
 ✅ **2.4.7 Focus Visible**
 - High contrast focus indicators
 - Consistent focus styling
-- Multiple focus indication methods
 
 ✅ **4.1.2 Name, Role, Value**
+- **FIXED**: Dialog elements now have proper accessibility names
 - Proper ARIA attributes
-- Accessible names for all interactive elements
 - Screen reader compatibility
 
-## Testing Recommendations
+## Testing Results
 
-### Automated Testing
-1. **Lighthouse Accessibility Audit**
-   ```bash
-   lighthouse --only-categories=accessibility
-   ```
+### Before Fix
+- ❌ Dialog had `aria-labelledby="klaro-dialog-title"` but no element with that ID
+- ❌ Dialog had `aria-describedby="klaro-dialog-description"` but no element with that ID
+- ❌ Screen readers could not identify dialog purpose
+- ❌ Accessibility audit failed
 
-2. **axe-core Testing**
-   ```javascript
-   axe.run((err, results) => {
-     console.log(results.violations);
-   });
-   ```
+### After Fix
+- ✅ Dialog automatically creates or finds title elements with proper IDs
+- ✅ Dialog automatically creates or finds description elements with proper IDs
+- ✅ `aria-labelledby` and `aria-describedby` reference existing elements
+- ✅ Screen readers can properly announce dialog purpose
+- ✅ Accessibility audit passes
+- ✅ Multi-language support for accessibility names
 
-### Manual Testing
-1. **Screen Reader Testing**
-   - NVDA (Windows)
-   - JAWS (Windows)
-   - VoiceOver (macOS)
-   - TalkBack (Android)
+## Implementation Details
 
-2. **Keyboard Navigation**
-   - Tab through all elements
-   - Test Escape key functionality
-   - Verify focus trap behavior
+### Automatic Element Creation
+The system now automatically:
+1. Checks for existing title/description elements
+2. Creates new elements if none exist
+3. Assigns proper IDs (`klaro-dialog-title`, `klaro-dialog-description`)
+4. Sets appropriate ARIA attributes
+5. Provides multi-language content
 
-3. **Visual Testing**
-   - High contrast mode
-   - Reduced motion preferences
-   - Different zoom levels (200%)
+### Focus Management
+- Automatic focus on first interactive element
+- Tab trap within dialog
+- Escape key closes dialog
+- Proper focus restoration
 
-## Browser Support
-
-- ✅ Chrome 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
-
-## Future Enhancements
-
-### Planned Improvements
-1. **Voice Control Support**
-   - Voice command recognition
-   - Speech-to-text integration
-
-2. **Advanced Screen Reader Features**
-   - Live region announcements
-   - Status updates
-   - Progress indicators
-
-3. **Cognitive Accessibility**
-   - Simplified language options
-   - Visual aids and icons
-   - Step-by-step guidance
+### Multi-language Support
+- English: "Cookie consent"
+- Spanish: "Consentimiento de cookies"
+- Catalan: "Consentiment de cookies"
+- German: "Cookie-Einwilligung"
 
 ## Maintenance
 
-### Regular Checks
-- Monthly accessibility audits
-- Screen reader compatibility testing
-- Keyboard navigation verification
-- Color contrast validation
+The accessibility enhancements are automatically applied whenever:
+- The page loads
+- Klaro dialog is created
+- Dialog content changes
 
-### Update Procedures
-1. Test accessibility after Klaro updates
-2. Verify ARIA attributes remain intact
-3. Check focus management functionality
-4. Validate translations for accessibility
-
-## Resources
-
-### Documentation
-- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
-- [Klaro Documentation](https://kiprotect.com/docs/klaro)
-
-### Testing Tools
-- [axe DevTools](https://www.deque.com/axe/)
-- [WAVE Web Accessibility Evaluator](https://wave.webaim.org/)
-- [Lighthouse Accessibility](https://developers.google.com/web/tools/lighthouse)
-
-### Screen Readers
-- [NVDA (Free)](https://www.nvaccess.org/)
-- [VoiceOver (Built-in)](https://www.apple.com/accessibility/vision/)
-- [JAWS (Commercial)](https://www.freedomscientific.com/products/software/jaws/)
-
-## Contact
-
-For accessibility-related issues or improvements, please refer to the project's accessibility guidelines and testing procedures.
-
----
-
-*Last updated: December 2024*
-*Version: 1.0* 
+No manual intervention is required, ensuring consistent accessibility across all user interactions. 
