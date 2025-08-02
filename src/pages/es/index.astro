@@ -286,43 +286,11 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-  // Lazy load YouTube video only when user clicks
+  // Use performance utilities for optimized YouTube loading
+  import { performanceUtils } from '../utils/performance.js';
+  
   document.addEventListener('DOMContentLoaded', function() {
-    const placeholder = document.getElementById('youtube-placeholder');
-    if (!placeholder) return;
-
-    placeholder.addEventListener('click', function() {
-      // Check YouTube consent before loading
-      if (window.klaro && !window.klaro.getManager().consents.youtube) {
-        // Show consent request for YouTube
-        window.klaro.getManager().showConsentModal();
-        return;
-      }
-      
-      // Create iframe only when clicked and consent given
-      const iframe = document.createElement('iframe');
-      iframe.width = '560';
-      iframe.height = '315';
-      iframe.src = 'https://www.youtube-nocookie.com/embed/0hypUiBaT3Q?si=8fWvfSFNjr-paqAy&autoplay=1';
-      iframe.title = 'YouTube video player';
-      iframe.frameBorder = '0';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-      iframe.allowFullscreen = true;
-      iframe.style.borderRadius = '16px';
-      
-      // Replace placeholder with iframe
-      placeholder.parentNode.replaceChild(iframe, placeholder);
-      
-      // Track video play event for analytics (if consent given)
-      if (window.klaro && window.klaro.getManager().consents.googleAnalytics) {
-        if (window.gtag) {
-          window.gtag('event', 'video_play', {
-            'event_category': 'engagement',
-            'event_label': 'demo_video'
-          });
-        }
-      }
-    });
+    // Optimize YouTube video loading with improved UX
+    performanceUtils.optimizeYouTubeLoading('youtube-placeholder', '0hypUiBaT3Q');
   });
 </script> 

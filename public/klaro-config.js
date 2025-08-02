@@ -29,8 +29,8 @@ var klaroConfig = {
                 title: 'Google Analytics'
             },
             youtube: {
-                description: 'YouTube is used to display video content. YouTube may set cookies for analytics and personalization.',
-                title: 'YouTube'
+                description: 'YouTube is required to display our demo video. YouTube may set cookies for analytics and personalization. You need to accept this to watch videos on our site.',
+                title: 'YouTube Videos'
             },
             purposes: {
                 analytics: 'Analytics'
@@ -59,8 +59,8 @@ var klaroConfig = {
                 title: 'Google Analytics'
             },
             youtube: {
-                description: 'YouTube se utiliza para mostrar contenido de video. YouTube puede establecer cookies para análisis y personalización.',
-                title: 'YouTube'
+                description: 'YouTube es necesario para mostrar nuestro video de demostración. YouTube puede establecer cookies para análisis y personalización. Necesitas aceptar esto para ver videos en nuestro sitio.',
+                title: 'Videos de YouTube'
             },
             purposes: {
                 analytics: 'Analítica'
@@ -85,8 +85,8 @@ var klaroConfig = {
                 title: 'Google Analytics'
             },
             youtube: {
-                description: 'YouTube s\'utilitza per mostrar contingut de vídeo. YouTube pot establir cookies per a l\'anàlisi i la personalització.',
-                title: 'YouTube'
+                description: 'YouTube és necessari per mostrar el nostre vídeo de demostració. YouTube pot establir cookies per a l\'anàlisi i la personalització. Has d\'acceptar això per veure vídeos al nostre lloc.',
+                title: 'Vídeos de YouTube'
             },
             purposes: {
                 analytics: 'Analítica'
@@ -111,8 +111,8 @@ var klaroConfig = {
                 title: 'Google Analytics'
             },
             youtube: {
-                description: 'YouTube wird verwendet, um Videoinhalte anzuzeigen. YouTube kann Cookies für Analysen und Personalisierung setzen.',
-                title: 'YouTube'
+                description: 'YouTube wird benötigt, um unser Demo-Video anzuzeigen. YouTube kann Cookies für Analysen und Personalisierung setzen. Sie müssen dies akzeptieren, um Videos auf unserer Website anzusehen.',
+                title: 'YouTube Videos'
             },
             purposes: {
                 analytics: 'Analyse'
