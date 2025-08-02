@@ -1,6 +1,6 @@
 ---
 // Klaro Accessibility Enhancement Component
-// This component ensures the Klaro cookie consent dialog meets accessibility standards
+// Simple component to improve contrast and accessibility of Klaro cookie dialog
 ---
 
 <script>
@@ -29,7 +29,9 @@
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === Node.ELEMENT_NODE) {
             const element = node as Element;
-            if (element.getAttribute('role') === 'dialog') {
+            if (element.getAttribute('role') === 'dialog' || 
+                element.classList.contains('cookie-notice') ||
+                element.id === 'klaro-cookie-notice') {
               enhanceDialog(element as HTMLElement);
             }
           }
@@ -43,141 +45,92 @@
     });
 
     // Check if dialog already exists
-    const existingDialog = document.querySelector('[role="dialog"]');
+    const existingDialog = document.querySelector('[role="dialog"], .cookie-notice, #klaro-cookie-notice');
     if (existingDialog) {
       enhanceDialog(existingDialog as HTMLElement);
     }
   }
 
   function enhanceDialog(dialog: HTMLElement) {
-    // Ensure proper ARIA attributes
-    dialog.setAttribute('aria-modal', 'true');
-    
-    // Find or create title element
-    let titleElement = dialog.querySelector('[id*="title"], h1, h2, .title');
-    if (!titleElement) {
-      titleElement = document.createElement('h2');
-      titleElement.id = 'klaro-dialog-title';
-      titleElement.textContent = 'Cookie Consent';
-      titleElement.style.position = 'absolute';
-      titleElement.style.left = '-10000px';
-      titleElement.style.width = '1px';
-      titleElement.style.height = '1px';
-      titleElement.style.overflow = 'hidden';
-      dialog.appendChild(titleElement);
-    } else {
-      titleElement.id = 'klaro-dialog-title';
+    // Only apply styles if not already enhanced
+    if (dialog.hasAttribute('data-accessibility-enhanced')) {
+      return;
     }
     
-    // Find or create description element
-    let descriptionElement = dialog.querySelector('[id*="description"], .description, p');
-    if (!descriptionElement) {
-      descriptionElement = document.createElement('div');
-      descriptionElement.id = 'klaro-dialog-description';
-      descriptionElement.textContent = 'Cookie consent dialog for managing website cookies';
-      descriptionElement.style.position = 'absolute';
-      descriptionElement.style.left = '-10000px';
-      descriptionElement.style.width = '1px';
-      descriptionElement.style.height = '1px';
-      descriptionElement.style.overflow = 'hidden';
-      dialog.appendChild(descriptionElement);
-    } else {
-      descriptionElement.id = 'klaro-dialog-description';
+    // Apply basic accessibility styles
+    applyAccessibilityStyles(dialog);
+    
+    // Mark as enhanced
+    dialog.setAttribute('data-accessibility-enhanced', 'true');
+  }
+
+  function applyAccessibilityStyles(dialog: HTMLElement) {
+    // Apply background and text colors
+    dialog.style.setProperty('background', '#ffffff', 'important');
+    dialog.style.setProperty('color', '#374151', 'important');
+    dialog.style.setProperty('border', '1px solid #e5e7eb', 'important');
+    
+    // Apply styles to ALL text elements more aggressively
+    const allElements = dialog.querySelectorAll('*');
+    allElements.forEach(element => {
+      const el = element as HTMLElement;
+      // Only apply to text elements, not buttons
+      if (!el.classList.contains('cm-btn') && 
+          !el.classList.contains('cm-btn-success') && 
+          !el.classList.contains('cm-btn-danger') &&
+          !el.classList.contains('cm-link')) {
+        el.style.setProperty('color', '#374151', 'important');
+      }
+    });
+    
+    // Apply styles to buttons
+    const successButtons = dialog.querySelectorAll('.cm-btn-success');
+    successButtons.forEach(button => {
+      (button as HTMLElement).style.setProperty('background', '#2563eb', 'important');
+      (button as HTMLElement).style.setProperty('color', '#ffffff', 'important');
+      (button as HTMLElement).style.setProperty('border', 'none', 'important');
+    });
+    
+    const dangerButtons = dialog.querySelectorAll('.cm-btn-danger');
+    dangerButtons.forEach(button => {
+      (button as HTMLElement).style.setProperty('background', '#4b5563', 'important');
+      (button as HTMLElement).style.setProperty('color', '#ffffff', 'important');
+      (button as HTMLElement).style.setProperty('border', 'none', 'important');
+    });
+    
+    // Apply styles to links
+    const links = dialog.querySelectorAll('.cm-link');
+    links.forEach(link => {
+      (link as HTMLElement).style.setProperty('color', '#2563eb', 'important');
+      (link as HTMLElement).style.setProperty('text-decoration', 'underline', 'important');
+      (link as HTMLElement).style.setProperty('font-weight', '500', 'important');
+    });
+    
+    // Force color on any remaining text elements that might be missed
+    forceTextColor(dialog);
+  }
+  
+  function forceTextColor(dialog: HTMLElement) {
+    // Get all text nodes and their parent elements
+    const walker = document.createTreeWalker(
+      dialog,
+      NodeFilter.SHOW_TEXT,
+      null
+    );
+    
+    let textNode;
+    while (textNode = walker.nextNode()) {
+      if (textNode.textContent && textNode.textContent.trim()) {
+        const parent = textNode.parentElement;
+        if (parent && 
+            !parent.classList.contains('cm-btn') && 
+            !parent.classList.contains('cm-btn-success') && 
+            !parent.classList.contains('cm-btn-danger') &&
+            !parent.classList.contains('cm-link')) {
+          parent.style.setProperty('color', '#374151', 'important');
+        }
+      }
     }
-    
-    // Set proper ARIA attributes
-    dialog.setAttribute('aria-labelledby', 'klaro-dialog-title');
-    dialog.setAttribute('aria-describedby', 'klaro-dialog-description');
-    
-    // Add proper focus management
-    setupFocusManagement(dialog);
-    
-    // Add keyboard navigation
-    setupKeyboardNavigation(dialog);
-  }
-
-  function setupFocusManagement(dialog: HTMLElement) {
-    const focusableElements = dialog.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    
-    if (focusableElements.length === 0) return;
-    
-    const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-    
-    // Focus first element when dialog opens
-    setTimeout(() => {
-      if (firstElement && !dialog.hasAttribute('aria-hidden')) {
-        firstElement.focus();
-      }
-    }, 100);
-    
-    // Store original focus to restore when dialog closes
-    const originalFocus = document.activeElement as HTMLElement;
-    
-    // Restore focus when dialog closes
-    const restoreFocus = () => {
-      if (originalFocus && typeof originalFocus.focus === 'function') {
-        originalFocus.focus();
-      }
-    };
-    
-    // Listen for dialog removal
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.removedNodes.forEach((node) => {
-          if (node === dialog) {
-            restoreFocus();
-            observer.disconnect();
-          }
-        });
-      });
-    });
-    
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  }
-
-  function setupKeyboardNavigation(dialog: HTMLElement) {
-    const focusableElements = dialog.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    
-    if (focusableElements.length === 0) return;
-    
-    const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-    
-    dialog.addEventListener('keydown', (e) => {
-      const event = e as KeyboardEvent;
-      
-      // Handle Escape key
-      if (event.key === 'Escape') {
-        const closeButton = dialog.querySelector('.cm-btn-danger, .cm-btn-close, [aria-label*="close"], [aria-label*="Close"]');
-        if (closeButton) {
-          (closeButton as HTMLElement).click();
-        }
-        return;
-      }
-      
-      // Handle Tab key for focus trap
-      if (event.key === 'Tab') {
-        if (event.shiftKey) {
-          if (document.activeElement === firstElement) {
-            event.preventDefault();
-            lastElement.focus();
-          }
-        } else {
-          if (document.activeElement === lastElement) {
-            event.preventDefault();
-            firstElement.focus();
-          }
-        }
-      }
-    });
   }
 
   // Global type declarations
@@ -193,68 +146,79 @@
 </script>
 
 <style>
-  /* Ensure dialog has proper styling for accessibility */
-  [role="dialog"] {
-    outline: none;
-  }
-  
-  [role="dialog"]:focus-visible {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
-  }
-  
-  /* Ensure proper contrast for accessibility */
-  [role="dialog"] {
-    background: #ffffff;
-    color: #333333;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(10px);
-    /* Let Klaro handle positioning */
+  /* Simple CSS overrides for Klaro accessibility */
+  [role="dialog"],
+  .cookie-notice,
+  #klaro-cookie-notice {
+    background: #ffffff !important;
+    color: #374151 !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
     z-index: 999999 !important;
-    max-width: 400px !important;
   }
   
-  /* Ensure buttons have proper focus indicators */
-  [role="dialog"] button:focus-visible {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
-    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+  /* Override text colors - be more specific */
+  [role="dialog"] *,
+  .cookie-notice *,
+  #klaro-cookie-notice * {
+    color: #374151 !important;
   }
   
-  /* Ensure proper button sizing for touch devices */
-  [role="dialog"] button {
-    min-height: 44px;
-    min-width: 44px;
+  /* Ensure specific text elements have correct color */
+  [role="dialog"] p,
+  [role="dialog"] div,
+  [role="dialog"] span,
+  [role="dialog"] h1,
+  [role="dialog"] h2,
+  [role="dialog"] h3,
+  [role="dialog"] h4,
+  [role="dialog"] h5,
+  [role="dialog"] h6,
+  .cookie-notice p,
+  .cookie-notice div,
+  .cookie-notice span,
+  .cookie-notice h1,
+  .cookie-notice h2,
+  .cookie-notice h3,
+  .cookie-notice h4,
+  .cookie-notice h5,
+  .cookie-notice h6,
+  #klaro-cookie-notice p,
+  #klaro-cookie-notice div,
+  #klaro-cookie-notice span,
+  #klaro-cookie-notice h1,
+  #klaro-cookie-notice h2,
+  #klaro-cookie-notice h3,
+  #klaro-cookie-notice h4,
+  #klaro-cookie-notice h5,
+  #klaro-cookie-notice h6 {
+    color: #374151 !important;
   }
   
-  /* High contrast mode support */
-  @media (prefers-contrast: high) {
-    [role="dialog"] {
-      border: 2px solid #000000;
-    }
-    
-    [role="dialog"] button {
-      border: 2px solid #000000;
-    }
+  /* Override button styles */
+  [role="dialog"] .cm-btn-success,
+  .cookie-notice .cm-btn-success,
+  #klaro-cookie-notice .cm-btn-success {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    border: none !important;
   }
   
-  /* Responsive design for corner dialog */
-  @media (max-width: 768px) {
-    [role="dialog"] {
-      max-width: none !important;
-      margin: 0 10px !important;
-      padding: 1rem !important;
-      font-size: 0.85rem !important;
-    }
+  [role="dialog"] .cm-btn-danger,
+  .cookie-notice .cm-btn-danger,
+  #klaro-cookie-notice .cm-btn-danger {
+    background: #4b5563 !important;
+    color: #ffffff !important;
+    border: none !important;
   }
   
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    [role="dialog"] * {
-      transition: none !important;
-      animation: none !important;
-    }
+  /* Override link styles */
+  [role="dialog"] .cm-link,
+  .cookie-notice .cm-link,
+  #klaro-cookie-notice .cm-link {
+    color: #2563eb !important;
+    text-decoration: underline !important;
+    font-weight: 500 !important;
   }
 </style> 
