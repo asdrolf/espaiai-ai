@@ -8,6 +8,7 @@ This document tracks the performance optimizations implemented to reduce the cri
 - **Missing Preconnect Hints**: No preconnect to critical origins
 - **Non-optimized Resource Loading**: Klaro and fonts loading could be optimized
 - **Large CSS/JS bundles**: Files could be better optimized
+- **Per-page CSS Generation**: Each page was generating separate CSS files (e.g., about.BImT8VLy.css)
 
 ## Implemented Optimizations
 
@@ -25,10 +26,10 @@ This document tracks the performance optimizations implemented to reduce the cri
 <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 ```
 
-#### Preload Critical CSS and JS Files
+#### Preload Critical Assets
 ```html
-<link rel="preload" href="/_astro/performance.Bo0i0zB0.js" as="script" crossorigin>
-<link rel="preload" href="/_astro/about.BImT8VLy.css" as="style" crossorigin>
+<link rel="preload" href="/logoespaiai.webp" as="image" type="image/webp">
+<link rel="preload" href="/fonts/NasalizationRg.otf" as="font" type="font/otf" crossorigin>
 ```
 
 ### 2. Astro Configuration Optimization (`astro.config.mjs`)
@@ -37,13 +38,27 @@ This document tracks the performance optimizations implemented to reduce the cri
 - **Target**: Set to `esnext` for modern browsers
 - **Source Maps**: Disabled in production
 - **Manual Chunks**: Separated performance utilities
-- **Compression**: Enabled for server responses
+- **CSS Code Splitting**: Disabled to prevent per-page CSS files
 
-#### Experimental Features
-- **View Transitions**: Enabled for better UX
-- **Assets Optimization**: Enabled for better asset handling
+#### CSS Optimization
+```javascript
+cssCodeSplit: false, // Prevent per-page CSS generation
+```
 
-### 3. Performance Utilities Enhancement (`performance.ts`)
+### 3. CSS Consolidation Optimization
+
+#### Moved Inline Styles to Global CSS
+- **Layout Styles**: Moved from `Layout.astro` to `global.css`
+- **Prevented Per-page CSS**: Eliminated files like `about.BImT8VLy.css`
+- **Reduced HTTP Requests**: Single CSS file instead of multiple per-page files
+
+#### Benefits
+- **Eliminated 404 errors** from non-existent CSS files
+- **Reduced critical request chain** by removing unnecessary CSS requests
+- **Better caching** with single CSS file
+- **Improved performance** with consolidated styles
+
+### 4. Performance Utilities Enhancement (`performance.ts`)
 
 #### Klaro Loading Optimization
 - **Reduced Timeouts**: From 3000ms to 2000ms
@@ -51,10 +66,10 @@ This document tracks the performance optimizations implemented to reduce the cri
 - **Higher Priority**: Added `fetchPriority: 'high'` to scripts
 
 #### Resource Preloading
-- **Critical Resources**: Preload performance.js and about.css
+- **Critical Resources**: Preload logo and fonts
 - **Optimized Loading**: Better resource hint management
 
-### 4. Klaro Configuration Optimization (`klaro-config.js`)
+### 5. Klaro Configuration Optimization (`klaro-config.js`)
 
 #### Performance Settings
 ```javascript
@@ -65,8 +80,9 @@ loadAsync: true,   // Load asynchronously
 ## Expected Performance Improvements
 
 ### Critical Request Chain
-- **Before**: 288ms latency with sequential requests
+- **Before**: 288ms latency with sequential requests + per-page CSS files
 - **After**: Expected reduction to ~150-200ms with parallel loading
+- **CSS Files**: Reduced from multiple per-page files to single global file
 
 ### Core Web Vitals
 - **LCP**: Improved with preloaded critical resources
@@ -77,6 +93,7 @@ loadAsync: true,   // Load asynchronously
 - **DNS Resolution**: Faster with prefetch hints
 - **Connection Establishment**: Faster with preconnect hints
 - **Resource Download**: Parallel loading of critical resources
+- **CSS Loading**: Single file instead of multiple per-page files
 
 ## Monitoring and Validation
 
@@ -86,6 +103,7 @@ loadAsync: true,   // Load asynchronously
 3. **Cumulative Layout Shift (CLS)**
 4. **Critical Request Chain Length**
 5. **Total Blocking Time (TBT)**
+6. **CSS File Count** (should be 1 instead of multiple)
 
 ### Tools for Monitoring
 - **Lighthouse**: Core Web Vitals measurement
@@ -123,6 +141,8 @@ loadAsync: true,   // Load asynchronously
 - [x] Performance utilities enhancement
 - [x] Klaro configuration optimization
 - [x] Critical resource preloading
+- [x] CSS consolidation (eliminated per-page CSS files)
+- [x] Removed 404 errors from non-existent CSS files
 
 ### 🔄 In Progress
 - [ ] Performance monitoring implementation
@@ -168,6 +188,8 @@ npm run deploy
 - Cookie consent and accessibility features preserved
 - Multi-language support maintained
 - SEO optimizations enhanced
+- **CSS consolidation eliminates per-page CSS files**
+- **No more 404 errors from non-existent CSS files**
 
 ## Future Improvements
 1. **Service Worker**: Implement for offline functionality

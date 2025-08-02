@@ -601,10 +601,9 @@ export class PerformanceUtils {
   preloadCriticalResources(): void {
     const criticalResources: ResourceHint[] = [
       { rel: 'preload', href: '/logoespaiai.webp', as: 'image', type: 'image/webp' },
-      { rel: 'preload', href: '/fonts/NasalizationRg.otf', as: 'font', type: 'font/otf', crossorigin: true },
-      // Preload critical CSS and JS files
-      { rel: 'preload', href: '/_astro/performance.Bo0i0zB0.js', as: 'script', crossorigin: true },
-      { rel: 'preload', href: '/_astro/about.BImT8VLy.css', as: 'style', crossorigin: true }
+      { rel: 'preload', href: '/fonts/NasalizationRg.otf', as: 'font', type: 'font/otf', crossorigin: true }
+      // Note: CSS and JS files are preloaded by Astro automatically
+      // Hardcoded file names cause 404 errors due to build-time hashing
     ];
 
     this.addResourceHints(criticalResources);
@@ -678,6 +677,7 @@ declare global {
         consents: Record<string, boolean>;
         showConsentModal: () => void;
       };
+      show: (config?: any, forceModal?: boolean) => void;
     };
   }
   

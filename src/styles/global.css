@@ -53,6 +53,20 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  padding-top: 80px; /* Account for fixed header */
+  transition: padding-top 0.3s ease; /* Smooth transition when banner appears */
+}
+
+/* Adjust main padding when language banner is shown */
+body:has(.language-detection-banner.show) main {
+  padding-top: 140px; /* Header height + banner height */
 }
 
 /* Animated space background */

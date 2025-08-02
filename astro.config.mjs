@@ -51,8 +51,8 @@ export default defineConfig({
   // Performance optimizations
   vite: {
     build: {
-      // Optimize CSS
-      cssCodeSplit: true,
+      // Optimize CSS - disable per-page CSS generation
+      cssCodeSplit: false,
       // Enable minification
       minify: 'esbuild',
       // Optimize assets - increase inline limit for critical CSS
@@ -82,7 +82,7 @@ export default defineConfig({
     },
     // CSS optimization
     css: {
-      // Enable CSS code splitting
+      // Disable CSS code splitting to prevent per-page CSS files
       devSourcemap: false,
       // Optimize CSS output
       postcss: {
