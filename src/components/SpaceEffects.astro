@@ -1,0 +1,460 @@
+---
+// Elegant space effects component with Apple-quality design
+// Performance optimized with CSS transforms and requestAnimationFrame
+---
+
+<div class="space-effects" id="spaceEffects">
+  <!-- Shooting stars container -->
+  <div class="shooting-stars" id="shootingStars"></div>
+  
+  <!-- Atom particles container -->
+  <div class="atom-particles" id="atomParticles"></div>
+  
+  <!-- Big Bang particles container -->
+  <div id="big-bang-particles"></div>
+</div>
+
+<style>
+  .space-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  /* Shooting Stars */
+  .shooting-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--space-cyan), transparent);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateX(-100px);
+    animation: shootingStar 3s ease-out forwards;
+    will-change: transform, opacity;
+  }
+
+  .shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--space-cyan), transparent);
+    transform: translateX(-50px);
+  }
+
+  @keyframes shootingStar {
+    0% {
+      opacity: 0;
+      transform: translateX(-100px) translateY(0);
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(calc(100vw + 100px)) translateY(100px);
+    }
+  }
+
+  /* Atom Particles */
+  .atom-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .atom-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, var(--space-cyan), transparent);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: atomFloat 20s infinite ease-in-out;
+    will-change: transform;
+    box-shadow: 0 0 4px rgba(6, 182, 212, 0.6);
+  }
+
+  .atom-particle::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 10px;
+    height: 10px;
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    border-radius: 50%;
+    animation: atomPulse 6s infinite ease-in-out;
+  }
+
+  @keyframes atomFloat {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-30px) translateX(15px) rotate(90deg);
+    }
+    50% {
+      transform: translateY(-15px) translateX(-25px) rotate(180deg);
+    }
+    75% {
+      transform: translateY(-40px) translateX(10px) rotate(270deg);
+    }
+  }
+
+  @keyframes atomPulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0.6;
+    }
+  }
+
+  /* Big Bang Effect */
+  #big-bang-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* Fade-in animation for components */
+  .fade-in-space {
+    animation: fadeInSpace 0.8s ease-out forwards;
+    will-change: opacity, transform;
+  }
+
+  @keyframes fadeInSpace {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translateY(-5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .shooting-star::before {
+      width: 60px;
+    }
+    
+    .atom-particle {
+      width: 3px;
+      height: 3px;
+    }
+    
+    .atom-particle::before {
+      width: 6px;
+      height: 6px;
+    }
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .shooting-star,
+    .atom-particle,
+    .loader-particle {
+      animation: none;
+    }
+    
+    .fade-in-space {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+  <script>
+    class SpaceEffects {
+      constructor() {
+        this.shootingStarsContainer = document.getElementById('shootingStars');
+        this.atomParticlesContainer = document.getElementById('atomParticles');
+        this.isInitialized = false;
+        
+        this.init();
+      }
+
+      init() {
+        if (this.isInitialized) return;
+        
+        // Defer initialization to prevent blocking initial render
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => this.createEffects(), { timeout: 2000 });
+        } else {
+          setTimeout(() => this.createEffects(), 200);
+        }
+        
+        this.isInitialized = true;
+      }
+
+      createEffects() {
+        this.createAtomParticles();
+        this.startShootingStars();
+        this.setupComponentLoading();
+        this.setupHoverEffects();
+      }
+
+          createAtomParticles() {
+        if (!this.atomParticlesContainer) return;
+        
+        const particleCount = 15; // Aumentamos el número
+        const fragment = document.createDocumentFragment();
+        
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'atom-particle';
+          
+          // Distribute particles across the screen
+          const left = (Math.random() * 85) + 7.5; // 7.5% to 92.5%
+          const top = (Math.random() * 85) + 7.5; // 7.5% to 92.5%
+          const delay = Math.random() * 10;
+          const size = Math.random() * 2 + 3; // Tamaño variable
+          
+          particle.style.cssText = `
+            left: ${left}%;
+            top: ${top}%;
+            animation-delay: ${delay}s;
+            width: ${size}px;
+            height: ${size}px;
+          `;
+          
+          fragment.appendChild(particle);
+        }
+        
+        this.atomParticlesContainer.appendChild(fragment);
+      }
+
+    startShootingStars() {
+      if (!this.shootingStarsContainer) return;
+      
+      const createShootingStar = () => {
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        
+        // Random position and timing
+        const top = Math.random() * 50; // Top half of screen
+        const delay = Math.random() * 10; // Random delay
+        
+        star.style.cssText = `
+          top: ${top}%;
+          animation-delay: ${delay}s;
+        `;
+        
+        this.shootingStarsContainer.appendChild(star);
+        
+        // Remove star after animation
+        setTimeout(() => {
+          if (star.parentNode) {
+            star.parentNode.removeChild(star);
+          }
+        }, 3000 + (delay * 1000));
+      };
+      
+      // Create shooting stars periodically
+      setInterval(createShootingStar, 8000 + Math.random() * 4000); // 8-12 seconds
+      
+      // Create initial shooting star after a delay
+      setTimeout(createShootingStar, 3000);
+    }
+
+          setupComponentLoading() {
+        // Observe components for loading effects with Big Bang particles
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Create Big Bang effect immediately
+              this.createBigBangEffect(entry.target);
+              
+              // Add subtle animation class
+              entry.target.classList.add('fade-in-space');
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '50px'
+        });
+        
+        // Observe main content sections
+        const sections = document.querySelectorAll('section, .card, .grid > *, .hero-content, .section-header');
+        sections.forEach(section => observer.observe(section));
+      }
+
+      createBigBangEffect(element) {
+        const rect = element.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Create particle container if it doesn't exist
+        let particleContainer = document.getElementById('big-bang-particles');
+        if (!particleContainer) {
+          particleContainer = document.createElement('div');
+          particleContainer.id = 'big-bang-particles';
+          particleContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+          `;
+          document.body.appendChild(particleContainer);
+        }
+        
+        // Create Big Bang particles with different colors and sizes
+        const particleCount = 25;
+        const colors = ['var(--space-cyan)', 'var(--space-purple)', 'var(--space-blue)', '#ffffff', '#ff6b6b'];
+        
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          const size = Math.random() * 5 + 4;
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          
+          particle.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            background: ${color};
+            border-radius: 50%;
+            left: ${centerX}px;
+            top: ${centerY}px;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 0 ${size * 4}px ${color};
+            transform: scale(0);
+          `;
+          
+          particleContainer.appendChild(particle);
+          
+          // Animate particle explosion with different patterns
+          const angle = (i / particleCount) * Math.PI * 2;
+          const distance = 100 + Math.random() * 100;
+          const endX = centerX + Math.cos(angle) * distance;
+          const endY = centerY + Math.sin(angle) * distance;
+          
+          this.animateBigBangParticle(particle, endX, endY, i * 20);
+        }
+      }
+
+      animateBigBangParticle(particle, endX, endY, delay = 0) {
+        setTimeout(() => {
+          const startTime = performance.now();
+          const duration = 600 + Math.random() * 300;
+          const startX = parseFloat(particle.style.left);
+          const startY = parseFloat(particle.style.top);
+          
+          const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for explosion effect
+            const easeOut = 1 - Math.pow(1 - progress, 2);
+            
+            const currentX = startX + (endX - startX) * easeOut;
+            const currentY = startY + (endY - startY) * easeOut;
+            
+            // Opacity: start at 0, peak at 0.15, then fade out
+            let opacity;
+            if (progress < 0.15) {
+              opacity = progress / 0.15 * 1;
+            } else {
+              opacity = 1 * (1 - (progress - 0.15) / 0.85);
+            }
+            
+            // Scale: start at 0, grow to 2.5, then shrink
+            let scale;
+            if (progress < 0.3) {
+              scale = progress / 0.3 * 2.5;
+            } else {
+              scale = 2.5 * (1 - (progress - 0.3) / 0.7 * 0.2);
+            }
+            
+            particle.style.left = `${currentX}px`;
+            particle.style.top = `${currentY}px`;
+            particle.style.opacity = opacity;
+            particle.style.transform = `scale(${scale})`;
+            
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              particle.remove();
+            }
+          };
+          
+          requestAnimationFrame(animate);
+        }, delay);
+      }
+
+      setupHoverEffects() {
+        // Add glow effects to interactive elements
+        const interactiveElements = document.querySelectorAll('.btn, .card, .youtube-placeholder');
+        
+        interactiveElements.forEach(element => {
+          element.addEventListener('mouseenter', () => {
+            element.style.transition = 'all 0.3s ease';
+            element.style.boxShadow = '0 0 20px rgba(6, 182, 212, 0.6)';
+            element.style.transform = 'translateY(-2px)';
+          });
+          
+          element.addEventListener('mouseleave', () => {
+            element.style.boxShadow = '';
+            element.style.transform = '';
+          });
+        });
+      }
+
+    
+  }
+
+  // Initialize space effects when DOM is ready
+  function initSpaceEffects() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        window.spaceEffects = new SpaceEffects();
+      });
+    } else {
+      window.spaceEffects = new SpaceEffects();
+    }
+  }
+
+  // Initialize
+  initSpaceEffects();
+
+  // Export for use in other components
+  window.SpaceEffects = SpaceEffects;
+</script> 

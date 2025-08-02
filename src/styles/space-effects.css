@@ -1,0 +1,293 @@
+/* Space Effects CSS - Loaded asynchronously for performance */
+
+/* Enhanced shooting stars with better performance */
+.shooting-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--space-cyan), transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateX(-100px);
+  animation: shootingStar 3s ease-out forwards;
+  will-change: transform, opacity;
+  contain: layout style paint;
+}
+
+.shooting-star::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--space-cyan), transparent);
+  transform: translateX(-50px);
+  contain: layout style paint;
+}
+
+@keyframes shootingStar {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) translateY(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(calc(100vw + 100px)) translateY(100px);
+  }
+}
+
+/* Enhanced atom particles */
+.atom-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, var(--space-cyan), transparent);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: atomFloat 15s infinite ease-in-out;
+  will-change: transform;
+  contain: layout style paint;
+}
+
+.atom-particle::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 50%;
+  animation: atomPulse 4s infinite ease-in-out;
+  contain: layout style paint;
+}
+
+@keyframes atomFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px) rotate(270deg);
+  }
+}
+
+@keyframes atomPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.6;
+  }
+}
+
+/* Enhanced component loading effects */
+.component-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  contain: layout style paint;
+}
+
+.component-loader.active {
+  opacity: 1;
+}
+
+.loader-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  contain: layout style paint;
+}
+
+.loader-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--space-cyan);
+  border-radius: 50%;
+  animation: loaderSpin 2s infinite linear;
+  will-change: transform;
+  contain: layout style paint;
+}
+
+.loader-particle:nth-child(1) {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 0s;
+}
+
+.loader-particle:nth-child(2) {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  animation-delay: 0.5s;
+}
+
+.loader-particle:nth-child(3) {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 1s;
+}
+
+.loader-particle:nth-child(4) {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  animation-delay: 1.5s;
+}
+
+@keyframes loaderSpin {
+  0% {
+    transform: rotate(0deg) translateY(-25px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg) translateY(-25px) rotate(-360deg);
+    opacity: 0.3;
+  }
+}
+
+/* Enhanced fade-in animation for components */
+.fade-in-space {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInSpace 0.8s ease-out forwards;
+  will-change: opacity, transform;
+  contain: layout style paint;
+}
+
+@keyframes fadeInSpace {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Particle trail effects */
+.particle-trail {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--space-cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  contain: layout style paint;
+}
+
+/* Enhanced glow effects */
+.glow-effect {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  contain: layout style paint;
+}
+
+.glow-effect:hover {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .shooting-star::before {
+    width: 60px;
+  }
+  
+  .atom-particle {
+    width: 3px;
+    height: 3px;
+  }
+  
+  .atom-particle::before {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .loader-particles {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .loader-particle {
+    width: 2px;
+    height: 2px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .shooting-star,
+  .atom-particle,
+  .loader-particle {
+    background: var(--space-white);
+  }
+  
+  .shooting-star::before,
+  .atom-particle::before {
+    border-color: var(--space-white);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .shooting-star,
+  .atom-particle,
+  .loader-particle {
+    animation: none;
+  }
+  
+  .fade-in-space {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .glow-effect:hover {
+    transform: none;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .shooting-star,
+  .atom-particle,
+  .loader-particle {
+    filter: brightness(1.2);
+  }
+}
+
+/* Print styles - hide effects */
+@media print {
+  .space-effects,
+  .shooting-stars,
+  .atom-particles,
+  .component-loader {
+    display: none !important;
+  }
+} 

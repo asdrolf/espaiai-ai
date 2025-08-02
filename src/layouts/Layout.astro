@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SpaceBackground from '../components/SpaceBackground.astro';
+import SpaceEffects from '../components/SpaceEffects.astro';
 import LanguageDetection from '../components/LanguageDetection.astro';
 import KlaroAccessibility from '../components/KlaroAccessibility.astro';
 import { getLangFromUrl, useTranslations } from '../utils/i18n';
@@ -28,9 +29,14 @@ const t = useTranslations(lang);
     <!-- Klaro CSS - load asynchronously since it's not critical for initial render -->
     <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro/dist/klaro.min.css" /></noscript>
+    
+    <!-- Space Effects CSS - load asynchronously for performance -->
+    <link rel="preload" as="style" href="/src/styles/space-effects.css" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/src/styles/space-effects.css" /></noscript>
   </head>
   <body>
     <SpaceBackground />
+    <SpaceEffects />
     <LanguageDetection />
     <Header />
     <main>
