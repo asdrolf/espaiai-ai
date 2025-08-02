@@ -1,9 +1,73 @@
 ---
 // Klaro Accessibility Enhancement Component
-// Enhanced component to fix dialog accessibility issues and improve contrast
+// Simple component to improve contrast and accessibility of Klaro cookie dialog
 ---
 
 <script>
+  // Simple function to fix dialog accessibility names
+  function fixDialogAccessibility() {
+    // Find all dialog elements
+    const dialogs = document.querySelectorAll('[role="dialog"]');
+    
+    dialogs.forEach((dialog, index) => {
+      const dialogElement = dialog as HTMLElement;
+      
+      // Skip if already processed
+      if (dialogElement.hasAttribute('data-accessibility-fixed')) {
+        return;
+      }
+      
+      // Check if title element exists
+      let titleElement = dialogElement.querySelector('#klaro-dialog-title');
+      if (!titleElement) {
+        // Look for existing title elements
+        const existingTitle = dialogElement.querySelector('h1, h2, h3, .title, [class*="title"]');
+        if (existingTitle) {
+          existingTitle.setAttribute('id', 'klaro-dialog-title');
+          titleElement = existingTitle;
+        } else {
+          // Create a title element if none exists
+          titleElement = document.createElement('h2');
+          titleElement.setAttribute('id', 'klaro-dialog-title');
+          titleElement.textContent = 'Cookie consent';
+                     titleElement.style.cssText = 'margin: 0 0 1rem 0; padding-left: 5px; font-size: 1.25rem; font-weight: 600; color: #111827;';
+          dialogElement.insertBefore(titleElement, dialogElement.firstChild);
+        }
+      }
+      
+      // Check if description element exists
+      let descriptionElement = dialogElement.querySelector('#klaro-dialog-description');
+      if (!descriptionElement) {
+        // Look for existing description elements
+        const existingDesc = dialogElement.querySelector('p, .description, [class*="description"]');
+        if (existingDesc) {
+          existingDesc.setAttribute('id', 'klaro-dialog-description');
+          descriptionElement = existingDesc;
+        } else {
+          // Create a description element if none exists
+          descriptionElement = document.createElement('p');
+          descriptionElement.setAttribute('id', 'klaro-dialog-description');
+          descriptionElement.textContent = 'We use cookies to ensure you get the best experience. You can choose which cookies you want to allow.';
+          descriptionElement.style.cssText = 'margin: 0 0 1.5rem 0; font-size: 1rem; line-height: 1.5; color: #374151;';
+          
+          if (titleElement) {
+            titleElement.after(descriptionElement);
+          } else {
+            dialogElement.insertBefore(descriptionElement, dialogElement.firstChild);
+          }
+        }
+      }
+      
+      // Set ARIA attributes
+      dialogElement.setAttribute('aria-labelledby', 'klaro-dialog-title');
+      dialogElement.setAttribute('aria-describedby', 'klaro-dialog-description');
+      dialogElement.setAttribute('aria-modal', 'true');
+      
+      // Mark as fixed
+      dialogElement.setAttribute('data-accessibility-fixed', 'true');
+    });
+  }
+
   // Enhance Klaro accessibility when the component loads
   document.addEventListener('DOMContentLoaded', () => {
     enhanceKlaroAccessibility();
@@ -52,139 +116,19 @@
   }
 
   function enhanceDialog(dialog: HTMLElement) {
-    // Only apply enhancements if not already enhanced
+    // Only apply styles if not already enhanced
     if (dialog.hasAttribute('data-accessibility-enhanced')) {
       return;
     }
     
-    // Fix accessibility attributes
-    fixAccessibilityAttributes(dialog);
+    // Fix accessibility attributes first
+    fixDialogAccessibility();
     
     // Apply basic accessibility styles
     applyAccessibilityStyles(dialog);
     
-    // Setup focus management
-    setupFocusManagement(dialog);
-    
     // Mark as enhanced
     dialog.setAttribute('data-accessibility-enhanced', 'true');
-  }
-
-  function fixAccessibilityAttributes(dialog: HTMLElement) {
-    // Ensure dialog has proper ARIA attributes
-    dialog.setAttribute('aria-modal', 'true');
-    
-    // Find or create title element
-    let titleElement = dialog.querySelector('[id="klaro-dialog-title"]');
-    if (!titleElement) {
-      // Look for existing title elements
-      const existingTitle = dialog.querySelector('h1, h2, h3, .title, [class*="title"]');
-      if (existingTitle) {
-        existingTitle.setAttribute('id', 'klaro-dialog-title');
-        titleElement = existingTitle;
-      } else {
-        // Create a title element if none exists
-        titleElement = document.createElement('h2');
-        titleElement.setAttribute('id', 'klaro-dialog-title');
-        titleElement.textContent = getDialogTitle();
-        titleElement.style.cssText = 'margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 600; color: #111827;';
-        dialog.insertBefore(titleElement, dialog.firstChild);
-      }
-    }
-    
-    // Find or create description element
-    let descriptionElement = dialog.querySelector('[id="klaro-dialog-description"]');
-    if (!descriptionElement) {
-      // Look for existing description elements
-      const existingDesc = dialog.querySelector('p, .description, [class*="description"]');
-      if (existingDesc) {
-        existingDesc.setAttribute('id', 'klaro-dialog-description');
-        descriptionElement = existingDesc;
-      } else {
-        // Create a description element if none exists
-        descriptionElement = document.createElement('p');
-        descriptionElement.setAttribute('id', 'klaro-dialog-description');
-        descriptionElement.textContent = getDialogDescription();
-        descriptionElement.style.cssText = 'margin: 0 0 1.5rem 0; font-size: 1rem; line-height: 1.5; color: #374151;';
-        if (titleElement) {
-          titleElement.after(descriptionElement);
-        } else {
-          dialog.insertBefore(descriptionElement, dialog.firstChild);
-        }
-      }
-    }
-    
-    // Set proper ARIA attributes
-    dialog.setAttribute('aria-labelledby', 'klaro-dialog-title');
-    dialog.setAttribute('aria-describedby', 'klaro-dialog-description');
-  }
-
-  function getDialogTitle(): string {
-    // Get current language
-    const lang = document.documentElement.lang || 'en';
-    const titles = {
-      en: 'Cookie consent',
-      es: 'Consentimiento de cookies',
-      ca: 'Consentiment de cookies',
-      de: 'Cookie-Einwilligung'
-    };
-    return titles[lang as keyof typeof titles] || titles.en;
-  }
-
-  function getDialogDescription(): string {
-    // Get current language
-    const lang = document.documentElement.lang || 'en';
-    const descriptions = {
-      en: 'We use cookies to ensure you get the best experience. You can choose which cookies you want to allow.',
-      es: 'Utilizamos cookies para asegurarnos de que obtienes la mejor experiencia. Puedes elegir qué cookies permitir.',
-      ca: 'Utilitzem cookies per assegurar-nos que obtens la millor experiència. Pots triar quines cookies vols permetre.',
-      de: 'Wir verwenden Cookies, um sicherzustellen, dass Sie die beste Erfahrung machen. Sie können auswählen, welche Cookies Sie zulassen möchten.'
-    };
-    return descriptions[lang as keyof typeof descriptions] || descriptions.en;
-  }
-
-  function setupFocusManagement(dialog: HTMLElement) {
-    // Get all focusable elements
-    const focusableElements = dialog.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    
-    const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-    
-    // Focus the first element when dialog opens
-    if (firstElement) {
-      setTimeout(() => {
-        firstElement.focus();
-      }, 100);
-    }
-    
-    // Handle keyboard navigation
-    dialog.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        // Find and click close button
-        const closeButton = dialog.querySelector('.cm-btn-danger, .cm-btn-close, [aria-label*="close"], [aria-label*="Close"]');
-        if (closeButton) {
-          (closeButton as HTMLElement).click();
-        }
-      }
-      
-      if (e.key === 'Tab') {
-        if (e.shiftKey) {
-          // Shift + Tab
-          if (document.activeElement === firstElement) {
-            e.preventDefault();
-            lastElement.focus();
-          }
-        } else {
-          // Tab
-          if (document.activeElement === lastElement) {
-            e.preventDefault();
-            firstElement.focus();
-          }
-        }
-      }
-    });
   }
 
   function applyAccessibilityStyles(dialog: HTMLElement) {
@@ -269,7 +213,7 @@
 </script>
 
 <style>
-  /* Enhanced CSS overrides for Klaro accessibility */
+  /* Simple CSS overrides for Klaro accessibility */
   [role="dialog"],
   .cookie-notice,
   #klaro-cookie-notice {
@@ -279,17 +223,6 @@
     border-radius: 12px !important;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
     z-index: 999999 !important;
-    max-width: 400px !important;
-    padding: 1.5rem !important;
-  }
-  
-  /* Ensure proper focus indicators */
-  [role="dialog"] button:focus-visible,
-  .cookie-notice button:focus-visible,
-  #klaro-cookie-notice button:focus-visible {
-    outline: 2px solid #2563eb !important;
-    outline-offset: 2px !important;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25) !important;
   }
   
   /* Override text colors - be more specific */
@@ -337,10 +270,6 @@
     background: #2563eb !important;
     color: #ffffff !important;
     border: none !important;
-    padding: 0.5rem 1rem !important;
-    border-radius: 6px !important;
-    font-weight: 500 !important;
-    min-height: 36px !important;
   }
   
   [role="dialog"] .cm-btn-danger,
@@ -349,25 +278,21 @@
     background: #4b5563 !important;
     color: #ffffff !important;
     border: none !important;
-    padding: 0.5rem 1rem !important;
-    border-radius: 6px !important;
-    font-weight: 500 !important;
-    min-height: 36px !important;
   }
   
-  /* Override link styles */
-  [role="dialog"] .cm-link,
-  .cookie-notice .cm-link,
-  #klaro-cookie-notice .cm-link {
-    color: #2563eb !important;
-    text-decoration: underline !important;
-    font-weight: 500 !important;
-  }
-  
-  /* Ensure proper spacing */
-  [role="dialog"] button + button,
-  .cookie-notice button + button,
-  #klaro-cookie-notice button + button {
-    margin-left: 0.5rem !important;
-  }
+     /* Override link styles */
+   [role="dialog"] .cm-link,
+   .cookie-notice .cm-link,
+   #klaro-cookie-notice .cm-link {
+     color: #2563eb !important;
+     text-decoration: underline !important;
+     font-weight: 500 !important;
+   }
+   
+   /* Ensure title has proper spacing */
+   [role="dialog"] #klaro-dialog-title,
+   .cookie-notice #klaro-dialog-title,
+   #klaro-cookie-notice #klaro-dialog-title {
+     padding-left: 5px !important;
+   }
 </style> 
