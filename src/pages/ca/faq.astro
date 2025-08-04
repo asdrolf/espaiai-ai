@@ -262,27 +262,23 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Add click event listeners to all FAQ questions
-    const faqQuestions = document.querySelectorAll('.faq-question');
+  function toggleFaq(button) {
+    const faqItem = button.parentElement;
+    const answer = faqItem.querySelector('.faq-answer');
     
-    faqQuestions.forEach(question => {
-      question.addEventListener('click', function() {
-        const faqItem = this.parentElement;
-        const faqAnswer = faqItem.querySelector('.faq-answer');
-        
-        // Close all other FAQ items
-        document.querySelectorAll('.faq-item').forEach(item => {
-          if (item !== faqItem) {
-            item.classList.remove('active');
-            item.querySelector('.faq-answer').classList.remove('active');
-          }
-        });
-        
-        // Toggle current FAQ item
-        faqItem.classList.toggle('active');
-        faqAnswer.classList.toggle('active');
-      });
+    // Close all other FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+      if (item !== faqItem) {
+        item.classList.remove('active');
+        item.querySelector('.faq-answer').classList.remove('active');
+      }
     });
-  });
+    
+    // Toggle current FAQ item
+    faqItem.classList.toggle('active');
+    answer.classList.toggle('active');
+  }
+  
+  // Make function global
+  window.toggleFaq = toggleFaq;
 </script> 
