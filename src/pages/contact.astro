@@ -12,6 +12,9 @@ const t = useTranslations(lang);
       <div class="section-header text-center mb-4">
         <h1>{t('contact.title')}</h1>
         <p class="text-large">{t('contact.subtitle')}</p>
+        <div class="value-proposition">
+          <p><strong>🎯 Get your free process analysis and see exactly how much time you can save</strong></p>
+        </div>
       </div>
       
       <div class="contact-wrapper">
@@ -71,7 +74,7 @@ const t = useTranslations(lang);
             
             <div class="form-group">
               <label for="message">{t('contact.form.message')} *</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
+              <textarea id="message" name="message" rows="5" required placeholder="Tell us about your current processes and biggest time-wasters. What repetitive tasks are your employees doing that could be automated?"></textarea>
               <span class="error-message" id="messageError"></span>
             </div>
             
@@ -96,18 +99,23 @@ const t = useTranslations(lang);
         
         <div class="contact-info">
           <div class="contact-card">
-            <h3>📊 {t('contact.form.interest.demo')}</h3>
-            <p>See Espai.ai in action with a personalized demo tailored to your industry and business needs.</p>
+            <h3>📊 Free Process Analysis</h3>
+            <p>Get a detailed analysis of your current processes and see exactly where you can save 20+ hours per week. No obligation, no cost.</p>
           </div>
           
           <div class="contact-card">
-            <h3>💰 Competitive Pricing</h3>
-            <p>Pay per device, not per automation. No payment until you start seeing real time savings from our automations.</p>
+            <h3>⚡ Quick Results</h3>
+            <p>Most companies start seeing time savings during the second or fourth month, depending on the sector and complexity of processes. You pay only after automations begin saving you time.</p>
           </div>
           
           <div class="contact-card">
-            <h3>🚀 Business Optimization</h3>
-            <p>Transform your business processes with AI-powered automation. Our solutions adapt to your specific needs and industry requirements.</p>
+            <h3>🎯 Proven Results</h3>
+            <p>Companies are eliminating manual work with our AI automation. Average savings: 20+ hours per week.</p>
+          </div>
+          
+          <div class="contact-card">
+            <h3>🛡️ Zero Risk</h3>
+            <p>No upfront costs, no long-term contracts. If we can't help you save time, you don't pay anything.</p>
           </div>
         </div>
       </div>

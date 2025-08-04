@@ -13,7 +13,7 @@ const t = useTranslations(lang);
         <h1>Pro-Gerät-Preise</h1>
         <p class="text-large">Zahlen Sie pro Gerät + symbolische Gebühr pro Automatisierung für Cloud-Infrastrukturkosten</p>
         <div class="important-notice">
-          <p><strong>🎯 Zahlen Sie erst bei Einsparungen:</strong> In allen Modalitäten zahlen Sie erst, wenn Sie Einsparungen durch Automatisierungen generieren. Je nach Sektor und Komplexität der Prozesse kann dies zwischen 2 Wochen und 3 Monaten dauern.</p>
+          <p><strong>🎯 Zahlen Sie erst bei Einsparungen:</strong> In allen Modalitäten zahlen Sie erst, wenn Sie Einsparungen durch Automatisierungen generieren. Je nach Sektor und Komplexität der Prozesse können die ersten Ergebnisse im zweiten oder vierten Monat sichtbar werden.</p>
         </div>
       </div>
       
@@ -95,30 +95,13 @@ const t = useTranslations(lang);
         </div>
       </div>
       
-      <div class="pricing-faq mt-4">
-        <h2 class="text-center mb-4">Häufig gestellte Fragen</h2>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h4>Wie funktioniert die Pro-Gerät-Preisgestaltung?</h4>
-            <p>Sie zahlen eine monatliche Gebühr pro Gerät basierend auf der Anzahl: €100 bis zu 10 Geräte, €80 ab 15 Geräten und €70 ab 30 Geräten. Zusätzlich gibt es eine symbolische monatliche Gebühr pro erstellter Automatisierung (€18 Basic, €8 Pro, €5 Pro Advanced) zur Deckung der Cloud-Infrastrukturkosten.</p>
-          </div>
-          
-          <div class="faq-item">
-            <h4>Zahle ich wirklich erst, wenn ich Zeit spare?</h4>
-            <p>Richtig. Sie zahlen erst, wenn unsere Automatisierungen echte, messbare Einsparungen bei der Arbeitszeit Ihrer Mitarbeiter generieren. Dies kann je nach Sektor zwischen 2 Wochen und 3 Monaten dauern.</p>
-          </div>
-          
-          <div class="faq-item">
-            <h4>Was beinhaltet die Installation?</h4>
-            <p>Wir kümmern uns um alles: Software-Installation, Ersteinrichtung und Bereitstellung. Sie müssen nichts Technisches tun.</p>
-          </div>
-          
-          <div class="faq-item">
-            <h4>Kann ich den Plan wechseln?</h4>
-            <p>Ja, Sie können jederzeit den Plan basierend auf der Anzahl Ihrer Geräte wechseln. Änderungen werden sofort wirksam.</p>
-          </div>
+      <div class="pilot-notice mt-4">
+        <div class="card">
+          <h3>📋 Pilotprojekt-Hinweis</h3>
+          <p>Wir befinden uns derzeit in der Pilotphase unseres Projekts, weshalb unsere Preise derzeit niedriger sind. Unsere Preispolitik kann in Zukunft geändert werden. Kunden mit bestehenden Preisen behalten ihre aktuellen Tarife ein Jahr ab dem Datum einer Änderung.</p>
         </div>
       </div>
+
     </div>
   </section>
 </Layout>
@@ -229,6 +212,27 @@ const t = useTranslations(lang);
   
   .value-proposition {
     margin-bottom: 3rem;
+  }
+  
+  .pilot-notice {
+    margin-bottom: 3rem;
+  }
+  
+  .pilot-notice .card {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    text-align: center;
+  }
+  
+  .pilot-notice h3 {
+    color: #ffc107;
+    margin-bottom: 1rem;
+  }
+  
+  .pilot-notice p {
+    color: var(--space-white);
+    font-size: 1rem;
+    line-height: 1.6;
   }
   
   .faq-grid {

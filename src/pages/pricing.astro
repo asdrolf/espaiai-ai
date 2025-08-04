@@ -6,14 +6,14 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<Layout title={`${t('nav.pricing')} | ${t('site.title')}`} description="Transparent per-device pricing for AI business automation. Pay only when you start saving time. Plans from €70-100/device/month plus automation fees.">
+<Layout title={`${t('nav.pricing')} | ${t('site.title')}`} description="Transparent pricing: €70-100 per device per month. You pay only after automations start saving you time. Most companies see ROI during the second or fourth month.">
   <section class="section">
     <div class="container">
       <div class="section-header text-center mb-4">
-        <h1>Per-Device Pricing</h1>
-        <p class="text-large">Pay per device + symbolic fee per automation for cloud infrastructure costs</p>
+        <h1>Pay Only When You Start Saving Time</h1>
+        <p class="text-large">Transparent pricing with zero upfront costs. You pay only after automations begin generating real savings.</p>
         <div class="important-notice">
-          <p><strong>🎯 Don't pay until you generate savings:</strong> In all modalities, you don't start paying until you start generating savings from automations. Depending on the sector and complexity of processes, it can be a timeframe between 2 weeks or 3 months.</p>
+          <p><strong>🎯 Zero Risk Guarantee:</strong> You don't pay anything until our automations start saving you time. Most companies see their first savings during the second or fourth month, depending on the sector and complexity of processes. No upfront costs, no long-term contracts.</p>
         </div>
       </div>
       
@@ -29,16 +29,15 @@ const t = useTranslations(lang);
             <p class="device-limit">Up to 10 devices</p>
           </div>
           <ul class="features">
-            <li>✓ Complete event and action recording</li>
-            <li>✓ Advanced AI analysis with timelines</li>
-            <li>✓ Up to 10 devices</li>
-            <li>✓ Repetitive process detection</li>
-            <li>✓ Real-time adaptive dashboards</li>
+            <li>✓ Automatic process recording</li>
+            <li>✓ AI-powered inefficiency detection</li>
+            <li>✓ Custom automation development</li>
+            <li>✓ Real-time performance dashboards</li>
             <li>✓ Unlimited automations</li>
-            <li>✓ Installation and setup included</li>
-            <li><strong>+ €18/month per automation created</strong></li>
+            <li>✓ Full installation & setup</li>
+            <li><strong>+ €18/month per automation</strong></li>
           </ul>
-          <a href={getNavLink('contact', lang)} class="btn btn-secondary">Contact Sales</a>
+          <a href={getNavLink('contact', lang)} class="btn btn-secondary">Start Free Analysis</a>
         </div>
         
         <div class="pricing-card card featured fade-in">
@@ -53,12 +52,13 @@ const t = useTranslations(lang);
             <p class="device-limit">From 15 devices</p>
           </div>
           <ul class="features">
-            <li>✓ Everything included in Basic</li>
-            <li>✓ Full mobile access</li>
+            <li>✓ Everything in Basic</li>
+            <li>✓ Mobile app access</li>
             <li>✓ Priority support</li>
-            <li><strong>+ €8/month per automation created</strong></li>
+            <li>✓ Advanced analytics</li>
+            <li><strong>+ €8/month per automation</strong></li>
           </ul>
-          <a href={getNavLink('contact', lang)} class="btn">Contact Sales</a>
+          <a href={getNavLink('contact', lang)} class="btn">Start Free Analysis</a>
         </div>
         
         <div class="pricing-card card fade-in">
@@ -72,53 +72,37 @@ const t = useTranslations(lang);
             <p class="device-limit">From 30 devices</p>
           </div>
           <ul class="features">
-            <li>✓ Everything included in Pro</li>
+            <li>✓ Everything in Pro</li>
             <li>✓ 24/7 dedicated support</li>
-            <li>✓ Advanced process automation requiring manual configurations</li>
-            <li><strong>+ €5/month per automation created</strong></li>
+            <li>✓ Complex automation workflows</li>
+            <li>✓ Custom integrations</li>
+            <li><strong>+ €5/month per automation</strong></li>
           </ul>
-          <a href={getNavLink('contact', lang)} class="btn">Contact Sales</a>
+          <a href={getNavLink('contact', lang)} class="btn">Start Free Analysis</a>
         </div>
       </div>
       
       <div class="value-proposition mt-4">
         <div class="grid grid-2">
           <div class="card fade-in">
-            <h3>🎯 Unique Payment Model</h3>
-            <p>We charge per device plus a symbolic fee per automation to cover cloud infrastructure costs. This makes our pricing super competitive and scalable.</p>
+            <h3>💰 ROI Calculator</h3>
+            <p>If you save just 20 hours per week (our average), that's worth €2,000+ per month in employee time. Our solution helps you start automating processes and generating savings based on your specific needs and workflow complexity.</p>
           </div>
           
           <div class="card fade-in">
-            <h3>💡 Don't Pay Until You Save</h3>
-            <p>You only start paying when automations begin to work and generate real savings in your employees' time.</p>
+            <h3>🚀 No Setup Hassle</h3>
+            <p>We handle everything: installation, configuration, and automation development. You focus on your business while we optimize your processes.</p>
           </div>
         </div>
       </div>
       
-      <div class="pricing-faq mt-4">
-        <h2 class="text-center mb-4">Frequently Asked Questions</h2>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h4>How does per-device pricing work?</h4>
-            <p>You pay a monthly fee per device based on quantity: €100 up to 10 devices, €80 from 15 devices, and €70 from 30 devices. Additionally, there's a symbolic monthly fee per automation created (€18 Basic, €8 Pro, €5 Pro Advanced) to cover cloud infrastructure costs.</p>
-          </div>
-          
-          <div class="faq-item">
-            <h4>Do I really not pay until I save time?</h4>
-            <p>Correct. You won't start paying until our automations begin generating real, measurable savings in your employees' time. This can take between 2 weeks and 3 months depending on the sector.</p>
-          </div>
-          
-          <div class="faq-item">
-            <h4>What does installation include?</h4>
-            <p>We handle everything: software installation, initial setup, and deployment. You don't need to do anything technical.</p>
-          </div>
-          
-          <div class="faq-item">
-            <h4>Can I change plans?</h4>
-            <p>Yes, you can change plans at any time based on the number of devices you have. Changes apply immediately.</p>
-          </div>
+      <div class="pilot-notice mt-4">
+        <div class="card">
+          <h3>📋 Pilot Project Notice</h3>
+          <p>We are currently in the pilot phase of our project, which is why our prices are currently lower. Our pricing policy may be modified in the future. Clients with existing pricing will maintain their current rates for one year from the date of any modification.</p>
         </div>
       </div>
+
     </div>
   </section>
 </Layout>
@@ -229,6 +213,27 @@ const t = useTranslations(lang);
   
   .value-proposition {
     margin-bottom: 3rem;
+  }
+  
+  .pilot-notice {
+    margin-bottom: 3rem;
+  }
+  
+  .pilot-notice .card {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    text-align: center;
+  }
+  
+  .pilot-notice h3 {
+    color: #ffc107;
+    margin-bottom: 1rem;
+  }
+  
+  .pilot-notice p {
+    color: var(--space-white);
+    font-size: 1rem;
+    line-height: 1.6;
   }
   
   .faq-grid {

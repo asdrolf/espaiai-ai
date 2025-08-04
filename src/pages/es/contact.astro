@@ -12,6 +12,9 @@ const t = useTranslations(lang);
       <div class="section-header text-center mb-4">
         <h1>{t('contact.title')}</h1>
         <p class="text-large">{t('contact.subtitle')}</p>
+        <div class="value-proposition">
+          <p><strong>🎯 Obtén tu análisis gratuito de procesos y ve exactamente cuánto tiempo puedes ahorrar</strong></p>
+        </div>
       </div>
       
       <div class="contact-wrapper">
@@ -71,7 +74,7 @@ const t = useTranslations(lang);
             
             <div class="form-group">
               <label for="message">{t('contact.form.message')} *</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
+              <textarea id="message" name="message" rows="5" required placeholder="Cuéntanos sobre tus procesos actuales y problemas. ¿Qué tareas repetitivas están haciendo tus empleados que podrían automatizarse?"></textarea>
               <span class="error-message" id="messageError"></span>
             </div>
             
@@ -96,18 +99,23 @@ const t = useTranslations(lang);
         
         <div class="contact-info">
           <div class="contact-card">
-            <h3>📊 {t('contact.form.interest.demo')}</h3>
-            <p>Ve Espai.ai en acción con una demo personalizada adaptada a tu industria y necesidades empresariales.</p>
+            <h3>📊 Análisis Gratuito de Procesos</h3>
+            <p>Obtén un análisis detallado de tus procesos actuales y ve exactamente dónde puedes ahorrar 20+ horas semanales. Sin obligación, sin coste.</p>
           </div>
           
           <div class="contact-card">
-            <h3>💰 Precios Competitivos</h3>
-            <p>Paga por dispositivo, no por automatización. Sin pago hasta que comiences a ver ahorros reales de tiempo con nuestras automatizaciones.</p>
+            <h3>⚡ Resultados Rápidos</h3>
+            <p>La mayoría de las empresas comienzan a ver ahorros de tiempo durante el segundo o cuarto mes, dependiendo del sector y la complejidad de los procesos. Pagas solo después de que las automatizaciones comiencen a ahorrarte tiempo.</p>
           </div>
           
           <div class="contact-card">
-            <h3>🚀 Optimización Empresarial</h3>
-            <p>Transforma tus procesos empresariales con automatización impulsada por IA. Nuestras soluciones se adaptan a tus necesidades específicas y requisitos de la industria.</p>
+            <h3>🎯 Resultados Comprobados</h3>
+            <p>Las empresas están eliminando el trabajo manual con nuestra automatización IA. Ahorro promedio: 20+ horas semanales.</p>
+          </div>
+          
+          <div class="contact-card">
+            <h3>🛡️ Sin Riesgo</h3>
+            <p>Sin costes iniciales, sin contratos a largo plazo. Si no podemos ayudarte a ahorrar tiempo, no pagas nada.</p>
           </div>
         </div>
       </div>

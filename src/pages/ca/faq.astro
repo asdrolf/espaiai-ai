@@ -11,152 +11,151 @@ const t = useTranslations(lang);
     <div class="container">
       <div class="section-header text-center mb-4">
         <h1>Preguntes Freqüents</h1>
-        <p class="text-large">Troba respostes a preguntes comunes sobre Espai.ai</p>
+        <p class="text-large">Tot el que necessites saber per estalviar 20+ hores setmanals amb automatització d'IA</p>
       </div>
       
       <div class="faq-container">
         <div class="faq-category">
-          <h2>Preguntes Generals</h2>
+          <h2>Com Funciona</h2>
           
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Què és Espai.ai?</span>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Com m'estalvia temps Espai.ai realment?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Espai.ai és una plataforma d'IA que grava automàticament tots els esdeveniments i accions del teu sistema. Utilitzem el nostre model d'IA per analitzar aquests processos, crear timelines, detectar processos repetitius i colls d'ampolla, identificant quines variables intervenen en cada procés.</p>
+              <p>La nostra IA grava tots els teus processos, identifica tasques repetitives i construeix automatitzacions personalitzades que eliminen el treball manual. La majoria d'empreses estalvien 20+ hores setmanals - és com contractar un empleat extra sense els costos generals.</p>
             </div>
           </div>
           
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Com funciona el sistema de gravació?</span>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Les meves dades estan segures i són privades?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>El nostre software s'instal·la als teus sistemes i automàticament comença a gravar tots els esdeveniments i accions. No necessites configurar res. La IA analitza aquesta informació de forma segura per crear automatitzacions personalitzades.</p>
-              <p><strong>Privacitat garantida:</strong> Les teves dades segueixen sent completament privades ja que no les veurà cap persona ni seran usades per entrenar els nostres models. En cas de voler usar les teves dades et contactarem per arribar a un acord previ.</p>
+              <p>Absolutament. Les teves dades mai surten dels teus sistemes i mai són vistes per humans. Només les utilitzem per construir automatitzacions per a tu. Si alguna vegada volem usar les teves dades per una altra cosa, et demanarem permís explícit primer.</p>
             </div>
           </div>
           
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Quin tipus d'insights puc obtenir?</span>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Com de ràpid veuré resultats?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Obtens insights valuosos sobre on inverteixen el temps els teus empleats, quins processos són repetitius, on estan els colls d'ampolla i quines variables afecten cada procés. Aquesta informació et permet prendre decisions per millorar el rendiment.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="faq-category">
-          <h2>Preus i Model de Negoci</h2>
-          
-          <div class="faq-item">
-            <button class="faq-question">
-              <span>Com funciona el pagament per dispositiu?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>A diferència d'altres proveïdors que cobren per automatització, nosaltres cobrem per dispositiu. Això fa que el nostre preu sigui súper competitiu. Pots crear totes les automatitzacions que vulguis sense cost addicional.</p>
-            </div>
-          </div>
-          
-          <div class="faq-item">
-            <button class="faq-question">
-              <span>És cert que no pago fins estalviar temps?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Correcte. No pagues fins que no comencis a estalviar temps dels teus empleats. Fins que les automatitzacions no comencin a funcionar i generar un estalvi real i mesurable, no pagues res.</p>
-            </div>
-          </div>
-          
-          <div class="faq-item">
-            <button class="faq-question">
-              <span>Com mesuren l'estalvi de temps?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>El nostre sistema mesura automàticament el temps que s'estalvia amb cada automatització. Comparem el temps que tardaven els processos manuals amb el temps automatitzat, proporcionant mètriques clares i transparents.</p>
+              <p>La majoria d'empreses comencen a veure estalvis de temps durant el segon o quart mes, depenent del sector i la complexitat dels processos. La nostra IA necessita temps per analitzar els teus processos i construir automatitzacions efectives. Rebràs informes detallats que mostren exactament quant temps estalvia cada automatització.</p>
             </div>
           </div>
         </div>
         
         <div class="faq-category">
-          <h2>Implementació i Suport</h2>
+          <h2>Preus & ROI</h2>
           
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Què inclou la instal·lació?</span>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Quin és el cost real i el ROI?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Nosaltres ens encarreguem de tot: instal·lació del software als teus sistemes, configuració inicial i posada en marxa. No necessites fer res tècnic. El nostre equip s'encarrega de tota la implementació.</p>
+              <p>Pagues 70-100€ per dispositiu per mes, més petites taxes per automatització. Si només estalvies 20 hores setmanals (la nostra mitjana), això val 2.000€+ per mes en temps d'empleat. La majoria d'empreses veuen ROI durant el segon o quart mes, depenent del sector i la complexitat dels processos.</p>
             </div>
           </div>
           
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Puc veure els meus processos en temps real?</span>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Què passa si no veig cap estalvi?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Sí, pots veure en temps real i des del mòbil com van tots els teus processos. Els nostres dashboards adaptatius et permeten no perdre ni una sola dada i supervisar les automatitzacions des de qualsevol lloc.</p>
+              <p>No pagues res fins que les automatitzacions comencin a estalviar-te temps. Si no podem lliurar resultats, no pagues. És així de simple. Estem segurs que podem ajudar-te a estalviar temps, o no pagues.</p>
             </div>
           </div>
           
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Estan segures les meves dades?</span>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Puc cancel·lar en qualsevol moment?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Absolutament. Totes les dades estan xifrades i es processen de forma segura. Complim amb GDPR i altres estàndards de seguretat. La teva informació empresarial roman completament privada i protegida.</p>
+              <p>Sí, sense contractes a llarg termini. Pots cancel·lar en qualsevol moment, tot i que la majoria de clients veuen estalvis tan significatius que mai volen parar. Un cop vegis quant temps estàs estalviant, et preguntaràs com mai has treballat sense això.</p>
             </div>
           </div>
         </div>
         
         <div class="faq-category">
-          <h2>Automatitzacions</h2>
+          <h2>Implementació</h2>
           
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Com es creen les automatitzacions?</span>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Com de complicada és la configuració?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Un cop el nostre model d'IA té prou informació, reps informes detallats i recomanacions específiques d'automatitzacions. Pots aplicar aquestes recomanacions sota la teva supervisió.</p>
+              <p>No és complicada en absolut. Ens encarreguem de tot: instal·lació, configuració i desenvolupament d'automatitzacions. No necessites cap coneixement tècnic. Només fes-nos saber quan estàs preparat per començar a estalviar temps.</p>
             </div>
           </div>
           
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Puc controlar què s'automatitza?</span>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Quin tipus de suport proporcioneu?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Per descomptat. Totes les automatitzacions s'apliquen sota la teva supervisió. Tu decideixes quins processos automatitzar i pots activar o desactivar qualsevol automatització en qualsevol moment.</p>
+              <p>Proporcionem suport complet durant tot el procés. Des de la configuració inicial fins a l'optimització contínua, el nostre equip està aquí per ajudar. Els plans Pro i Pro Advanced inclouen suport prioritari i gestors de compte dedicats.</p>
             </div>
           </div>
           
           <div class="faq-item">
-            <button class="faq-question">
-              <span>Hi ha límit en el nombre d'automatitzacions?</span>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Això interromprà el meu flux de treball actual?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>No hi ha límits. Com que paguem per dispositiu i no per automatització, pots crear tantes automatitzacions com necessitis sense cost addicional. Això és el que fa el nostre model súper competitiu.</p>
+              <p>Cap interrupció en absolut. El nostre programari s'executa silenciosament en segon pla, gravant processos sense interferir amb el teu treball. Les automatitzacions s'implementen gradualment i només després de proves exhaustives per assegurar que funcionen perfectament.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-category">
+          <h2>Resultats & Èxit</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Quin tipus de resultats veuen altres empreses?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Els nostres clients estalvien una mitjana de 20+ hores setmanals. Això són 1.040+ hores per any - equivalent a contractar un empleat addicional a temps complet. Moltes empreses també informen de millora en la precisió i reducció d'errors.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Com mesureu l'èxit?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Rastrejem el temps real gastat en tasques abans i després de l'automatització. Rebràs informes detallats que mostren exactament quant temps estalvia cada automatització, més mètriques sobre millores en la precisió i reducció d'errors.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Què passa si necessito automatitzacions personalitzades?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Construïm automatitzacions personalitzades per a les teves necessitats específiques. La nostra IA analitza els teus processos únics i crea solucions a mida. Els plans Pro Advanced inclouen automatització de flux de treball complex i integracions personalitzades.</p>
             </div>
           </div>
         </div>
       </div>
       
-      <div class="contact-section text-center mt-4">
-        <h2>Encara tens preguntes?</h2>
-        <p>No pots trobar la resposta que busques? El nostre equip està aquí per ajudar.</p>
-        <a href={getNavLink('contact', lang)} class="btn">Contactar Suport</a>
+      <div class="cta-section text-center mt-4">
+        <h2>Preparat per començar a estalviar temps?</h2>
+        <p class="text-large">Obten la teva anàlisi de processos gratuïta i veu quant temps pots estalviar</p>
+        <a href={getNavLink('contact', lang)} class="btn">Obtenir anàlisi gratuïta</a>
       </div>
     </div>
   </section>
