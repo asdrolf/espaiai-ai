@@ -10,152 +10,152 @@ const t = useTranslations(lang);
   <section class="section">
     <div class="container">
       <div class="section-header text-center mb-4">
-        <h1>Preguntes Freqüents</h1>
-        <p class="text-large">Tot el que necessites saber per estalviar 20+ hores setmanals amb automatització d'IA</p>
+        <h1>{t('faq.hero.title')}</h1>
+        <p class="text-large">{t('faq.hero.subtitle')}</p>
       </div>
       
       <div class="faq-container">
         <div class="faq-category">
-          <h2>Com Funciona</h2>
+          <h2>{t('faq.category.howitworks')}</h2>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Com m'estalvia temps Espai.ai realment?</span>
+              <span>{t('faq.question.timesavings')}</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>La nostra IA grava tots els teus processos, identifica tasques repetitives i construeix automatitzacions personalitzades que eliminen el treball manual. La majoria d'empreses estalvien 20+ hores setmanals - és com contractar un empleat extra sense els costos generals.</p>
+              <p>{t('faq.answer.timesavings')}</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Les meves dades estan segures i són privades?</span>
+              <span>{t('faq.question.privacy')}</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Absolutament. Les teves dades mai surten dels teus sistemes i mai són vistes per humans. Només les utilitzem per construir automatitzacions per a tu. Si alguna vegada volem usar les teves dades per una altra cosa, et demanarem permís explícit primer.</p>
+              <p>{t('faq.answer.privacy')}</p>
+            </div>
+          </div>
+          
+                      <div class="faq-item">
+              <button class="faq-question" onclick="toggleFaq(this)">
+                <span>{t('faq.question.results.other')}</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>{t('faq.answer.results.other')}</p>
+              </div>
+            </div>
+        </div>
+        
+        <div class="faq-category">
+          <h2>{t('faq.category.pricing')}</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>{t('faq.question.cost')}</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{t('faq.answer.cost')}</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Com de ràpid veuré resultats?</span>
+              <span>{t('faq.question.noresults')}</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>La majoria d'empreses comencen a veure estalvis de temps durant el segon o quart mes, depenent del sector i la complexitat dels processos. La nostra IA necessita temps per analitzar els teus processos i construir automatitzacions efectives. Rebràs informes detallats que mostren exactament quant temps estalvia cada automatització.</p>
+              <p>{t('faq.answer.noresults')}</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>{t('faq.question.cancel')}</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{t('faq.answer.cancel')}</p>
             </div>
           </div>
         </div>
         
         <div class="faq-category">
-          <h2>Preus & ROI</h2>
+          <h2>{t('faq.category.implementation')}</h2>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Quin és el cost real i el ROI?</span>
+              <span>{t('faq.question.setup')}</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Pagues 70-100€ per dispositiu per mes, més petites taxes per automatització. Si només estalvies 20 hores setmanals (la nostra mitjana), això val 2.000€+ per mes en temps d'empleat. La majoria d'empreses veuen ROI durant el segon o quart mes, depenent del sector i la complexitat dels processos.</p>
+              <p>{t('faq.answer.setup')}</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Què passa si no veig cap estalvi?</span>
+              <span>{t('faq.question.support')}</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>No pagues res fins que les automatitzacions comencin a estalviar-te temps. Si no podem lliurar resultats, no pagues. És així de simple. Estem segurs que podem ajudar-te a estalviar temps, o no pagues.</p>
+              <p>{t('faq.answer.support')}</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Puc cancel·lar en qualsevol moment?</span>
+              <span>{t('faq.question.workflow')}</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Sí, sense contractes a llarg termini. Pots cancel·lar en qualsevol moment, tot i que la majoria de clients veuen estalvis tan significatius que mai volen parar. Un cop vegis quant temps estàs estalviant, et preguntaràs com mai has treballat sense això.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="faq-category">
-          <h2>Implementació</h2>
-          
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Com de complicada és la configuració?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>No és complicada en absolut. Ens encarreguem de tot: instal·lació, configuració i desenvolupament d'automatitzacions. No necessites cap coneixement tècnic. Només fes-nos saber quan estàs preparat per començar a estalviar temps.</p>
-            </div>
-          </div>
-          
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Quin tipus de suport proporcioneu?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Proporcionem suport complet durant tot el procés. Des de la configuració inicial fins a l'optimització contínua, el nostre equip està aquí per ajudar. Els plans Pro i Pro Advanced inclouen suport prioritari i gestors de compte dedicats.</p>
-            </div>
-          </div>
-          
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Això interromprà el meu flux de treball actual?</span>
-              <span class="faq-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Cap interrupció en absolut. El nostre programari s'executa silenciosament en segon pla, gravant processos sense interferir amb el teu treball. Les automatitzacions s'implementen gradualment i només després de proves exhaustives per assegurar que funcionen perfectament.</p>
+              <p>{t('faq.answer.workflow')}</p>
             </div>
           </div>
         </div>
         
         <div class="faq-category">
-          <h2>Resultats & Èxit</h2>
+          <h2>{t('faq.category.results')}</h2>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Quin tipus de resultats veuen altres empreses?</span>
+              <span>{t('faq.question.results')}</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Els nostres clients estalvien una mitjana de 20+ hores setmanals. Això són 1.040+ hores per any - equivalent a contractar un empleat addicional a temps complet. Moltes empreses també informen de millora en la precisió i reducció d'errors.</p>
+              <p>{t('faq.answer.results')}</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Com mesureu l'èxit?</span>
+              <span>{t('faq.question.metrics')}</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Rastrejem el temps real gastat en tasques abans i després de l'automatització. Rebràs informes detallats que mostren exactament quant temps estalvia cada automatització, més mètriques sobre millores en la precisió i reducció d'errors.</p>
+              <p>{t('faq.answer.metrics')}</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-              <span>Què passa si necessito automatitzacions personalitzades?</span>
+              <span>{t('faq.question.customizations')}</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              <p>Construïm automatitzacions personalitzades per a les teves necessitats específiques. La nostra IA analitza els teus processos únics i crea solucions a mida. Els plans Pro Advanced inclouen automatització de flux de treball complex i integracions personalitzades.</p>
+              <p>{t('faq.answer.customizations')}</p>
             </div>
           </div>
         </div>
       </div>
       
       <div class="cta-section text-center mt-4">
-        <h2>Preparat per començar a estalviar temps?</h2>
-        <p class="text-large">Obten la teva anàlisi de processos gratuïta i veu quant temps pots estalviar</p>
-        <a href={getNavLink('contact', lang)} class="btn">Obtenir anàlisi gratuïta</a>
+        <h2>{t('faq.cta.title')}</h2>
+        <p class="text-large">{t('faq.cta.subtitle')}</p>
+        <a href={getNavLink('contact', lang)} class="btn">{t('contact.form.submit')}</a>
       </div>
     </div>
   </section>

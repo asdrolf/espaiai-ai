@@ -48,7 +48,7 @@ const t = useTranslations(lang);
               <div class="form-group">
                 <label for="employees">{t('contact.form.employees')} *</label>
                 <select id="employees" name="employees" required>
-                  <option value="">Seleccionar...</option>
+                  <option value="">{t('contact.select.placeholder')}</option>
                   <option value="1-10">{t('contact.form.employees.option1')}</option>
                   <option value="11-50">{t('contact.form.employees.option2')}</option>
                   <option value="51-200">{t('contact.form.employees.option3')}</option>
@@ -60,7 +60,7 @@ const t = useTranslations(lang);
               <div class="form-group">
                 <label for="interest">{t('contact.form.interest')} *</label>
                 <select id="interest" name="interest" required>
-                  <option value="">Seleccionar...</option>
+                  <option value="">{t('contact.select.placeholder')}</option>
                   <option value="demo">{t('contact.form.interest.demo')}</option>
                   <option value="pricing">{t('contact.form.interest.pricing')}</option>
                   <option value="other">{t('contact.form.interest.other')}</option>
@@ -78,7 +78,7 @@ const t = useTranslations(lang);
             <div class="form-group">
               <label>
                 <input type="checkbox" id="consent" name="consent" required>
-                He llegit i accepto la <a href={getNavLink('privacy', lang)} target="_blank">política de tractament de dades</a>.
+                {t('contact.consent.text')} <a href={getNavLink('privacy', lang)} target="_blank">{t('contact.consent.link')}</a>.
               </label>
               <span class="error-message" id="consentError"></span>
             </div>
@@ -96,18 +96,18 @@ const t = useTranslations(lang);
         
         <div class="contact-info">
           <div class="contact-card">
-            <h3>📊 {t('contact.form.interest.demo')}</h3>
-            <p>Veu Espai.ai en acció amb una demo personalitzada adaptada a la teva indústria i necessitats empresarials.</p>
+            <h3>{t('contact.demo.title')}</h3>
+            <p>{t('contact.demo.description')}</p>
           </div>
           
           <div class="contact-card">
             <h3>💰 Preus Competitius</h3>
-            <p>Paga per dispositiu, no per automatització. Sense pagament fins que comencis a veure estalvis reals de temps amb les nostres automatitzacions.</p>
+            <p>{t('contact.pricing.description')}</p>
           </div>
           
           <div class="contact-card">
             <h3>🚀 Optimització Empresarial</h3>
-            <p>Transforma els teus processos empresarials amb automatització impulsada per IA. Les nostres solucions s'adapten a les teves necessitats específiques i requisits de la indústria.</p>
+            <p>{t('contact.solutions.description')}</p>
           </div>
         </div>
       </div>
@@ -423,7 +423,7 @@ ${message}
     const mailtoLink = `mailto:${EMAIL_CONFIG.fallbackEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;
     
-    showMessage('Client d\'email obert. Si us plau envia l\'email per completar la teva sol·licitud.', 'success');
+    showMessage(t('contact.email.success'), 'success');
   }
   
   // Email sending functions

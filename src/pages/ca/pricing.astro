@@ -10,96 +10,91 @@ const t = useTranslations(lang);
   <section class="section">
     <div class="container">
       <div class="section-header text-center mb-4">
-        <h1>Paga Només Quan Comencis a Estalviar Temps</h1>
-        <p class="text-large">Preus transparents sense costos inicials. Pagues només després que les automatitzacions comencin a generar estalvis reals.</p>
+        <h1>{t('pricing.hero.title')}</h1>
+        <p class="text-large">{t('pricing.hero.subtitle')}</p>
         <div class="important-notice">
-          <p><strong>🎯 Garantia Sense Risc:</strong> No pagues res fins que les nostres automatitzacions comencin a estalviar-te temps. La majoria d'empreses veuen els seus primers estalvis durant el segon o quart mes, depenent del sector i la complexitat dels processos. Sense costos inicials, sense contractes a llarg termini.</p>
+          <p><strong>{t('pricing.guarantee')}</strong></p>
         </div>
       </div>
       
       <div class="pricing-grid">
         <div class="pricing-card card fade-in">
           <div class="plan-header">
-            <h3>Bàsic</h3>
+            <h3>{t('pricing.basic.title')}</h3>
             <div class="price">
               <span class="currency">€</span>
-              <span class="amount">100</span>
-              <span class="period">/dispositiu/mes</span>
+              <span class="amount">{t('pricing.basic.price')}</span>
+              <span class="period">{t('pricing.basic.period')}</span>
             </div>
-            <p class="device-limit">Fins a 10 dispositius</p>
+            <p class="device-limit">{t('pricing.basic.devices')}</p>
           </div>
           <ul class="features">
-            <li>✓ Registre automàtic de processos</li>
-            <li>✓ Detecció d'ineficiències amb IA</li>
-            <li>✓ Desenvolupament d'automatitzacions personalitzades</li>
-            <li>✓ Dashboards de rendiment en temps real</li>
-            <li>✓ Automatitzacions il·limitades</li>
-            <li>✓ Instal·lació i configuració completa</li>
-            <li><strong>+ €18/mes per automatització</strong></li>
+            {t('pricing.basic.features').map((feature: string) => (
+              <li>✓ {feature}</li>
+            ))}
+            <li><strong>{t('pricing.basic.automation')}</strong></li>
           </ul>
-          <a href={getNavLink('contact', lang)} class="btn btn-secondary">Iniciar Anàlisi Gratuïta</a>
+          <a href={getNavLink('contact', lang)} class="btn btn-secondary">{t('pricing.cta')}</a>
         </div>
         
         <div class="pricing-card card featured fade-in">
           <div class="plan-header">
-            <div class="popular-badge">Més Popular</div>
-            <h3>Pro</h3>
+            <div class="popular-badge">{t('pricing.popular')}</div>
+            <h3>{t('pricing.pro.title')}</h3>
             <div class="price">
               <span class="currency">€</span>
-              <span class="amount">80</span>
-              <span class="period">/dispositiu/mes</span>
+              <span class="amount">{t('pricing.pro.price')}</span>
+              <span class="period">{t('pricing.pro.period')}</span>
             </div>
-            <p class="device-limit">A partir de 15 dispositius</p>
+            <p class="device-limit">{t('pricing.pro.devices')}</p>
           </div>
           <ul class="features">
-            <li>✓ Tot el que inclou Bàsic</li>
-            <li>✓ Accés a aplicació mòbil</li>
-            <li>✓ Suport prioritari</li>
-            <li>✓ Analytics avançats</li>
-            <li><strong>+ €8/mes per automatització</strong></li>
+            {t('pricing.pro.features').map((feature: string) => (
+              <li>✓ {feature}</li>
+            ))}
+            <li><strong>{t('pricing.pro.automation')}</strong></li>
           </ul>
-          <a href={getNavLink('contact', lang)} class="btn">Iniciar Anàlisi Gratuïta</a>
+          <a href={getNavLink('contact', lang)} class="btn">{t('pricing.cta')}</a>
         </div>
         
         <div class="pricing-card card fade-in">
           <div class="plan-header">
-            <h3>Pro Avançat</h3>
+            <h3>{t('pricing.advanced.title')}</h3>
             <div class="price">
               <span class="currency">€</span>
-              <span class="amount">70</span>
-              <span class="period">/dispositiu/mes</span>
+              <span class="amount">{t('pricing.advanced.price')}</span>
+              <span class="period">{t('pricing.advanced.period')}</span>
             </div>
-            <p class="device-limit">A partir de 30 dispositius</p>
+            <p class="device-limit">{t('pricing.advanced.devices')}</p>
           </div>
           <ul class="features">
-            <li>✓ Tot el que inclou Pro</li>
-            <li>✓ Suport dedicat 24/7</li>
-            <li>✓ Fluxos de treball d'automatització complexos</li>
-            <li>✓ Integracions personalitzades</li>
-            <li><strong>+ €5/mes per automatització</strong></li>
+            {t('pricing.advanced.features').map((feature: string) => (
+              <li>✓ {feature}</li>
+            ))}
+            <li><strong>{t('pricing.advanced.automation')}</strong></li>
           </ul>
-          <a href={getNavLink('contact', lang)} class="btn">Iniciar Anàlisi Gratuïta</a>
+          <a href={getNavLink('contact', lang)} class="btn">{t('pricing.cta')}</a>
         </div>
       </div>
       
       <div class="value-proposition mt-4">
         <div class="grid grid-2">
           <div class="card fade-in">
-            <h3>💰 Calculadora de ROI</h3>
-            <p>Si estalvies només 20 hores per setmana (la nostra mitjana), això val €2,000+ per mes en temps d'empleats. La nostra solució t'ajuda a començar a automatitzar processos i generar estalvis segons les teves necessitats específiques i la complexitat dels teus fluxos de treball.</p>
+            <h3>{t('pricing.roi.title')}</h3>
+            <p>{t('pricing.roi.description')}</p>
           </div>
           
           <div class="card fade-in">
-            <h3>🚀 Sense Complicacions de Configuració</h3>
-            <p>Nosaltres gestionem tot: instal·lació, configuració i desenvolupament d'automatitzacions. Tu et centres en el teu negoci mentre optimitzem els teus processos.</p>
+            <h3>{t('pricing.setup.title')}</h3>
+            <p>{t('pricing.setup.description')}</p>
           </div>
         </div>
       </div>
       
       <div class="pilot-notice mt-4">
         <div class="card">
-          <h3>📋 Avís de Projecte Pilot</h3>
-          <p>Actualment estem en la fase pilot del nostre projecte, per la qual cosa els nostres preus són actualment més baixos. La nostra política de preus pot ser modificada en el futur. Els clients amb preus existents mantindran les seves tarifes actuals durant un any a partir de la data de qualsevol modificació.</p>
+          <h3>{t('pricing.pilot.title')}</h3>
+          <p>{t('pricing.pilot.description')}</p>
         </div>
       </div>
 
