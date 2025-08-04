@@ -22,12 +22,12 @@ const {
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": {JSON.stringify(name)},
-  "description": {JSON.stringify(description)},
-  "embedUrl": {JSON.stringify(embedUrl)},
-  "thumbnailUrl": {JSON.stringify(thumbnailUrl)},
-  "uploadDate": {JSON.stringify(uploadDate)},
-  "duration": {JSON.stringify(duration)},
+  "name": name,
+  "description": description,
+  "embedUrl": embedUrl,
+  "thumbnailUrl": thumbnailUrl,
+  "uploadDate": uploadDate,
+  "duration": duration,
   "publisher": {
     "@type": "Organization",
     "name": "Espai.ai",
@@ -36,7 +36,7 @@ const {
       "url": "https://espai.ai/logoespaiai.webp"
     }
   },
-  "contentUrl": {JSON.stringify(embedUrl)},
+  "contentUrl": embedUrl,
   "isFamilyFriendly": true,
   "inLanguage": "en"
 }

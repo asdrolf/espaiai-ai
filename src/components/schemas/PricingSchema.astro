@@ -75,8 +75,8 @@ const {
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "AI Process Automation Pricing",
-    "itemListElement": [
-      {plans.map((plan, index) => ({
+            "itemListElement": [
+      ...plans.map((plan, index) => ({
         "@type": "Offer",
         "name": plan.name,
         "description": plan.description,
@@ -148,15 +148,15 @@ const {
           "name": "Espai.ai",
           "url": "https://espai.ai"
         }
-      }))}
+      }))
     ]
   },
   "offers": {
     "@type": "AggregateOffer",
-    "priceCurrency": {JSON.stringify(currency)},
-    "lowPrice": {JSON.stringify(Math.min(...plans.map(p => p.price)))},
-    "highPrice": {JSON.stringify(Math.max(...plans.map(p => p.price)))},
-    "offerCount": {JSON.stringify(plans.length)},
+    "priceCurrency": currency,
+    "lowPrice": Math.min(...plans.map(p => p.price)),
+    "highPrice": Math.max(...plans.map(p => p.price)),
+    "offerCount": plans.length,
     "availability": "https://schema.org/InStock"
   },
   "termsOfService": "https://espai.ai/privacy",

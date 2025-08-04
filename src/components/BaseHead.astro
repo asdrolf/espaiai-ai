@@ -357,10 +357,10 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": {JSON.stringify(title)},
-  "description": {JSON.stringify(description)},
-  "url": {JSON.stringify(canonicalURL.href)},
-  "inLanguage": {JSON.stringify(currentLang)},
+  "name": title,
+  "description": description,
+  "url": canonicalURL.href,
+  "inLanguage": currentLang,
   "isPartOf": {
     "@type": "WebSite",
     "name": "Espai.AI",

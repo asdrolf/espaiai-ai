@@ -26,27 +26,29 @@ const {
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": {JSON.stringify(name)},
-  "description": {JSON.stringify(description)},
-  "serviceType": {JSON.stringify(serviceType)},
+  "name": name,
+  "description": description,
+  "serviceType": serviceType,
   "provider": {
     "@type": "Organization",
-    "name": {JSON.stringify(provider)},
+    "name": provider,
     "url": "https://espai.ai"
   },
-  "areaServed": {JSON.stringify(areaServed)},
+  "areaServed": areaServed,
   "category": "Business Process Automation",
   "audience": {
     "@type": "BusinessAudience",
     "audienceType": "Business"
   },
-  {offers && `"offers": ${JSON.stringify({
-    "@type": "Offer",
-    "price": offers.price,
-    "priceCurrency": offers.priceCurrency,
-    "description": offers.description,
-    "availability": "https://schema.org/InStock"
-  })},`}
+  ...(offers ? [{
+    "offers": {
+      "@type": "Offer",
+      "price": offers.price,
+      "priceCurrency": offers.priceCurrency,
+      "description": offers.description,
+      "availability": "https://schema.org/InStock"
+    }
+  }] : [])
   "brand": {
     "@type": "Brand",
     "name": "Espai.ai"
