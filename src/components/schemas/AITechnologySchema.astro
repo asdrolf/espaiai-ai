@@ -47,13 +47,12 @@ const {
 } = Astro.props;
 ---
 
-<script type="application/ld+json">
-{
+<script type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": ["SoftwareApplication", "Product"],
-  "name": name,
-  "description": description,
-  "applicationCategory": applicationCategory,
+  "name": "${name}",
+  "description": "${description}",
+  "applicationCategory": "${applicationCategory}",
   "applicationSubCategory": "Process Automation Software",
   "operatingSystem": ["Windows 10+", "macOS 10.15+", "Linux"],
   "softwareRequirements": "Modern web browser, Internet connection",
@@ -65,9 +64,9 @@ const {
   "installUrl": "https://espai.ai/contact",
   "softwareHelp": "https://espai.ai/faq",
   "applicationSuite": "Espai.ai Business Automation Suite",
-  "featureList": features,
-  "keywords": technologies.concat(['business automation', 'workflow optimization', 'process efficiency', 'AI SaaS']),
-  "inLanguage": lang,
+  "featureList": ${JSON.stringify(features)},
+  "keywords": ${JSON.stringify(technologies.concat(['business automation', 'workflow optimization', 'process efficiency', 'AI SaaS']))},
+  "inLanguage": "${lang}",
   "isAccessibleForFree": false,
   "hasPart": [
     {
@@ -102,13 +101,7 @@ const {
   },
   "serviceType": "AI Technology Platform",
   "providerMobility": "International",
-  "areaServed": industries,
-  "availableChannel": {
-    "@type": "ServiceChannel",
-    "serviceUrl": "https://espai.ai",
-    "serviceSmsNumber": "+34-XXX-XXX-XXX",
-    "availableLanguage": ["en", "es", "ca", "de"]
-  },
+  "areaServed": ${JSON.stringify(industries)},
   "brand": {
     "@type": "Brand",
     "name": "Espai.ai",
@@ -122,14 +115,14 @@ const {
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "EUR",
-    "lowPrice": "70",
-    "highPrice": "100",
-    "offerCount": "2",
+    "lowPrice": 70,
+    "highPrice": 100,
+    "offerCount": 2,
     "priceSpecification": {
       "@type": "UnitPriceSpecification",
       "unitText": "per device per month",
       "unitCode": "MON"
     }
   }
-}
+}`}>
 </script> 

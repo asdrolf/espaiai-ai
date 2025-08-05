@@ -342,13 +342,13 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 </script>
 
 <!-- WebPage structured data for current page -->
-<script type="application/ld+json" set:html={JSON.stringify({
+<script type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": title,
-  "description": description,
-  "url": canonicalURL.href,
-  "inLanguage": currentLang,
+  "name": "${title}",
+  "description": "${description}",
+  "url": "${canonicalURL.href}",
+  "inLanguage": "${currentLang}",
   "isPartOf": {
     "@type": "WebSite",
     "name": "Espai.AI",
@@ -365,5 +365,5 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
       }
     ]
   }
-})}>
+}`}>
 </script>

@@ -18,16 +18,15 @@ const {
 } = Astro.props;
 ---
 
-<script type="application/ld+json">
-{
+<script type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": name,
-  "description": description,
-  "embedUrl": embedUrl,
-  "thumbnailUrl": thumbnailUrl,
-  "uploadDate": uploadDate,
-  "duration": duration,
+  "name": "${name}",
+  "description": "${description}",
+  "embedUrl": "${embedUrl}",
+  "thumbnailUrl": "${thumbnailUrl}",
+  "uploadDate": "${uploadDate}",
+  "duration": "${duration}",
   "publisher": {
     "@type": "Organization",
     "name": "Espai.ai",
@@ -36,8 +35,8 @@ const {
       "url": "https://espai.ai/logoespaiai.webp"
     }
   },
-  "contentUrl": embedUrl,
+  "contentUrl": "${embedUrl}",
   "isFamilyFriendly": true,
   "inLanguage": "en"
-}
+}`}>
 </script> 

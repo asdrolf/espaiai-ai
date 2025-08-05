@@ -22,36 +22,33 @@ const {
 } = Astro.props;
 ---
 
-<script type="application/ld+json">
-{
+<script type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": name,
-  "description": description,
-  "serviceType": serviceType,
+  "name": "${name}",
+  "description": "${description}",
+  "serviceType": "${serviceType}",
   "provider": {
     "@type": "Organization",
-    "name": provider,
+    "name": "${provider}",
     "url": "https://espai.ai"
   },
-  "areaServed": areaServed,
+  "areaServed": ${JSON.stringify(areaServed)},
   "category": "Business Process Automation",
   "audience": {
     "@type": "BusinessAudience",
     "audienceType": "Business"
-  },
-  ...(offers ? [{
-    "offers": {
-      "@type": "Offer",
-      "price": offers.price,
-      "priceCurrency": offers.priceCurrency,
-      "description": offers.description,
-      "availability": "https://schema.org/InStock"
-    }
-  }] : [])
+  }${offers ? `,
+  "offers": {
+    "@type": "Offer",
+    "price": "${offers.price}",
+    "priceCurrency": "${offers.priceCurrency}",
+    "description": "${offers.description}",
+    "availability": "https://schema.org/InStock"
+  }` : ''},
   "brand": {
     "@type": "Brand",
     "name": "Espai.ai"
   }
-}
+}`}>
 </script> 

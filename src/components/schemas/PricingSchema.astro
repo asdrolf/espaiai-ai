@@ -58,8 +58,7 @@ const {
 } = Astro.props;
 ---
 
-<script type="application/ld+json">
-{
+<script type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "AI Business Process Automation Plans",
@@ -75,88 +74,86 @@ const {
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "AI Process Automation Pricing",
-            "itemListElement": [
-      ...plans.map((plan, index) => ({
-        "@type": "Offer",
-        "name": plan.name,
-        "description": plan.description,
+    "itemListElement": ${JSON.stringify(plans.map((plan, index) => ({
+      "@type": "Offer",
+      "name": plan.name,
+      "description": plan.description,
+      "price": plan.price,
+      "priceCurrency": plan.currency,
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
         "price": plan.price,
         "priceCurrency": plan.currency,
-        "priceSpecification": {
-          "@type": "UnitPriceSpecification",
-          "price": plan.price,
-          "priceCurrency": plan.currency,
-          "unitCode": plan.period,
-          "unitText": `per device per ${plan.period.toLowerCase()}`,
-          "billingIncrement": 1,
-          "referenceQuantity": {
-            "@type": "QuantitativeValue",
-            "unitCode": "EA",
-            "unitText": "device",
-            "value": 1
-          }
-        },
-        "eligibleQuantity": {
+        "unitCode": plan.period,
+        "unitText": `per device per ${plan.period.toLowerCase()}`,
+        "billingIncrement": 1,
+        "referenceQuantity": {
           "@type": "QuantitativeValue",
-          "minValue": 1,
           "unitCode": "EA",
-          "unitText": "device"
-        },
-        "availability": "https://schema.org/InStock",
-        "validFrom": "2024-01-01",
-        "validThrough": "2025-12-31",
-        "category": "Software Subscription",
-        "businessFunction": "https://schema.org/Sell",
-        "deliveryMethod": "https://schema.org/OnSitePickup",
-        "paymentAccepted": ["Credit Card", "Bank Transfer", "PayPal"],
-        "acceptedPaymentMethod": [
-          "https://schema.org/CreditCard",
-          "https://schema.org/BankTransferInAdvance",
-          "https://schema.org/PaymentMethodCreditCard"
-        ],
-        "advanceBookingRequirement": {
-          "@type": "QuantitativeValue",
-          "minValue": 0,
-          "unitCode": "DAY"
-        },
-        "areaServed": ["ES", "US", "DE", "FR", "CA"],
-        "audience": {
-          "@type": "BusinessAudience",
-          "audienceType": plan.target
-        },
-        "itemOffered": {
-          "@type": "Service",
-          "name": `${plan.name} - AI Process Automation`,
-          "description": plan.description,
-          "serviceType": "Business Process Automation Software",
-          "provider": {
-            "@type": "Organization", 
-            "name": "Espai.ai"
-          },
-          "hasOfferCatalog": {
-            "@type": "ItemList",
-            "itemListElement": plan.features.map((feature, featureIndex) => ({
-              "@type": "ListItem",
-              "position": featureIndex + 1,
-              "name": feature,
-              "description": `${feature} included in ${plan.name}`
-            }))
-          }
-        },
-        "seller": {
-          "@type": "Organization",
-          "name": "Espai.ai",
-          "url": "https://espai.ai"
+          "unitText": "device",
+          "value": 1
         }
-      }))
-    ]
+      },
+      "eligibleQuantity": {
+        "@type": "QuantitativeValue",
+        "minValue": 1,
+        "unitCode": "EA",
+        "unitText": "device"
+      },
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2024-01-01",
+      "validThrough": "2025-12-31",
+      "category": "Software Subscription",
+      "businessFunction": "https://schema.org/Sell",
+      "deliveryMethod": "https://schema.org/OnSitePickup",
+      "paymentAccepted": ["Credit Card", "Bank Transfer", "PayPal"],
+      "acceptedPaymentMethod": [
+        "https://schema.org/CreditCard",
+        "https://schema.org/BankTransferInAdvance",
+        "https://schema.org/PaymentMethodCreditCard"
+      ],
+      "advanceBookingRequirement": {
+        "@type": "QuantitativeValue",
+        "minValue": 0,
+        "unitCode": "DAY"
+      },
+      "areaServed": ["ES", "US", "DE", "FR", "CA"],
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": plan.target
+      },
+      "itemOffered": {
+        "@type": "Service",
+        "name": `${plan.name} - AI Process Automation`,
+        "description": plan.description,
+        "serviceType": "Business Process Automation Software",
+        "provider": {
+          "@type": "Organization", 
+          "name": "Espai.ai"
+        },
+        "hasOfferCatalog": {
+          "@type": "ItemList",
+          "itemListElement": plan.features.map((feature, featureIndex) => ({
+            "@type": "ListItem",
+            "position": featureIndex + 1,
+            "name": feature,
+            "description": `${feature} included in ${plan.name}`
+          }))
+        }
+      },
+      "seller": {
+        "@type": "Organization",
+        "name": "Espai.ai",
+        "url": "https://espai.ai"
+      }
+    })))}
   },
   "offers": {
     "@type": "AggregateOffer",
-    "priceCurrency": currency,
-    "lowPrice": Math.min(...plans.map(p => p.price)),
-    "highPrice": Math.max(...plans.map(p => p.price)),
-    "offerCount": plans.length,
+    "priceCurrency": "${currency}",
+    "lowPrice": ${Math.min(...plans.map(p => p.price))},
+    "highPrice": ${Math.max(...plans.map(p => p.price))},
+    "offerCount": ${plans.length},
     "availability": "https://schema.org/InStock"
   },
   "termsOfService": "https://espai.ai/privacy",
@@ -165,5 +162,5 @@ const {
     "name": "GDPR Compliance",
     "certificationIdentification": "EU GDPR 2016/679"
   }
-}
+}`}>
 </script> 
