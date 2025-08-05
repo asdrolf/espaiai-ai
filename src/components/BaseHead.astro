@@ -213,8 +213,7 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
 </script>
 
 <!-- Enhanced Schema.org structured data optimized for AI -->
-<script type="application/ld+json">
-{
+<script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": ["Organization", "SoftwareApplication"],
   "name": "Espai.AI",
@@ -246,7 +245,6 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
   ],
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+34-XXX-XXX-XXX",
     "contactType": "customer service",
     "areaServed": ["ES", "US", "DE", "FR", "CA"],
     "hoursAvailable": {
@@ -293,15 +291,6 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
   },
   "potentialAction": [
     {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://espai.ai/{language}",
-        "description": "Available in multiple languages"
-      },
-      "query-input": "required name=language"
-    },
-    {
       "@type": "ContactAction",
       "target": "https://espai.ai/contact"
     }
@@ -312,10 +301,10 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
       "name": "Basic Plan",
       "description": "AI-powered business process automation - Basic tier",
       "priceCurrency": "EUR",
-      "price": "70",
+      "price": 70,
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
-        "price": "70",
+        "price": 70,
         "priceCurrency": "EUR",
         "unitCode": "MON",
         "unitText": "per device per month",
@@ -330,10 +319,10 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
       "name": "Premium Plan",
       "description": "AI-powered business process automation - Premium tier with advanced features",
       "priceCurrency": "EUR",
-      "price": "100",
+      "price": 100,
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
-        "price": "100",
+        "price": 100,
         "priceCurrency": "EUR",
         "unitCode": "MON",
         "unitText": "per device per month",
@@ -349,12 +338,11 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
     "@type": "BusinessAudience",
     "audienceType": "Businesses seeking process optimization"
   }
-}
+})}>
 </script>
 
 <!-- WebPage structured data for current page -->
-<script type="application/ld+json">
-{
+<script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": title,
@@ -364,15 +352,7 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
   "isPartOf": {
     "@type": "WebSite",
     "name": "Espai.AI",
-    "url": "https://espai.ai",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://espai.ai/search?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
-    }
+    "url": "https://espai.ai"
   },
   "breadcrumb": {
     "@type": "BreadcrumbList",
@@ -385,5 +365,5 @@ const GA_TRACKING_ID = import.meta.env.GOOGLE_ANALYTICS_ID || 'G-KQMS7MSVDR';
       }
     ]
   }
-}
+})}>
 </script>
