@@ -1,23 +1,35 @@
 import { defineMiddleware } from 'astro:middleware';
 
-export const onRequest = defineMiddleware((context, next) => {
-  const { request, url } = context;
-  
-  // Force HTTPS in production
-  if (url.protocol === 'http:' && url.hostname !== 'localhost') {
-    const httpsUrl = new URL(url);
-    httpsUrl.protocol = 'https:';
-    return Response.redirect(httpsUrl.toString(), 301);
+export const onRequest = defineMiddleware(async (context, next) => {
+  const currentUrl = new URL(context.request.url);
+
+  // Compute the canonical target in one pass to avoid multiple hops
+  let shouldRedirect = false;
+  const targetUrl = new URL(currentUrl);
+
+  // 1) Enforce HTTPS (except for localhost)
+  if (targetUrl.protocol === 'http:' && targetUrl.hostname !== 'localhost') {
+    targetUrl.protocol = 'https:';
+    shouldRedirect = true;
   }
-  
-  // Handle trailing slash redirects
-  // Astro's trailingSlash: "always" should handle this, but adding as backup
-  if (!url.pathname.endsWith('/') && !url.pathname.includes('.') && url.pathname !== '/') {
-    const redirectUrl = new URL(url);
-    redirectUrl.pathname += '/';
-    return Response.redirect(redirectUrl.toString(), 301);
+
+  // 2) Ensure trailing slash for non-root, non-file paths
+  const isFileRequest = targetUrl.pathname.includes('.') || targetUrl.pathname === '';
+  if (!isFileRequest && targetUrl.pathname !== '/' && !targetUrl.pathname.endsWith('/')) {
+    targetUrl.pathname = `${targetUrl.pathname}/`;
+    shouldRedirect = true;
   }
-  
-  // Continue to the next middleware or route handler
-  return next();
-}); 
+
+  if (shouldRedirect) {
+    return Response.redirect(targetUrl.toString(), 301);
+  }
+
+  // Proceed and optionally set security headers
+  const response = await next();
+  try {
+    response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  } catch (_) {
+    // Ignore if headers are immutable in this environment
+  }
+  return response;
+});

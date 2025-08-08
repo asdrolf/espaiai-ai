@@ -80,6 +80,7 @@ const {
       "description": plan.description,
       "price": plan.price,
       "priceCurrency": plan.currency,
+      "url": "https://espai.ai/#pricing",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
         "price": plan.price,
@@ -154,7 +155,8 @@ const {
     "lowPrice": ${Math.min(...plans.map(p => p.price))},
     "highPrice": ${Math.max(...plans.map(p => p.price))},
     "offerCount": ${plans.length},
-    "availability": "https://schema.org/InStock"
+    "availability": "https://schema.org/InStock",
+    "url": "https://espai.ai/#pricing"
   },
   "termsOfService": "https://espai.ai/privacy",
   "hasCertification": {
